@@ -3,14 +3,7 @@
 #include <array>
 #include <iterator>
 #include <stdexcept>
-
-struct Hex
-{
-    int q, r;
-
-    Hex(int q, int r)
-        : q(q), r(r) {}
-};
+#include "Hex.hpp"
 
 template <typename T>
 class HexMap {

@@ -2,6 +2,7 @@
 #include "FieldUnit.h"
 #include "AttackStrategy.h"
 #include "AttackType.h"
+#include "ArmyType.h"
 
 FieldUnit::FieldUnit(
                      const UnitType& type,
@@ -32,6 +33,17 @@ void FieldUnit::takeDamage()
 { 
 
 }
+
+void FieldUnit::setArmy(const ArmyType& army)
+{
+    army_ = army;
+}
+
+void FieldUnit::setPosition(Hex hex)
+{
+    position_ = hex;
+}
+
 const std::string& FieldUnit::getPathToSpriteDead() const 
 { 
     return path_to_sprite_dead_; 
@@ -41,7 +53,6 @@ unsigned int FieldUnit::getSingleUnitHealth() const
 { 
     return single_unit_health_; 
 }
-
 
 unsigned int FieldUnit::getAttackStrength() const 
 { 
@@ -63,3 +74,12 @@ AttackType FieldUnit::getAttackType() const
     return attack_strategy_->getAttackType();
 }
 
+Hex FieldUnit::getPosition() const
+{
+    return position_;
+}
+
+ArmyType FieldUnit::getArmyType() const
+{
+    return army_;
+}
