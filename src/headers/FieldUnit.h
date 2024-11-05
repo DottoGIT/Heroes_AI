@@ -12,9 +12,11 @@
 #include <memory>
 
 #include "Unit.h"
+#include "Hex.hpp"
 
 class AttackStrategy;
 enum class AttackType;
+enum class ArmyType;
 
 class FieldUnit : public Unit
 {
@@ -33,12 +35,17 @@ public:
     void walkToCell();
     void takeDamage();
 
+    void setArmy(const ArmyType& army);
+    void setPosition(Hex hex);
+
     const std::string& getPathToSpriteDead() const;
     unsigned int getSingleUnitHealth() const;
     unsigned int getAttackStrength() const;
     unsigned int getWalkRange() const;
     unsigned int getInitiative() const;
     AttackType getAttackType() const;
+    Hex getPosition() const;
+    ArmyType getArmyType() const;
 
 private:
     std::unique_ptr<AttackStrategy> attack_strategy_;
@@ -47,4 +54,6 @@ private:
     const unsigned int attack_strength_;
     const unsigned int walk_range_;
     const unsigned int initiative_;
+    Hex position_ = Hex(0, 0);
+    ArmyType army_;
 };
