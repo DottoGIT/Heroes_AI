@@ -18,7 +18,7 @@ include_directories(src)
 include_directories(${Boost_INCLUDE_DIRS})
 
 file(GLOB SOURCES src/*.cc)
-file(GLOB HEADERS src/*.h)
+file(GLOB HEADERS src/*.h src/*.hpp)
 
 add_library(Heroes_AI_lib ${SOURCES} ${HEADERS})
 
