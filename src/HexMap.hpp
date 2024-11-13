@@ -1,15 +1,45 @@
+/*
+ * File:        HexMap.hpp
+ * Description: a template for an implementation of a Hexagonal Grid
+ *              based on this blog: https://www.redblobgames.com/grids/hexagons/
+ * 
+ * Author:      Wojciech Sarwinski
+ * Date:        01.11.2024
+ */
+
 #pragma once
 #include <vector>
 #include <array>
 #include <iterator>
 #include <stdexcept>
+#include <algorithm>
 
 struct Hex
 {
     int q, r;
 
+    Hex() : q(0), r(0) {}
+
     Hex(int q, int r)
         : q(q), r(r) {}
+    
+    Hex(const Hex& hex)
+        : q(hex.q), r(hex.r) {}
+
+    std::array<Hex, 6> get_neighbors(Hex hex) {
+        constexpr std::array<std::pair<int, int>, 6> neighbors_offsets {
+            {{-1, -1}, {0, 1}, {1, 0}, {0, 1}, {-1, 1}, {-1, 0}}
+        };
+        std::array<Hex, 6> result;
+        std::transform(neighbors_offsets.begin(), neighbors_offsets.end(),
+            result.begin(),
+            [&hex](const std::pair<int, int>& neighbor)
+            {
+                return Hex(hex.q + neighbor.first, hex.r + neighbor.second);
+            }
+        );
+        return result;
+    }
 };
 
 template <typename T>
