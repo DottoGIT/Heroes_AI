@@ -3,7 +3,8 @@
 #include <array>
 #include <iterator>
 #include <stdexcept>
-#include "Hex.hpp"
+
+#include "Hex.h"
 
 template <typename T>
 class HexMap {

@@ -12,7 +12,7 @@
 #include <memory>
 
 #include "Unit.h"
-#include "Hex.hpp"
+#include "Hex.h"
 
 class AttackStrategy;
 enum class AttackType;

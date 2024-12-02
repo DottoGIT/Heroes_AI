@@ -11,7 +11,7 @@
 #include <queue>
 #include <memory>
 
-#include "Hex.hpp"
+#include "Hex.h"
 
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
