@@ -69,7 +69,7 @@ bool HexMap<T>::inBounds(Hex hex) const
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
+std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 {
     std::vector<Hex> neighbors;
 
