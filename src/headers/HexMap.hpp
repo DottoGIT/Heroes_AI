@@ -3,6 +3,8 @@
 #include <array>
 #include <iterator>
 #include <stdexcept>
+#include <queue>
+#include <functional>
 
 #include "Hex.h"
 
@@ -16,6 +18,9 @@ public:
     T& at(Hex hex);
     bool inBounds(Hex hex) const;
     std::vector<Hex> getNeighbors(Hex hex) const;
+    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
+    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
+    HexMap<bool> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
 
     struct Iterator {
         public:
@@ -93,7 +98,92 @@ std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 }
 
 template <typename T>
-std::size_t HexMap<T>::hexToIndex(Hex hex) const noexcept
+inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable)
+{
+    if (!reachable(end)) return {};
+
+    HexMap<Hex> previous(width_, height_);
+    HexMap<bool> visited(width_, height_);
+    std::fill(visited.begin(), visited.end(), false);
+
+    previous.at(start) = start;
+
+    std::queue<Hex> queue;
+    queue.push(start);
+    while (!queue.empty())
+    {
+        Hex current = queue.front();
+        queue.pop();
+        visited.at(current) = true;
+
+        if (current == end) {
+            std::vector<Hex> path;
+            for (Hex step = end; step != start; step = previous.at(step)) path.push_back(step);
+            path.push_back(start);
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
+        for (Hex neighbour : getNeighbors(current)) {
+            if (visited.at(neighbour) || reachable(neighbour)) continue;
+            queue.push(neighbour);
+            previous.at(neighbour) = current;
+        }
+    }
+    return {};
+}
+
+template <typename T>
+inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance)
+{
+    if (!reachable(end) || distance == 0) return {};
+
+    HexMap<Hex> previous(width_, height_);
+    HexMap<bool> visited(width_, height_);
+    HexMap<unsigned> distanceFrom(width_, height_);
+    std::fill(visited.begin(), visited.end(), false);
+
+    previous.at(start) = start;
+    distanceFrom.at(start) = 0;
+
+    std::queue<Hex> queue;
+    queue.push(start);
+    while (!queue.empty())
+    {
+        Hex current = queue.front();
+        queue.pop();
+        visited.at(current) = true;
+
+        if (current == end) {
+            std::vector<Hex> path;
+            for (Hex step = end; step != start; step = previous.at(step)) path.push_back(step);
+            path.push_back(start);
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
+        if (distance.at(current) == distance) continue;
+
+        unsigned neighboringDistance = distance.at(current) + 1;
+
+        for (Hex neighbour : getNeighbors(current)) {
+            if (visited.at(neighbour) || !reachable(neighbour)) continue;
+            queue.push(neighbour);
+            previous.at(neighbour) = current;
+            distanceFrom.at(neighbour) = neighboringDistance;
+        }
+    }
+    return {};
+}
+
+template <typename T>
+inline HexMap<bool> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance)
+{
+    return HexMap<bool>();
+}
+
+template <typename T>
+inline std::size_t HexMap<T>::hexToIndex(Hex hex) const noexcept
 {
     int r_offset = hex.r / 2;
     int q_adjusted = hex.q + r_offset;
