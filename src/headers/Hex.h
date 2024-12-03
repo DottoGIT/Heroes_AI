@@ -19,6 +19,7 @@ struct Hex
     Hex(int q, int r);
 
     bool operator==(const Hex& other) const;
+    bool operator!=(const Hex& other) const;
     Hex operator+(const Hex& other) const;
     std::array<Hex, 6> neighbors() const;
 };

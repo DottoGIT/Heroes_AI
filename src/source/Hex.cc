@@ -30,6 +30,11 @@ bool Hex::operator==(const Hex& other) const {
         return q == other.q && r == other.r;
 }
 
+bool Hex::operator!=(const Hex &other) const
+{
+    return q != other.q || r != other.r;
+}
+
 Hex Hex::operator+(const Hex &other) const
 {
     return Hex(q + other.q, r + other.r);
