@@ -44,7 +44,13 @@ std::string Logger::getLogLevelString(LogLevel level) {
 std::string Logger::getCurrentTime() {
     std::time_t now = std::time(nullptr);
     std::tm tmNow;
+
+#ifdef _WIN32
     localtime_s(&tmNow, &now);
+#else
+    localtime_r(&now, &tmNow);
+#endif
+
     std::stringstream ss;
     ss << std::put_time(&tmNow, "%Y-%m-%d %H:%M:%S");
     return ss.str();

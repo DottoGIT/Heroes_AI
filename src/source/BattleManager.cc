@@ -14,10 +14,11 @@ BattleManager::BattleManager(const FieldArmy& playerArmy, const FieldArmy& botAr
 
 std::vector<std::shared_ptr<FieldUnit>> BattleManager::getAllUnits() const
 {
-    std::vector<std::shared_ptr<FieldUnit>> combinedVector = playerArmy_.getUnits();
-    //Logger::debug("Before insert");
-    //combinedVector.insert(combinedVector.end(), botArmy_.getUnits().begin(), botArmy_.getUnits().end());
-    //Logger::debug("After insert");
+    std::vector<std::shared_ptr<FieldUnit>> combinedVector;
+    std::vector<std::shared_ptr<FieldUnit>> botUnits = botArmy_.getUnits();
+    std::vector<std::shared_ptr<FieldUnit>> playerUnits = playerArmy_.getUnits();
+    combinedVector.insert(combinedVector.end(), playerUnits.begin(), playerUnits.end());
+    combinedVector.insert(combinedVector.end(), botUnits.begin(), botUnits.end());
     return combinedVector;
 }
 

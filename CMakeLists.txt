@@ -10,7 +10,7 @@ project(Heroes_AI LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-find_package(Boost 1.86 REQUIRED COMPONENTS unit_test_framework)
+find_package(Boost 1.83 REQUIRED COMPONENTS unit_test_framework)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 

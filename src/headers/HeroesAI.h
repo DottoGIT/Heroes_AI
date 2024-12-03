@@ -15,7 +15,7 @@
 #include "Display.h"
 #include "BattleManager.h"
 
-constexpr char* WINDOW_TITLE = "Heroes AI";
+constexpr const char* WINDOW_TITLE = "Heroes AI";
 constexpr int WINDOW_HEGIHT = 566; // Keep 16/9 ratio
 constexpr int WINDOW_WIDTH = 800;
 

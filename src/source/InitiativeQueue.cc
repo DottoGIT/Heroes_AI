@@ -1,4 +1,5 @@
 #include "InitiativeQueue.h"
+#include <algorithm>
 
 InitiativeQueue::InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>>& units)
 { 
