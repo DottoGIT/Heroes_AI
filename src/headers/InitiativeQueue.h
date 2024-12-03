@@ -16,6 +16,7 @@
 class InitiativeQueue
 {
 public:
+    InitiativeQueue();
     InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>>& units);
     std::shared_ptr<FieldUnit> popNextAndPush();
     std::vector<std::shared_ptr<FieldUnit>> lookUpNextUnits(unsigned int number_of_units) const;

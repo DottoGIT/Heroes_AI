@@ -2,12 +2,15 @@
 #include "RendersVisitator.h"
 #include "Logger.h"
 
-BattleManager::BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy)
-: playerArmy_(playerArmy), botArmy_(botArmy)
+BattleManager::BattleManager()
+    : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT)
+{}
+
+BattleManager::BattleManager(const FieldArmy &playerArmy, const FieldArmy &botArmy)
+    : playerArmy_(playerArmy), botArmy_(botArmy), map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT)
 {
     setInitiativeQueue();
     setUnitsInStartingPositions();
-    createHexMap();
 
     background_ = "media/sprites/battlebg_green.png";
 }
@@ -32,15 +35,10 @@ void BattleManager::accept(RendersVisitator& visitor) const
     visitor.visitBattleManager(*this);
 }
 
-void BattleManager::createHexMap()
-{
-    map_ = std::make_unique<HexMap<std::shared_ptr<FieldUnit>>>(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT);
-}
-
 void BattleManager::setInitiativeQueue()
 {
     std::vector<std::shared_ptr<FieldUnit>> combinedVector = getAllUnits();
-    initiativeQueue_ = std::make_unique<InitiativeQueue>(combinedVector);
+    initiativeQueue_ = InitiativeQueue(combinedVector);
 }
 
 

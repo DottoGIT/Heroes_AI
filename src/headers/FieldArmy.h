@@ -16,6 +16,7 @@
 class FieldArmy
 {
 public:
+    FieldArmy();
     FieldArmy(const ArmyType& type);
     void addUnit(std::shared_ptr<FieldUnit> unit);
     std::vector<std::shared_ptr<FieldUnit>> getUnits() const;

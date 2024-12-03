@@ -1,7 +1,10 @@
 #include "FieldArmy.h"
 #include "ArmyType.h"
 
-FieldArmy::FieldArmy(const ArmyType& type)
+FieldArmy::FieldArmy()
+{}
+
+FieldArmy::FieldArmy(const ArmyType &type)
 {
     type_ = type; 
 }

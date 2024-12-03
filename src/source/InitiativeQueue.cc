@@ -1,7 +1,10 @@
 #include "InitiativeQueue.h"
 #include <algorithm>
 
-InitiativeQueue::InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>>& units)
+InitiativeQueue::InitiativeQueue()
+{}
+
+InitiativeQueue::InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>> &units)
 { 
     std::vector<std::shared_ptr<FieldUnit>> sortedUnits = units;
     std::sort(sortedUnits.begin(), sortedUnits.end(), [](const std::shared_ptr<FieldUnit>& a, const std::shared_ptr<FieldUnit>& b) {

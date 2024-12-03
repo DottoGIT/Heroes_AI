@@ -29,7 +29,7 @@ void Display::init(const char* window_title, int window_width, int window_height
     renderer_ = SDL_CreateRenderer(window_, -1, 0);
 }
 
-void Display::render(const IManager* manager)
+void Display::render(const IManager& manager)
 {
     if(renderer_ == nullptr)
     {
@@ -39,7 +39,7 @@ void Display::render(const IManager* manager)
 
     SDL_RenderClear(renderer_);
 
-    manager->accept(*this);
+    manager.accept(*this);
     sortRenders();
     renderObjects();
 

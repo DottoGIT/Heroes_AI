@@ -26,6 +26,7 @@ constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
 class BattleManager : public IManager
 {
 public:
+    BattleManager();
     BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy);
     std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
     const std::string& getBackground() const;
@@ -33,11 +34,10 @@ public:
 private:
     FieldArmy playerArmy_;
     FieldArmy botArmy_;
-    std::unique_ptr<HexMap<std::shared_ptr<FieldUnit>>> map_;
-    std::unique_ptr<InitiativeQueue> initiativeQueue_;
+    HexMap<std::shared_ptr<FieldUnit>> map_;
+    InitiativeQueue initiativeQueue_;
     std::string background_;
 
     void setInitiativeQueue();
-    void createHexMap();
     void setUnitsInStartingPositions();
 };

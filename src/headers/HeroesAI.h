@@ -34,6 +34,6 @@ private:
     void render();
     
     bool isRunning_;
-    std::unique_ptr<Display> display_;
-    std::unique_ptr<BattleManager> battleManager_;
+    Display display_;
+    BattleManager battleManager_;
 };

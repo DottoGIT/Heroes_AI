@@ -9,7 +9,7 @@
 
 HeroesAI::HeroesAI()
 {
-    display_ = std::make_unique<Display>();
+    display_ = Display();
     isRunning_ = false;
 
     // Unit factory
@@ -22,18 +22,18 @@ HeroesAI::HeroesAI()
     computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Skeleton, 100));
     computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Swordsman, 50));
     // Battlemanager
-    battleManager_ = std::make_unique<BattleManager>(playerArmy, computerArmy);
+    battleManager_ = BattleManager(playerArmy, computerArmy);
 }
 
 HeroesAI::~HeroesAI()
 {
-    display_->clean();
+    display_.clean();
 }
 
 int HeroesAI::init()
 {
     try{
-        display_->init(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEGIHT);
+        display_.init(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEGIHT);
         Logger::debug("SDL window created");
     } catch(const SdlException& e){
         Logger::error(e.what());
@@ -76,5 +76,5 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    display_->render(battleManager_.get());
+    display_.render(battleManager_);
 }
