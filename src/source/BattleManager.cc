@@ -2,25 +2,22 @@
 #include "RendersVisitator.h"
 #include "Logger.h"
 
-BattleManager::BattleManager()
+BattleManager::BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy)
+: playerArmy_(playerArmy), botArmy_(botArmy)
 {
-    createHexMap();
-    background_ = "Some background";
-}
-
-void BattleManager::setArmies(const FieldArmy& playerArmy, const FieldArmy& botArmy)
-{
-    playerArmy_ = playerArmy;
-    botArmy_ = botArmy;
-
     setInitiativeQueue();
     setUnitsInStartingPositions();
+    createHexMap();
+
+    background_ = "media/sprites/battlebg_green.png";
 }
 
 std::vector<std::shared_ptr<FieldUnit>> BattleManager::getAllUnits() const
 {
     std::vector<std::shared_ptr<FieldUnit>> combinedVector = playerArmy_.getUnits();
-    combinedVector.insert(combinedVector.end(), botArmy_.getUnits().begin(), botArmy_.getUnits().end());
+    //Logger::debug("Before insert");
+    //combinedVector.insert(combinedVector.end(), botArmy_.getUnits().begin(), botArmy_.getUnits().end());
+    //Logger::debug("After insert");
     return combinedVector;
 }
 

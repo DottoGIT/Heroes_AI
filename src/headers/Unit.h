@@ -23,10 +23,9 @@ public:
     virtual ~Unit() = default;
     
     const UnitType& getType() const;
-    const std::string& getPathToSpriteIdle() const;
     unsigned int getQuantity() const;
 
-private:
+protected:
     const UnitType type_;
     const std::string path_to_sprite_idle_;
     unsigned int quantity_;

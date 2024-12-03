@@ -6,11 +6,12 @@
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
 #include "IManager.h"
+#include "IRenderable.h"
 
 
 Display::Display()
 {
-
+    texture_manager_ = std::make_unique<TextureManager>();
 }
 
 Display::~Display()
@@ -29,7 +30,7 @@ void Display::init(const char* window_title, int window_width, int window_height
     renderer = SDL_CreateRenderer(window, -1, 0);
 }
 
-void Display::render(const IManager& manager)
+void Display::render(const IManager* manager)
 {
     if(renderer == nullptr)
     {
@@ -39,12 +40,9 @@ void Display::render(const IManager& manager)
 
     SDL_RenderClear(renderer);
 
-    manager.accept(*this);
-    Logger::debug("Size of renderObjects: " + std::to_string(objects_to_render_.size()));
-    Logger::debug("Background path: " + background_);
-
-    //sortRenders();
-    //renderObjects();
+    manager->accept(*this);
+    sortRenders();
+    renderObjects();
 
     SDL_RenderPresent(renderer);
 }
@@ -67,17 +65,34 @@ void Display::clean()
 
 void Display::renderObjects()
 {
+    SDL_Texture* render_texture = nullptr;
+    // Render Background
+    try{
+        render_texture = texture_manager_->get_texture(background_, renderer).getTexture();
+    }
+    catch(const std::runtime_error& e){
+           Logger::error(e.what());
+    }
+    SDL_RenderCopy(renderer, render_texture, NULL, NULL);
+    Logger::debug("Trying to render: " + background_);
 
-    // SDL_RenderCopy(renderer, background_, NULL, NULL);
-
-    // for (const auto& render : renders_) {
-    //     SDL_RenderCopy(renderer, render.getTexture(), nullptr, &render.getRect());
-    // }
+    // Render Objects
+    for (const auto& render : objects_to_render_) {
+        try{
+            render_texture = texture_manager_->get_texture(render->getSpritePath(), renderer).getTexture();
+        }
+        catch(const std::runtime_error& e){
+            Logger::error(e.what());
+        }
+        
+        SDL_RenderCopy(renderer, render_texture, NULL, NULL);
+        Logger::debug("Trying to render: " + render->getSpritePath() + ", at priority: " + std::to_string(render->getPriority()));
+    }
 }
 
 void Display::sortRenders()
 {
-    std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const RenderObject& a, const RenderObject& b) {
-        return a.priority > b.priority;
+    std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const std::shared_ptr<IRenderable>& a, const std::shared_ptr<IRenderable>& b) {
+        return a->getPriority() > b->getPriority();
     });
 }

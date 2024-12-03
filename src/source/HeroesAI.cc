@@ -22,7 +22,7 @@ HeroesAI::HeroesAI()
     computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Skeleton, 100));
     computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Swordsman, 50));
     // Battlemanager
-    battleManager.setArmies(playerArmy, computerArmy);
+    battleManager_ = std::make_unique<BattleManager>(playerArmy, computerArmy);
 }
 
 HeroesAI::~HeroesAI()
@@ -76,5 +76,5 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    display_->render(battleManager);
+    display_->render(battleManager_.get());
 }

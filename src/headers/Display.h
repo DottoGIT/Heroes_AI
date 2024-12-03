@@ -10,9 +10,10 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 #include "SDL2/SDL.h"
-#include "RenderObject.h"
 #include "RendersVisitator.h"
+#include "TextureManager.h"
 
 class IManager;
 
@@ -23,12 +24,13 @@ public:
     ~Display();
     void init(const char* window_title, int window_width, int window_height);
 
-    void render(const IManager& manager);
+    void render(const IManager* manager);
     void clean();
 
 private:
     SDL_Renderer* renderer;
     SDL_Window* window;
+    std::unique_ptr<TextureManager> texture_manager_;
     
     void sortRenders();
     void renderObjects();

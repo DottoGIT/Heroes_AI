@@ -27,7 +27,7 @@ void FieldUnitFactory::registerUnit(UnitType type, UnitCreator creator) {
 // Unit creation functions
 std::shared_ptr<FieldUnit> FieldUnitFactory::createArcher(unsigned int quantity) {
     const UnitType                  UNIT_TYPE               = UnitType::Archer;
-    const std::string               PATH_TO_SPRITE_IDLE     = "path/to/archer_idle.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/archer.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/archer_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;
@@ -42,7 +42,7 @@ std::shared_ptr<FieldUnit> FieldUnitFactory::createArcher(unsigned int quantity)
 
 std::shared_ptr<FieldUnit> FieldUnitFactory::createEnchanter(unsigned int quantity) {
     const UnitType                  UNIT_TYPE               = UnitType::Enchanter;
-    const std::string               PATH_TO_SPRITE_IDLE     = "path/to/enchanter_idle.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/enchanter.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/enchanter_dead.png";
     const unsigned int              UNIT_HEALTH             = 80;
@@ -57,7 +57,7 @@ std::shared_ptr<FieldUnit> FieldUnitFactory::createEnchanter(unsigned int quanti
 
 std::shared_ptr<FieldUnit> FieldUnitFactory::createSkeleton(unsigned int quantity) {
     const UnitType                  UNIT_TYPE               = UnitType::Skeleton;
-    const std::string               PATH_TO_SPRITE_IDLE     = "path/to/skeleton_idle.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/skeleton.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/skeleton_dead.png";
     const unsigned int              UNIT_HEALTH             = 10;
@@ -72,7 +72,7 @@ std::shared_ptr<FieldUnit> FieldUnitFactory::createSkeleton(unsigned int quantit
 
 std::shared_ptr<FieldUnit> FieldUnitFactory::createSwordsman(unsigned int quantity) {
     const UnitType                  UNIT_TYPE               = UnitType::Swordsman;
-    const std::string               PATH_TO_SPRITE_IDLE     = "path/to/swordsman_idle.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/swordsman.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/swordsman_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;

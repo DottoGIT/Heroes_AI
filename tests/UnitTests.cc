@@ -37,7 +37,6 @@ BOOST_AUTO_TEST_CASE(Unit_Constructor_Tests)
     Unit unit(TEST_TYPE, TEST_IDLE_SPRITE, TEST_QUANTITY);
 
     BOOST_CHECK_EQUAL(unit.getType(), TEST_TYPE);
-    BOOST_CHECK_EQUAL(unit.getPathToSpriteIdle(), TEST_IDLE_SPRITE);
     BOOST_CHECK_EQUAL(unit.getQuantity(), TEST_QUANTITY);
 }
 
@@ -65,7 +64,7 @@ BOOST_AUTO_TEST_CASE(FieldUnit_Constructor_Tests)
     archer.setPosition(Hex(5, 10));
 
     BOOST_CHECK_EQUAL(archer.getType(), UnitType::Archer);
-    BOOST_CHECK_EQUAL(archer.getPathToSpriteIdle(), TEST_IDLE_SPRITE);
+    BOOST_CHECK_EQUAL(archer.getSpritePath(), TEST_IDLE_SPRITE);
     BOOST_CHECK_EQUAL(archer.getPathToSpriteDead(), TEST_DEAD_SPRITE);
     BOOST_CHECK_EQUAL(archer.getSingleUnitHealth(), TEST_SINGLE_UNIT_HEALTH);
     BOOST_CHECK_EQUAL(archer.getQuantity(), TEST_QUANTITY);
@@ -108,7 +107,6 @@ BOOST_AUTO_TEST_CASE(FieldArmy_Tests)
     Unit unit(TEST_TYPE, TEST_IDLE_SPRITE, TEST_QUANTITY);
 
     BOOST_CHECK_EQUAL(unit.getType(), TEST_TYPE);
-    BOOST_CHECK_EQUAL(unit.getPathToSpriteIdle(), TEST_IDLE_SPRITE);
     BOOST_CHECK_EQUAL(unit.getQuantity(), TEST_QUANTITY);
 }
 

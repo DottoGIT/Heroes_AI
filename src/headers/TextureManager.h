@@ -16,9 +16,9 @@
 
 class TextureManager
 {
-private:
-    std::unordered_map<std::string, Texture> texture_cache;
 public:
     const Texture& get_texture(const std::string& identifier, SDL_Renderer* renderer);
     bool preloadTexture(const std::string& identifier, SDL_Renderer* renderer);
+private:
+    std::unordered_map<std::string, Texture> texture_cache;
 };

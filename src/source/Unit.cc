@@ -18,11 +18,6 @@ const UnitType& Unit::getType() const
     return type_; 
 }
 
-const std::string& Unit::getPathToSpriteIdle() const 
-{ 
-    return path_to_sprite_idle_; 
-}
-
 unsigned int Unit::getQuantity() const 
 { 
     return quantity_; 

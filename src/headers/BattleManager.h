@@ -13,7 +13,6 @@
 #include <vector>
 
 #include "Hex.h"
-#include "RenderObject.h"
 #include "FieldArmy.h"
 #include "IManager.h"
 #include "InitiativeQueue.h"
@@ -27,8 +26,7 @@ constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
 class BattleManager : public IManager
 {
 public:
-    BattleManager();
-    void setArmies(const FieldArmy& playerArmy, const FieldArmy& botArmy);
+    BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy);
     std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
     const std::string& getBackground() const;
     void accept(RendersVisitator& visitor) const override;

@@ -35,5 +35,5 @@ private:
     
     bool isRunning_;
     std::unique_ptr<Display> display_;
-    BattleManager battleManager;
+    std::unique_ptr<BattleManager> battleManager_;
 };

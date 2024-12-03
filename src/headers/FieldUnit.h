@@ -49,7 +49,7 @@ public:
     ArmyType getArmyType() const;
 
     
-    const std::string& getPath() const override;
+    const std::string& getSpritePath() const override;
     int getPriority() const override;
 
 
