@@ -12,6 +12,7 @@
 #include <memory>
 #include <vector>
 
+<<<<<<< HEAD
 #include "Hex.hpp"
 #include "RenderObject.h"
 #include "FieldArmy.h"
@@ -19,6 +20,9 @@
 #include "InitiativeQueue.h"
 #include "FieldUnit.h"
 #include "HexMap.hpp"
+=======
+#include "Hex.h"
+>>>>>>> 7eb794d3b2711d72cca9cbb45a087d6e8b102a40
 
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;

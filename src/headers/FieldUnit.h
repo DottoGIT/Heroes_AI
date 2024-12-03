@@ -12,8 +12,8 @@
 #include <memory>
 
 #include "Unit.h"
-#include "Hex.hpp"
 #include "IRenderable.h"
+#include "Hex.h"
 
 class AttackStrategy;
 enum class AttackType;
