@@ -4,8 +4,8 @@ REM
 
 REM
 set BUILD_DIR=.\build
-set EXECUTABLE_MAIN=%BUILD_DIR%\Release\Heroes_AI.exe
-set EXECUTABLE_TESTS=%BUILD_DIR%\Release\UnitTests.exe
+set EXECUTABLE_MAIN=%BUILD_DIR%\Debug\Heroes_AI.exe
+set EXECUTABLE_TESTS=%BUILD_DIR%\Debug\UnitTests.exe
 set VCPKG=D:\cpp_libraries\vcpkg\scripts\buildsystems\vcpkg.cmake
 
 REM
@@ -22,7 +22,7 @@ if /I "%~1"=="build" (
     )
     cd "%BUILD_DIR%"
     cmake .. -DCMAKE_TOOLCHAIN_FILE=%VCPKG%
-    cmake --build . --config Release
+    cmake --build .
     cd ..
     echo Build completed.
     goto :eof
