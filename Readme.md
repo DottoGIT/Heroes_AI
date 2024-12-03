@@ -1,8 +1,8 @@
 # Heroes AI
 Uproszczona wersja gry Heroes III z implementacją algorytmu min-max
-##### Autorzy
-Wojciech Sarwiński
-Maciej Scheffer
+### Autorzy
+- Wojciech Sarwiński
+- Maciej Scheffer
 
 # Specyfikacja
 ### Wymagane Biblioteki
