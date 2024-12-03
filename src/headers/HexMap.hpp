@@ -56,7 +56,7 @@ HexMap<T>::HexMap(std::size_t width, std::size_t height)
 template <typename T>
 T& HexMap<T>::at(Hex hex)
 {
-    if (!in_bounds(hex))
+    if (!inBounds(hex))
         throw std::out_of_range("Column or row out of range!");
     std::size_t index = hexToIndex(hex);
     
