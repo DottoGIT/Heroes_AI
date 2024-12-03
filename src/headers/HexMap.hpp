@@ -8,7 +8,6 @@
 
 #include "Hex.h"
 
-
 template <typename T>
 class HexMap {
 private:
@@ -71,7 +70,7 @@ bool HexMap<T>::inBounds(Hex hex) const
     if (hex.r < 0 || hex.r >= height_)
         return false;
     int q_min = -hex.r / 2;
-    int q_max = width_ - 1 + q_min;
+    int q_max = int(width_) - 1 + q_min;
     return (hex.q >= q_min && hex.q <= q_max);
 }
 
@@ -81,8 +80,8 @@ inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
     std::vector<Hex> neighbors;
 
     for (Hex neighbour : hex.neighbors()) {
-        if (in_bounds(neighbor)) {
-            neighbors.push_back(neighbor);
+        if (inBounds(neighbour)) {
+            neighbors.push_back(neighbour);
         }
     }
     return neighbors;
