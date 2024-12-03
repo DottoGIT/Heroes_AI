@@ -45,7 +45,6 @@ add_executable(HexMapTests tests/HexMapTests.cc)
 target_link_libraries(HexMapTests Boost::unit_test_framework)
 target_sources(HexMapTests PRIVATE src/source/Hex.cc src/headers/HexMap.hpp)
 
-
 enable_testing()
 add_test(NAME UnitTests COMMAND UnitTests)
 add_test(NAME HexTests COMMAND HexTests)

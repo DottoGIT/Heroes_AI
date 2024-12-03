@@ -8,6 +8,7 @@
 
 #include "Hex.h"
 
+
 template <typename T>
 class HexMap {
 private:
@@ -21,6 +22,7 @@ public:
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
     HexMap<bool> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
+
 
     struct Iterator {
         public:
@@ -74,7 +76,7 @@ bool HexMap<T>::inBounds(Hex hex) const
 }
 
 template <typename T>
-std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
+inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 {
     std::vector<Hex> neighbors;
 
