@@ -83,3 +83,13 @@ ArmyType FieldUnit::getArmyType() const
 {
     return army_;
 }
+
+const std::string& FieldUnit::getPath() const
+{
+    return getPathToSpriteIdle();
+}
+
+int FieldUnit::getPriority() const
+{
+    return 0;
+}

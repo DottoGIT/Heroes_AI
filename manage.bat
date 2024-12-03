@@ -6,7 +6,7 @@ REM
 set BUILD_DIR=.\build
 set EXECUTABLE_MAIN=%BUILD_DIR%\Release\Heroes_AI.exe
 set EXECUTABLE_TESTS=%BUILD_DIR%\Release\UnitTests.exe
-set VCPKG=C:\path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
+set VCPKG=D:\cpp_libraries\vcpkg\scripts\buildsystems\vcpkg.cmake
 
 REM
 if "%~1"=="" (

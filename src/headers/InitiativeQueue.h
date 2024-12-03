@@ -11,9 +11,7 @@
 #include <queue>
 #include <vector>
 #include <memory>
-
-class FieldUnit;
-class FieldArmy;
+#include "FieldUnit.h"
 
 class InitiativeQueue
 {

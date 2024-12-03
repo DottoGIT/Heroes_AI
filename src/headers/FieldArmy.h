@@ -11,13 +11,13 @@
 #include <vector>
 #include <memory>
 #include "ArmyType.h"
-
-class FieldUnit;
+#include "FieldUnit.h"
 
 class FieldArmy
 {
 public:
-    FieldArmy(const ArmyType& type);    
+    FieldArmy() = default;
+    FieldArmy(const ArmyType& type);
     void addUnit(std::shared_ptr<FieldUnit> unit);
     std::vector<std::shared_ptr<FieldUnit>> getUnits() const;
 private:

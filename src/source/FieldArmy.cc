@@ -1,5 +1,4 @@
 #include "FieldArmy.h"
-#include "FieldUnit.h"
 #include "ArmyType.h"
 
 FieldArmy::FieldArmy(const ArmyType& type)

@@ -1,6 +1,4 @@
 #include "InitiativeQueue.h"
-#include "FieldUnit.h"
-#include "FieldArmy.h"
 
 InitiativeQueue::InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>>& units)
 { 

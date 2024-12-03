@@ -13,12 +13,13 @@
 
 #include "Unit.h"
 #include "Hex.hpp"
+#include "IRenderable.h"
 
 class AttackStrategy;
 enum class AttackType;
 enum class ArmyType;
 
-class FieldUnit : public Unit
+class FieldUnit : public Unit, public IRenderable
 {
 public:
     FieldUnit(
@@ -31,7 +32,7 @@ public:
          unsigned int walk_range,
          unsigned int initiative,
          std::unique_ptr<AttackStrategy> attack_strategy);
-    
+    ~FieldUnit() = default;
     void walkToCell();
     void takeDamage();
 
@@ -46,6 +47,11 @@ public:
     AttackType getAttackType() const;
     Hex getPosition() const;
     ArmyType getArmyType() const;
+
+    
+    const std::string& getPath() const override;
+    int getPriority() const override;
+
 
 private:
     std::unique_ptr<AttackStrategy> attack_strategy_;
