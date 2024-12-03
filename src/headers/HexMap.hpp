@@ -1,3 +1,13 @@
+/*
+ * File:        Hex.h
+ * Description: Implements hexagonal grid HexMap
+ *              Based on article Hexagonal Grids from Red Blob Games
+ *              link: https://www.redblobgames.com/grids/hexagons/
+ *
+ * Author:      Wojciech Sarwiński
+ * 
+ * Date:        05.11.2024
+ */
 #pragma once
 #include <vector>
 #include <array>
@@ -67,11 +77,12 @@ T& HexMap<T>::at(Hex hex)
 template <typename T>
 bool HexMap<T>::inBounds(Hex hex) const
 {
+    std::size_t index = hexToIndex( hex);
+    if (hex.q < 0 || hex.q >= width_)
+        return false;
     if (hex.r < 0 || hex.r >= height_)
         return false;
-    int q_min = -hex.r / 2;
-    int q_max = int(width_) - 1 + q_min;
-    return (hex.q >= q_min && hex.q <= q_max);
+    return true;
 }
 
 template <typename T>
@@ -90,13 +101,14 @@ inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 template <typename T>
 inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable)
 {
-    if (!reachable(end)) return {};
+    if (!reachable(end) || !inBounds(end)) return {};
 
     HexMap<Hex> previous(width_, height_);
-    HexMap<bool> visited(width_, height_);
+    HexMap<uint8_t> visited(width_, height_);
     std::fill(visited.begin(), visited.end(), false);
 
     previous.at(start) = start;
+    visited.at(start) = true;
 
     std::queue<Hex> queue;
     queue.push(start);
@@ -104,7 +116,6 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
     {
         Hex current = queue.front();
         queue.pop();
-        visited.at(current) = true;
 
         if (current == end) {
             std::vector<Hex> path;
@@ -115,7 +126,8 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
         }
 
         for (Hex neighbour : getNeighbors(current)) {
-            if (visited.at(neighbour) || reachable(neighbour)) continue;
+            if (visited.at(neighbour) || !reachable(neighbour)) continue;
+            visited.at(neighbour) = true;
             queue.push(neighbour);
             previous.at(neighbour) = current;
         }
@@ -126,14 +138,15 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 template <typename T>
 inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance)
 {
-    if (!reachable(end) || distance == 0) return {};
+    if (!reachable(end) || !inBounds(end) || distance == 0) return {};
 
     HexMap<Hex> previous(width_, height_);
-    HexMap<bool> visited(width_, height_);
+    HexMap<uint8_t> visited(width_, height_);
     HexMap<unsigned> distanceFrom(width_, height_);
     std::fill(visited.begin(), visited.end(), false);
 
     previous.at(start) = start;
+    visited.at(start) = true;
     distanceFrom.at(start) = 0;
 
     std::queue<Hex> queue;
@@ -152,12 +165,13 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
             return path;
         }
 
-        if (distance.at(current) == distance) continue;
+        if (distanceFrom.at(current) == distance) continue;
 
-        unsigned neighboringDistance = distance.at(current) + 1;
+        unsigned neighboringDistance = distanceFrom.at(current) + 1;
 
         for (Hex neighbour : getNeighbors(current)) {
             if (visited.at(neighbour) || !reachable(neighbour)) continue;
+            visited.at(neighbour) = true;
             queue.push(neighbour);
             previous.at(neighbour) = current;
             distanceFrom.at(neighbour) = neighboringDistance;
@@ -175,9 +189,7 @@ inline HexMap<bool> HexMap<T>::getReachableTiles(Hex start, std::function<bool(H
 template <typename T>
 inline std::size_t HexMap<T>::hexToIndex(Hex hex) const noexcept
 {
-    int r_offset = hex.r / 2;
-    int q_adjusted = hex.q + r_offset;
-    return hex.r * width_ + q_adjusted;
+    return hex.r * width_ + hex.q;
 }
 
 template <typename T>

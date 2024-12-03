@@ -66,3 +66,38 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(HexMap_getNeighbors_zero_zero, T, test_types)
     std::vector<Hex> neighbors = my_map.getNeighbors(Hex(0, 0));
     
 }
+
+BOOST_AUTO_TEST_CASE(HexMap_find_path_ab)
+{
+    HexMap<int> my_map(7, 7);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(1, 1), [](Hex hex){return true;});
+    BOOST_CHECK_EQUAL(path.size(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_further)
+{
+    HexMap<int> my_map(7, 7);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;});
+    BOOST_CHECK_EQUAL(path.size(), 8);
+}
+
+BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_distance_0)
+{
+    HexMap<int> my_map(7, 7);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;}, 0);
+    BOOST_CHECK_EQUAL(path.size(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_distance)
+{
+    HexMap<int> my_map(7, 7);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;}, 10);
+    BOOST_CHECK_EQUAL(path.size(), 8);
+}
+
+BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_distance_too_far)
+{
+    HexMap<int> my_map(7, 7);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;}, 6);
+    BOOST_CHECK_EQUAL(path.size(), 0);
+}
