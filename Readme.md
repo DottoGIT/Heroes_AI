@@ -21,7 +21,7 @@ Do automatycznej kompilacji i uruchomienia projektu służy plik **boot.bat**, k
 Do automatycznej kompilacji i uruchomienia projektu służy plik **boot.sh**, który automatycznie pobierze wymagane biblioteki, zbuduje projekt oraz kolejno uruchomi wszystkie testy, a następnie plik wykonywalny projektu.
 ## Ręczna kompilacja i uruchomienie
 ### Windows
-``` 
+```bat
 mkdir build
 cd ./build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=/path/to/toolchain.cmake
@@ -30,7 +30,7 @@ cmake --build .
 ./Debug/Heroes_AI.exe
 ```
 ### Ubuntu
-``` 
+```sh
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y build-essential cmake g++ libsdl2-dev libsdl2-image-dev libboost-all-dev
