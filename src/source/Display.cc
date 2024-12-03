@@ -65,7 +65,6 @@ void Display::clean()
 void Display::renderObjects()
 {
     // Render Background
-    Logger::debug("Trying to render: " + background_);
     try{
         const Texture& render_texture = texture_manager_.get_texture(background_, renderer_);
         SDL_RenderCopy(renderer_, render_texture.getTexture(), NULL, NULL);
@@ -76,7 +75,6 @@ void Display::renderObjects()
 
     // Render Objects
     for (const auto& render : objects_to_render_) {
-        Logger::debug("Trying to render: " + render->getSpritePath() + ", at priority: " + std::to_string(render->getPriority()));
         try{
             const Texture& object_texture = texture_manager_.get_texture(render->getSpritePath(), renderer_);
             SDL_RenderCopy(renderer_, object_texture.getTexture(), NULL, NULL);

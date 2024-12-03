@@ -14,7 +14,7 @@ echo "=== Running CMake configuration ==="
 cmake ..
 
 echo "=== Building the project ==="
-make
+cmake --build .
 
 echo "=== Running the Heroes_AI Tests ==="
 ./HexTests

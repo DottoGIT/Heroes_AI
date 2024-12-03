@@ -4,8 +4,8 @@ REM
 
 REM
 set BUILD_DIR=.\build
-set EXECUTABLE_MAIN=%BUILD_DIR%\Release\Heroes_AI.exe
-set EXECUTABLE_TESTS=%BUILD_DIR%\Release\UnitTests.exe
+set EXECUTABLE_MAIN=%BUILD_DIR%\Debug\Heroes_AI.exe
+set EXECUTABLE_TESTS=%BUILD_DIR%\Debug\UnitTests.exe
 set VCPKG=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
 
 REM

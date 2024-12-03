@@ -9,7 +9,7 @@
 
 HeroesAI::HeroesAI()
 {
-    display_ = Display();
+    display_ = std::make_unique<Display>();
     isRunning_ = false;
 
     // Unit factory
@@ -27,13 +27,13 @@ HeroesAI::HeroesAI()
 
 HeroesAI::~HeroesAI()
 {
-    display_.clean();
+    display_->clean();
 }
 
 int HeroesAI::init()
 {
     try{
-        display_.init(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEGIHT);
+        display_->init(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEGIHT);
         Logger::debug("SDL window created");
     } catch(const SdlException& e){
         Logger::error(e.what());
@@ -76,5 +76,5 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    display_.render(battleManager_);
+    display_->render(battleManager_);
 }
