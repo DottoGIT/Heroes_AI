@@ -32,5 +32,9 @@ target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2)
 add_executable(UnitTests tests/UnitTests.cc)
 target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2)
 
+add_executable(HexTests tests/HexTests.cc)
+target_link_libraries(HexTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
 enable_testing()
 add_test(NAME UnitTests COMMAND UnitTests)
+add_test(NAME HexTests COMMAND HexTests)

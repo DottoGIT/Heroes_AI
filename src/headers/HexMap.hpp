@@ -78,22 +78,11 @@ std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 {
     std::vector<Hex> neighbors;
 
-    static const std::array<std::pair<int, int>, 6> neighbor_offsets = {{
-        {1, 0},
-        {-1, 0},
-        {0, 1},
-        {0, -1},
-        {1, -1},
-        {-1, 1}
-    }};
-
-    for (const auto& offset : neighbor_offsets) {
-        Hex neighbor(hex.q + offset.first, hex.r + offset.second);
+    for (Hex neighbour : hex.neighbors()) {
         if (in_bounds(neighbor)) {
             neighbors.push_back(neighbor);
         }
     }
-
     return neighbors;
 }
 
