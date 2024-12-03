@@ -28,9 +28,9 @@ public:
     void clean();
 
 private:
-    SDL_Renderer* renderer;
-    SDL_Window* window;
-    std::unique_ptr<TextureManager> texture_manager_;
+    SDL_Renderer* renderer_;
+    SDL_Window* window_;
+    TextureManager texture_manager_;
     
     void sortRenders();
     void renderObjects();

@@ -10,9 +10,8 @@
 
 
 Display::Display()
-{
-    texture_manager_ = std::make_unique<TextureManager>();
-}
+    : window_(nullptr), renderer_(nullptr), texture_manager_()
+{}
 
 Display::~Display()
 {
@@ -26,67 +25,65 @@ void Display::init(const char* window_title, int window_width, int window_height
         throw SdlException("SDL init error: " + std::string(SDL_GetError()));
     }
 
-    window = SDL_CreateWindow(window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_SHOWN);
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    window_ = SDL_CreateWindow(window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_SHOWN);
+    renderer_ = SDL_CreateRenderer(window_, -1, 0);
 }
 
 void Display::render(const IManager* manager)
 {
-    if(renderer == nullptr)
+    if(renderer_ == nullptr)
     {
         Logger::warning("Display.render(): Render pointer is nullptr");
         return;
     }
 
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer_);
 
     manager->accept(*this);
     sortRenders();
     renderObjects();
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer_);
 }
 
 void Display::clean()
 {
-    if(renderer == nullptr)
+    if(renderer_ == nullptr)
     {
         Logger::warning("Display.clean(): Render pointer is nullptr");
     }
 
-    if(window == nullptr)
+    if(window_ == nullptr)
     {
         Logger::warning("Display.clean(): Window pointer is nullptr");
     }
 
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window_);
+    SDL_DestroyRenderer(renderer_);
 }
 
 void Display::renderObjects()
 {
-    SDL_Texture* render_texture = nullptr;
     // Render Background
+    Logger::debug("Trying to render: " + background_);
     try{
-        render_texture = texture_manager_->get_texture(background_, renderer).getTexture();
+        const Texture& render_texture = texture_manager_.get_texture(background_, renderer_);
+        SDL_RenderCopy(renderer_, render_texture.getTexture(), NULL, NULL);
     }
     catch(const std::runtime_error& e){
            Logger::error(e.what());
     }
-    SDL_RenderCopy(renderer, render_texture, NULL, NULL);
-    Logger::debug("Trying to render: " + background_);
 
     // Render Objects
     for (const auto& render : objects_to_render_) {
+        Logger::debug("Trying to render: " + render->getSpritePath() + ", at priority: " + std::to_string(render->getPriority()));
         try{
-            render_texture = texture_manager_->get_texture(render->getSpritePath(), renderer).getTexture();
+            const Texture& object_texture = texture_manager_.get_texture(render->getSpritePath(), renderer_);
+            SDL_RenderCopy(renderer_, object_texture.getTexture(), NULL, NULL);
         }
         catch(const std::runtime_error& e){
             Logger::error(e.what());
         }
-        
-        SDL_RenderCopy(renderer, render_texture, NULL, NULL);
-        Logger::debug("Trying to render: " + render->getSpritePath() + ", at priority: " + std::to_string(render->getPriority()));
     }
 }
 
