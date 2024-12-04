@@ -15,11 +15,12 @@ cmake ..
 
 echo "=== Building the project ==="
 cmake --build .
+cd ..
 
 echo "=== Running the Heroes_AI Tests ==="
-./HexTests
-./HexMapTests
-./UnitTests
+./build/HexTests
+./build/HexMapTests
+./build/UnitTests
 
 echo "=== Running the Heroes_AI application ==="
-./Heroes_AI
+./build/Heroes_AI
