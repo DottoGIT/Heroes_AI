@@ -12,7 +12,6 @@ Uproszczona wersja gry Heroes III z implementacją algorytmu min-max
 - cmake
 
 # Automatyczna kompilacja i uruchomienie
-**!Uwaga!** pliki **boot.bat** oraz **boot.sh** mają dopisek do rozszerzenia aby nie flagowało projektu jako wirus, należy go usunąć
 ### Windows
 Do automatycznej kompilacji i uruchomienia projektu służy plik **boot.bat**, który za argument przyjmuje
 - **build**: buduje projekt w oparciu o sprecyzowany wewnątrz niego toolchain
