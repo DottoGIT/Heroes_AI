@@ -66,7 +66,7 @@ void Display::renderObjects()
 {
     // Render Background
     try{
-        const Texture& render_texture = texture_manager_.get_texture(background_, renderer_);
+        const Texture& render_texture = texture_manager_.getTexture(background_, renderer_);
         SDL_RenderCopy(renderer_, render_texture.getTexture(), NULL, NULL);
     }
     catch(const std::runtime_error& e){
@@ -76,7 +76,7 @@ void Display::renderObjects()
     // Render Objects
     for (const auto& render : objects_to_render_) {
         try{
-            const Texture& object_texture = texture_manager_.get_texture(render->getSpritePath(), renderer_);
+            const Texture& object_texture = texture_manager_.getTexture(render->getSpritePath(), renderer_);
             SDL_RenderCopy(renderer_, object_texture.getTexture(), NULL, NULL);
         }
         catch(const std::runtime_error& e){

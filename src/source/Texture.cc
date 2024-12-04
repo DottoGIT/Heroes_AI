@@ -25,12 +25,12 @@ SDL_Texture* Texture::getTexture() const
     return texture_;
 }
 
-int Texture::get_width() const
+int Texture::getWidth() const
 {
     return width_;
 }
 
-int Texture::get_height() const
+int Texture::getHeight() const
 {
     return height_;
 }

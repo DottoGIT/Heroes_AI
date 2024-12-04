@@ -18,8 +18,8 @@ public:
     Texture(const std::string& path, SDL_Renderer* renderer);
     ~Texture();
     SDL_Texture* getTexture() const;
-    int get_width() const;
-    int get_height() const;
+    int getWidth() const;
+    int getHeight() const;
 private:
     SDL_Texture* texture_;
     int width_, height_;

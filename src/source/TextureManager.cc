@@ -1,7 +1,7 @@
 #include "TextureManager.h"
 #include <stdexcept>
 
-const Texture& TextureManager::get_texture(const std::string& identifier, SDL_Renderer* renderer)
+const Texture& TextureManager::getTexture(const std::string& identifier, SDL_Renderer* renderer)
 {
     auto it = texture_cache.find(identifier);
     if (it != texture_cache.end())
