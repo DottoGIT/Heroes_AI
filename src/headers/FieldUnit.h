@@ -45,12 +45,13 @@ public:
     unsigned int getWalkRange() const;
     unsigned int getInitiative() const;
     AttackType getAttackType() const;
-    Hex getPosition() const;
     ArmyType getArmyType() const;
 
-    
+    // IRenderable
     const std::string& getSpritePath() const override;
-    int getPriority() const override;
+    int getSpritePriority() const override;
+    Hex getSpriteDimensions() const override;
+    Hex getPosition() const override;
 
 
 private:
@@ -60,6 +61,6 @@ private:
     const unsigned int attack_strength_;
     const unsigned int walk_range_;
     const unsigned int initiative_;
-    Hex position_ = Hex(0, 0);
+    Hex position_;
     ArmyType army_;
 };

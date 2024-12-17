@@ -13,6 +13,8 @@
 #include <memory>
 #include "SDL2/SDL_image.h"
 #include "IRenderable.h"
+#include "SceneType.h"
+#include "Hex.h"
 
 class BattleManager;
 
@@ -23,5 +25,7 @@ public:
     void visitBattleManager(const BattleManager& battle_manager);
 protected:
     std::vector<std::shared_ptr<IRenderable>> objects_to_render_;
+    Hex grid_dimensions_;
     std::string background_;
+    SceneType scene_type_;
 };

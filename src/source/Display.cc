@@ -7,6 +7,7 @@
 #include "SDL2/SDL_image.h"
 #include "IManager.h"
 #include "IRenderable.h"
+#include "GridPositionParser.h"
 
 
 Display::Display()
@@ -41,7 +42,19 @@ void Display::render(const IManager& manager)
 
     manager.accept(*this);
     sortRenders();
-    renderObjects();
+    
+    switch (scene_type_)
+    {
+    case SceneType::Battle:
+        renderBattle();
+        break;
+    case SceneType::Map:
+        renderMap();
+        break;
+    default:
+        Logger::error("Non existant scene type render request");
+        break;
+    }
 
     SDL_RenderPresent(renderer_);
 }
@@ -62,7 +75,7 @@ void Display::clean()
     SDL_DestroyRenderer(renderer_);
 }
 
-void Display::renderObjects()
+void Display::renderBattle()
 {
     // Render Background
     try{
@@ -73,11 +86,28 @@ void Display::renderObjects()
            Logger::error(e.what());
     }
 
+    // Render Grid
+    try{
+        for(int row = 0; row < grid_dimensions_.r; row++)
+        {
+            for(int col = 0; col < grid_dimensions_.q; col++)
+            {
+                SDL_Texture* texture = texture_manager_.getTexture(BATTLE_GRID_IDLE_PATH, renderer_).getTexture();
+                SDL_Rect destR = makeCellRect(Hex(col, row));
+                SDL_RenderCopy(renderer_, texture, NULL, &destR);
+            }
+        }
+    }
+    catch(const std::runtime_error& e){
+           Logger::error(e.what());
+    }
+
     // Render Objects
     for (const auto& render : objects_to_render_) {
         try{
-            const Texture& object_texture = texture_manager_.getTexture(render->getSpritePath(), renderer_);
-            SDL_RenderCopy(renderer_, object_texture.getTexture(), NULL, NULL);
+            SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
+            SDL_Rect destR = makeRectFromRenderable(*render.get());
+            SDL_RenderCopy(renderer_, texture, NULL, &destR);
         }
         catch(const std::runtime_error& e){
             Logger::error(e.what());
@@ -85,9 +115,44 @@ void Display::renderObjects()
     }
 }
 
+void Display::renderMap()
+{
+
+}
+
 void Display::sortRenders()
 {
     std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const std::shared_ptr<IRenderable>& a, const std::shared_ptr<IRenderable>& b) {
-        return a->getPriority() > b->getPriority();
+        return a->getSpritePriority() > b->getSpritePriority();
     });
+}
+
+SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
+{
+    SDL_Rect retRect;
+    Hex pos = GridPositionParser::parse(render.getPosition(), 
+                                        Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
+                                        Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
+                                        Hex(5,-60), 
+                                        BATTLE_GRID_EVEN_ROW_INDENT);
+    retRect.h = render.getSpriteDimensions().r;
+    retRect.w = render.getSpriteDimensions().q;
+    retRect.x = pos.q;
+    retRect.y = pos.r;
+    return retRect;
+}
+
+SDL_Rect Display::makeCellRect(Hex position) const
+{
+    SDL_Rect retRect;
+    Hex pos = GridPositionParser::parse(position, 
+                                        Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
+                                        Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
+                                        Hex(0,0),
+                                        BATTLE_GRID_EVEN_ROW_INDENT);
+    retRect.h = BATTLE_GRID_CELL_SIZE;
+    retRect.w = BATTLE_GRID_CELL_SIZE;
+    retRect.x = pos.q;
+    retRect.y = pos.r;
+    return retRect;
 }

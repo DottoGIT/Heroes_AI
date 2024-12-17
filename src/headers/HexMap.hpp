@@ -30,6 +30,8 @@ public:
     std::vector<Hex> getNeighbors(Hex hex) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
+    size_t getWidth() const;
+    size_t getHeight() const;
     HexMap<bool> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
 
 
@@ -83,6 +85,18 @@ bool HexMap<T>::inBounds(Hex hex) const
     if (hex.r < 0 || hex.r >= height_)
         return false;
     return true;
+}
+
+template <typename T>
+size_t HexMap<T>::getWidth() const
+{
+    return width_;
+}
+
+template <typename T>
+size_t HexMap<T>::getHeight() const
+{
+    return height_;
 }
 
 template <typename T>

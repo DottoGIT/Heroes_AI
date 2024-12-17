@@ -13,4 +13,6 @@ void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
         objects_to_render_.push_back(fieldUnit);
     }
     background_ = battle_manager.getBackground();
+    scene_type_ = SceneType::Battle;
+    grid_dimensions_ = battle_manager.getBattleGridDimensions();
 }

@@ -28,8 +28,11 @@ class BattleManager : public IManager
 public:
     BattleManager();
     BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy);
+
     std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
     const std::string& getBackground() const;
+    Hex getBattleGridDimensions() const;
+
     void accept(RendersVisitator& visitor) const override;
 private:
     FieldArmy playerArmy_;

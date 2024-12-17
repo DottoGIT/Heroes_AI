@@ -8,6 +8,7 @@
  */
 #pragma once
 #include <string>
+#include "Hex.h"
 
 constexpr int GIZMOS_PRIORTITY = 1;
 
@@ -19,10 +20,15 @@ constexpr int UI_PRIORTITY_1 = 5;
 constexpr int UI_PRIORTITY_2 = 6;
 constexpr int UI_PRIORTITY_3 = 7;
 
+constexpr int ONE_TILE_UNIT_WIDTH = 48;
+constexpr int ONE_TILE_UNIT_HEIGHT = 96;
+
 class IRenderable
 {
 public:
     virtual ~IRenderable() = default;
     virtual const std::string& getSpritePath() const = 0;
-    virtual int getPriority() const = 0;
+    virtual Hex getSpriteDimensions() const = 0;
+    virtual int getSpritePriority() const = 0;
+    virtual Hex getPosition() const = 0;
 };

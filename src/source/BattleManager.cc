@@ -30,6 +30,11 @@ const std::string& BattleManager::getBackground() const
     return background_;
 }
 
+Hex BattleManager::getBattleGridDimensions() const
+{
+    return Hex(int(map_.getWidth()), int(map_.getHeight()));
+}
+
 void BattleManager::accept(RendersVisitator& visitor) const
 {
     visitor.visitBattleManager(*this);
@@ -40,7 +45,6 @@ void BattleManager::setInitiativeQueue()
     std::vector<std::shared_ptr<FieldUnit>> combinedVector = getAllUnits();
     initiativeQueue_ = InitiativeQueue(combinedVector);
 }
-
 
 void BattleManager::setUnitsInStartingPositions()
 {

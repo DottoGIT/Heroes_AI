@@ -84,12 +84,18 @@ ArmyType FieldUnit::getArmyType() const
     return army_;
 }
 
+// IRenderable
 const std::string& FieldUnit::getSpritePath() const
 {
     return path_to_sprite_idle_;
 }
 
-int FieldUnit::getPriority() const
+int FieldUnit::getSpritePriority() const
 {
     return OBJECT_PRIORTITY_1;
+}
+
+Hex FieldUnit::getSpriteDimensions() const
+{
+    return Hex(ONE_TILE_UNIT_WIDTH, ONE_TILE_UNIT_HEIGHT);
 }

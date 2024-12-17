@@ -16,11 +16,20 @@ HeroesAI::HeroesAI()
     FieldUnitFactory unit_factory;
     // Init battle manager
     FieldArmy playerArmy(ArmyType::Player);
-    playerArmy.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-    playerArmy.addUnit(unit_factory.CreateUnit(UnitType::Swordsman, 65));
+    auto archer = unit_factory.CreateUnit(UnitType::Archer, 20);
+    archer->setPosition(Hex(0, 0));
+    auto swordsman = unit_factory.CreateUnit(UnitType::Swordsman, 30);
+    swordsman->setPosition(Hex(1, 1));
+    playerArmy.addUnit(archer);
+    playerArmy.addUnit(swordsman);
+
     FieldArmy computerArmy(ArmyType::Computer);
-    computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Skeleton, 100));
-    computerArmy.addUnit(unit_factory.CreateUnit(UnitType::Swordsman, 50));
+    auto enchanter = unit_factory.CreateUnit(UnitType::Enchanter, 20);
+    enchanter->setPosition(Hex(14, 10));
+    auto skeleton = unit_factory.CreateUnit(UnitType::Skeleton, 30);
+    skeleton->setPosition(Hex(14, 9));
+    computerArmy.addUnit(enchanter);
+    computerArmy.addUnit(skeleton);
     // Battlemanager
     battleManager_ = BattleManager(playerArmy, computerArmy);
 }
