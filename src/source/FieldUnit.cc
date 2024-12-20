@@ -20,9 +20,9 @@ FieldUnit::FieldUnit(
       attack_strength_(attack_strength),
       walk_range_(walk_range),
       initiative_(initiative),
-      attack_strategy_(std::move(attack_strategy))
-{
-}
+      attack_strategy_(std::move(attack_strategy)),
+      is_flipped_(false)
+{ }
 
 void FieldUnit::walkToCell() 
 { 
@@ -37,11 +37,17 @@ void FieldUnit::takeDamage()
 void FieldUnit::setArmy(const ArmyType& army)
 {
     army_ = army;
+    if(army == ArmyType::Computer) setFlip(true);
 }
 
 void FieldUnit::setPosition(Hex hex)
 {
     position_ = hex;
+}
+
+void FieldUnit::setFlip(bool is_flipped)
+{
+    is_flipped_ = is_flipped;
 }
 
 const std::string& FieldUnit::getPathToSpriteDead() const 
@@ -98,4 +104,10 @@ int FieldUnit::getSpritePriority() const
 Hex FieldUnit::getSpriteDimensions() const
 {
     return Hex(ONE_TILE_UNIT_WIDTH, ONE_TILE_UNIT_HEIGHT);
+}
+
+
+bool FieldUnit::isFlipped() const
+{
+    return is_flipped_;
 }

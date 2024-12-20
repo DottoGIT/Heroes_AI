@@ -31,4 +31,5 @@ public:
     virtual Hex getSpriteDimensions() const = 0;
     virtual int getSpritePriority() const = 0;
     virtual Hex getPosition() const = 0;
+    virtual bool isFlipped() const = 0;
 };

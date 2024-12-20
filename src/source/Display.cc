@@ -107,7 +107,8 @@ void Display::renderBattle()
         try{
             SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
             SDL_Rect destR = makeRectFromRenderable(*render.get());
-            SDL_RenderCopy(renderer_, texture, NULL, &destR);
+            SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+            SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
         }
         catch(const std::runtime_error& e){
             Logger::error(e.what());
@@ -123,7 +124,11 @@ void Display::renderMap()
 void Display::sortRenders()
 {
     std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const std::shared_ptr<IRenderable>& a, const std::shared_ptr<IRenderable>& b) {
-        return a->getSpritePriority() > b->getSpritePriority();
+        if (a->getSpritePriority() != b->getSpritePriority()) {
+            return a->getSpritePriority() > b->getSpritePriority();
+        } else {
+            return a->getPosition().r < b->getPosition().r;
+        }
     });
 }
 

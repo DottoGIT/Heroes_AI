@@ -38,6 +38,7 @@ public:
 
     void setArmy(const ArmyType& army);
     void setPosition(Hex hex);
+    void setFlip(bool is_flipped);
 
     const std::string& getPathToSpriteDead() const;
     unsigned int getSingleUnitHealth() const;
@@ -52,6 +53,7 @@ public:
     int getSpritePriority() const override;
     Hex getSpriteDimensions() const override;
     Hex getPosition() const override;
+    bool isFlipped() const override;
 
 
 private:
@@ -61,6 +63,7 @@ private:
     const unsigned int attack_strength_;
     const unsigned int walk_range_;
     const unsigned int initiative_;
+    bool is_flipped_;
     Hex position_;
     ArmyType army_;
 };
