@@ -17,12 +17,14 @@
 #include "Hex.h"
 
 class BattleManager;
+class MapManager;
 
 class RendersVisitator
 {
 public:
     virtual ~RendersVisitator() = default;
     void visitBattleManager(const BattleManager& battle_manager);
+    void visitMapManager(const MapManager& map_manager);
 protected:
     std::vector<std::shared_ptr<IRenderable>> objects_to_render_;
     Hex grid_dimensions_;

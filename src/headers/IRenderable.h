@@ -10,6 +10,7 @@
 #include <string>
 #include "Hex.h"
 
+constexpr int BACKGROUND_PRIORTITY = 0;
 constexpr int GIZMOS_PRIORTITY = 1;
 
 constexpr int OBJECT_PRIORTITY_1 = 2;

@@ -25,7 +25,10 @@ private:
     std::vector<T> data_;
 public:
     HexMap(std::size_t width, std::size_t height);
+    void setData(const std::vector<T>& data_);
+    std::vector<T> getDataVector() const;
     T& at(Hex hex);
+    const T& at(const Hex hex) const;
     bool inBounds(Hex hex) const;
     std::vector<Hex> getNeighbors(Hex hex) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
@@ -67,7 +70,32 @@ HexMap<T>::HexMap(std::size_t width, std::size_t height)
 {}
 
 template <typename T>
+void HexMap<T>::setData(const std::vector<T>& data)
+{
+    if(data.size() != data_.size())
+        throw std::out_of_range("Data sizes do not match!");
+    data_ = data;
+}
+
+
+template <typename T>
+std::vector<T> HexMap<T>::getDataVector() const
+{
+    return data_;
+}
+
+template <typename T>
 T& HexMap<T>::at(Hex hex)
+{
+    if (!inBounds(hex))
+        throw std::out_of_range("Column or row out of range!");
+    std::size_t index = hexToIndex(hex);
+    
+    return data_[index];
+}
+
+template <typename T>
+const T& HexMap<T>::at(const Hex hex) const
 {
     if (!inBounds(hex))
         throw std::out_of_range("Column or row out of range!");

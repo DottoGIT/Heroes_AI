@@ -118,7 +118,18 @@ void Display::renderBattle()
 
 void Display::renderMap()
 {
-
+    // Redner Ground
+    for (const auto& render : objects_to_render_) {
+        try{
+            SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
+            SDL_Rect destR = makeRectFromRenderable(*render.get());
+            SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+            SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
+        }
+        catch(const std::runtime_error& e){
+            Logger::error(e.what());
+        }
+    }
 }
 
 void Display::sortRenders()

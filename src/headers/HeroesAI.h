@@ -13,9 +13,12 @@
 #include <memory>
 
 #include "Display.h"
+#include "MapManager.h"
 #include "BattleManager.h"
+#include "SceneType.h"
 
 constexpr const char* WINDOW_TITLE = "Heroes AI";
+constexpr const char* MAP_PATH = "data/map.txt";
 constexpr int WINDOW_HEGIHT = 566; // Keep 16/9 ratio
 constexpr int WINDOW_WIDTH = 800;
 
@@ -34,6 +37,9 @@ private:
     void render();
     
     bool isRunning_;
+    SceneType currentScene_;
+
     std::unique_ptr<Display> display_;
-    BattleManager battleManager_;
+    std::unique_ptr<MapManager> mapManager_;
+    std::unique_ptr<BattleManager> battleManager_;
 };

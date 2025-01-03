@@ -11,6 +11,11 @@ HeroesAI::HeroesAI()
 {
     display_ = std::make_unique<Display>();
     isRunning_ = false;
+    currentScene_ = SceneType::Map;
+
+    ///////////////////////////////////////////////////////////
+    /* DEVELOPMENT ONLY CREATION OF BATTLE UNITS AND MANAGER */
+    ///////////////////////////////////////////////////////////
 
     // Unit factory
     FieldUnitFactory unit_factory;
@@ -31,7 +36,13 @@ HeroesAI::HeroesAI()
     computerArmy.addUnit(enchanter);
     computerArmy.addUnit(skeleton);
     // Battlemanager
-    battleManager_ = BattleManager(playerArmy, computerArmy);
+    battleManager_ = std::make_unique<BattleManager>(playerArmy, computerArmy);
+    
+    ///////////////////////////////////////////////////////////
+    /*            DEVELOPMENT ONLY CREATION OF MAP           */
+    ///////////////////////////////////////////////////////////
+
+    mapManager_ = std::make_unique<MapManager>(MAP_PATH);
 }
 
 HeroesAI::~HeroesAI()
@@ -70,7 +81,7 @@ void HeroesAI::handleEvents()
     switch(event.type)
     {
         case SDL_QUIT:
-            Logger::debug("Quit action detected, stopping the game");
+            Logger::debug("Quit Action Detected, Stopping the Game");
             isRunning_ = false;
             break;
         default:
@@ -85,5 +96,20 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    display_->render(battleManager_);
+    if(mapManager_ == nullptr || battleManager_ == nullptr)
+    {
+        Logger::error("Not All Managers are Set");
+    }
+
+    switch (currentScene_)
+    {
+    case SceneType::Map:
+        display_->render(*mapManager_);
+        break;
+    case SceneType::Battle:
+        display_->render(*battleManager_);
+        break;
+    default:
+        Logger::error("Unrecognized Scene Type: ");
+    }
 }
