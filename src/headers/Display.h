@@ -47,4 +47,5 @@ private:
     
     SDL_Rect makeRectFromRenderable(const IRenderable& render) const;
     SDL_Rect makeCellRect(Hex position) const;
+    SDL_Rect makeMapObjectRect(const IRenderable& render) const;
 };

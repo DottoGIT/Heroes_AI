@@ -20,7 +20,7 @@ class MapManager : public IManager {
 public:
     MapManager(const std::string& path);
     void printMap() const;
-    std::vector<MapTile> getTiles() const;
+    const std::vector<MapTile>& getTiles() const;
     Hex getMapGridDimensions() const;
     void accept(RendersVisitator& visitor) const override;
 private:

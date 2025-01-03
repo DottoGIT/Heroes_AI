@@ -17,18 +17,18 @@ void MapManager::printMap() const
 {
     std::stringstream s;
     s << "\n";
-    for (int i = 0; i < tiles.getHeight(); ++i) 
+    for (int j = 0; j < tiles.getHeight(); ++j) 
     {
-        for (int j = 0; j < tiles.getWidth(); ++j) 
+        for (int i = 0; i < tiles.getWidth(); ++i) 
         {
-            s << tiles.at(Hex(i,j)).getSymbol() << " ";
+                s << tiles.at(Hex(i,j)).getSymbol() << " ";
         }
         s << "\n";
     }
     Logger::debug(s.str());
 }
 
-std::vector<MapTile> MapManager::getTiles() const
+const std::vector<MapTile>& MapManager::getTiles() const
 {
     return tiles.getDataVector();
 }

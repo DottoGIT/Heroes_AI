@@ -12,7 +12,7 @@ void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
     
     for(const std::shared_ptr<FieldUnit>& fieldUnit : allUnits)
     {
-        objects_to_render_.push_back(fieldUnit);
+        objects_to_render_.push_back(fieldUnit.get());
     }
     background_ = battle_manager.getBackground();
     scene_type_ = SceneType::Battle;
@@ -21,11 +21,10 @@ void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
 
 void RendersVisitator::visitMapManager(const MapManager& map_manager)
 {
-    map_manager.printMap();
     objects_to_render_.clear();
     for(const MapTile& tile : map_manager.getTiles())
     {
-        //objects_to_render_.push_back(&tile);
+        objects_to_render_.push_back(&tile);
     }
     scene_type_ = SceneType::Map;
     grid_dimensions_ = map_manager.getMapGridDimensions();

@@ -16,8 +16,8 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion(const std::string& path)
     std::vector<MapTile> data;
     std::string line;
     size_t width = 0;
-    size_t pos_y = 0;
-    size_t pos_x = 0;
+    int pos_y = 0;
+    int pos_x = 0;
     
     while (std::getline(file, line)) 
     {
@@ -30,11 +30,11 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion(const std::string& path)
 
         for (char c : line) 
         {
-            ++pos_x;
             MapTile tile;
             tile.setSymbol(c);
-            tile.setPosition(Hex(width, pos_y));
+            tile.setPosition(Hex(pos_x, pos_y));
             data.push_back(tile);
+            ++pos_x;
         }
         ++pos_y;
         pos_x = 0;

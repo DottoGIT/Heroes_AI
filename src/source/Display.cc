@@ -42,6 +42,7 @@ void Display::render(const IManager& manager)
 
     manager.accept(*this);
     sortRenders();
+
     
     switch (scene_type_)
     {
@@ -106,7 +107,7 @@ void Display::renderBattle()
     for (const auto& render : objects_to_render_) {
         try{
             SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
-            SDL_Rect destR = makeRectFromRenderable(*render.get());
+            SDL_Rect destR = makeRectFromRenderable(*render);
             SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
             SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
         }
@@ -118,11 +119,11 @@ void Display::renderBattle()
 
 void Display::renderMap()
 {
-    // Redner Ground
+    // Ground
     for (const auto& render : objects_to_render_) {
         try{
             SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
-            SDL_Rect destR = makeRectFromRenderable(*render.get());
+            SDL_Rect destR = makeMapObjectRect(*render);
             SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
             SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
         }
@@ -134,7 +135,7 @@ void Display::renderMap()
 
 void Display::sortRenders()
 {
-    std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const std::shared_ptr<IRenderable>& a, const std::shared_ptr<IRenderable>& b) {
+    std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const IRenderable* a, const IRenderable* b) {
         if (a->getSpritePriority() != b->getSpritePriority()) {
             return a->getSpritePriority() > b->getSpritePriority();
         } else {
@@ -168,6 +169,21 @@ SDL_Rect Display::makeCellRect(Hex position) const
                                         BATTLE_GRID_EVEN_ROW_INDENT);
     retRect.h = BATTLE_GRID_CELL_SIZE;
     retRect.w = BATTLE_GRID_CELL_SIZE;
+    retRect.x = pos.q;
+    retRect.y = pos.r;
+    return retRect;
+}
+
+SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
+{
+    SDL_Rect retRect;
+    Hex pos = GridPositionParser::parse(render.getPosition(), 
+                                        render.getSpriteDimensions(), 
+                                        Hex(0,0),
+                                        Hex(0,0), 
+                                        0);
+    retRect.h = render.getSpriteDimensions().r;
+    retRect.w = render.getSpriteDimensions().q;
     retRect.x = pos.q;
     retRect.y = pos.r;
     return retRect;

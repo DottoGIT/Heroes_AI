@@ -12,8 +12,8 @@
 #include "Hex.h"
 
 
-constexpr int MAP_TILE_WIDTH = 64;
-constexpr int MAP_TILE_HEIGHT = 64;
+constexpr int MAP_TILE_WIDTH = 40;
+constexpr int MAP_TILE_HEIGHT = 40;
 
 class MapTile : public IRenderable {
 public:

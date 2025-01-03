@@ -26,7 +26,7 @@ private:
 public:
     HexMap(std::size_t width, std::size_t height);
     void setData(const std::vector<T>& data_);
-    std::vector<T> getDataVector() const;
+    const std::vector<T>& getDataVector() const;
     T& at(Hex hex);
     const T& at(const Hex hex) const;
     bool inBounds(Hex hex) const;
@@ -79,7 +79,7 @@ void HexMap<T>::setData(const std::vector<T>& data)
 
 
 template <typename T>
-std::vector<T> HexMap<T>::getDataVector() const
+const std::vector<T>& HexMap<T>::getDataVector() const
 {
     return data_;
 }
