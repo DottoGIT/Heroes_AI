@@ -24,6 +24,7 @@ constexpr int BATTLE_GRID_CELL_HEIGHT = 39; // Hex rows size, smaller than size 
 constexpr int BATTLE_GRID_EVEN_ROW_INDENT = 26; // prefferable (1/2)
 constexpr char* BATTLE_GRID_IDLE_PATH = "media/sprites/gridtile.png";
 constexpr char* BATTLE_GRID_ACTIVE_PATH = "media/sprites/active_gridtile.png";
+constexpr int MAP_GRID_CELL_SIZE = 32;
 
 class IManager;
 
@@ -46,6 +47,7 @@ private:
     void renderMap();
     
     SDL_Rect makeRectFromRenderable(const IRenderable& render) const;
-    SDL_Rect makeCellRect(Hex position) const;
+    SDL_Rect makeBattleCellRect(Hex position) const;
+    SDL_Rect makeMapCellRect(const IRenderable& render) const;
     SDL_Rect makeMapObjectRect(const IRenderable& render) const;
 };

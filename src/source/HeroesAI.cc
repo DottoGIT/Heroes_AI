@@ -42,7 +42,7 @@ HeroesAI::HeroesAI()
     /*            DEVELOPMENT ONLY CREATION OF MAP           */
     ///////////////////////////////////////////////////////////
 
-    mapManager_ = std::make_unique<MapManager>(MAP_PATH);
+    mapManager_ = std::make_unique<MapManager>();
 }
 
 HeroesAI::~HeroesAI()

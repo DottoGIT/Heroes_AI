@@ -40,6 +40,20 @@ if /I "%~1"=="main" (
 )
 
 REM
+if /I "%~1"=="build-run" (
+    echo Building the project...
+    if not exist "%BUILD_DIR%" (
+        mkdir "%BUILD_DIR%"
+    )
+    cd "%BUILD_DIR%"
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=%VCPKG%
+    cmake --build .
+    cd ..
+    "%EXECUTABLE_MAIN%"
+    goto :eof
+)
+
+REM
 if /I "%~1"=="tests" (
     if exist "%EXECUTABLE_TESTS%" (
         echo Running unit tests...

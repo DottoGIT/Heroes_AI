@@ -1,26 +1,28 @@
 /*
- * File:        MapTile.h
- * Description: Contains data about single tile in map.
+ * File:        MapDecoration.h
+ * Description: Represents map obstacles and non-interractive elements.
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
  * 
- * Date:        03.01.2025
+ * Date:        04.01.2025
  */
 #pragma once
+
 #include <string>
 #include "IRenderable.h"
 #include "Hex.h"
 
 
-
-class MapTile : public IRenderable {
+class MapDecoration : public IRenderable{
 public:
-    MapTile() = default;
-    ~MapTile() = default;
+    MapDecoration() = default;
+    ~MapDecoration() = default;
+
     void setSymbol(char symbol);
     void setPosition(Hex position);
+
     char getSymbol() const;
-    
+
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
     virtual int getSpritePriority() const override;
@@ -29,4 +31,5 @@ public:
 private:
     char symbol_;
     Hex position_;
+    Hex size_;
 };

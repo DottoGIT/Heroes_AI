@@ -1,0 +1,55 @@
+#include "SymbolsTranslator.h"
+
+std::map<char, std::string> SymbolsTranslator::symbolsToPaths{
+    {'0', "media/sprites/map/ground.png"},
+    {'1', "media/sprites/map/fog.png"},
+    {'2', "media/sprites/map/shore_t.png"},
+    {'3', "media/sprites/map/sea.png"},
+    {'4', "media/sprites/map/sea_corner.png"},
+    {'5', "media/sprites/map/sea_corner_fill.png"},
+    {'6', "media/sprites/map/gts.png"},
+    {'7', "media/sprites/map/gts_corner.png"},
+    {'8', "media/sprites/map/stg_corner.png"},
+    {'9', "media/sprites/map/gtsf.png"},
+    {'+', "media/sprites/map/shore_tf.png"},
+    {'-', "media/sprites/map/sea_cornerf.png"},
+    {'=', "media/sprites/map/sea_cornerf_fill.png"},
+    {'_', "media/sprites/map/stg_cornerf.png"},
+    {')', "media/sprites/map/gts_cornerf.png"},
+
+    {'a', "media/sprites/map/g_hole.png"},
+    {'b', "media/sprites/map/town.png"},
+    {'c', "media/sprites/map/d_road.png"},
+    {'d', "media/sprites/map/cr_road.png"},
+    {'e', "media/sprites/map/ttl_road.png"},
+    {'f', "media/sprites/map/l_road.png"},
+    {'g', "media/sprites/map/dbr_road.png"},
+    {'h', "media/sprites/map/dtl_road.png"},
+    {'i', "media/sprites/map/ttr_road.png"},
+    {'j', "media/sprites/map/coalMine_unoccupied.png"},
+    {'k', "media/sprites/map/coalMine_occupied.png"},
+    {'l', "media/sprites/map/woodMine_unoccupied.png"},
+    {'m', "media/sprites/map/woodMine_occupied.png"},
+    {'n', "media/sprites/map/m1.png"},
+    {'o', "media/sprites/map/m2.png"},
+    {'p', "media/sprites/map/m3.png"}
+};
+
+std::map<char, Hex> SymbolsTranslator::symbolsToSizes{
+    {'a', Hex(64, 32)},
+    {'b', Hex(156, 196)},
+    {'c', Hex(32,32)},
+    {'d', Hex(32,32)},
+    {'e', Hex(32,32)},
+    {'f', Hex(32,32)},
+    {'g', Hex(32,32)},
+    {'h', Hex(32,32)},
+    {'i', Hex(32,32)},
+    {'j', Hex(95,65)},
+    {'k', Hex(95,65)},
+    {'l', Hex(154,64)},
+    {'m', Hex(154,64)},
+    {'n', Hex(192,128)},
+    {'o', Hex(128,96)},
+    {'p', Hex(128,64)}
+};

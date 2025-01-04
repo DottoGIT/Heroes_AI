@@ -1,5 +1,5 @@
 #include "MapTile.h"
-#include "SymbolsToPaths.hpp"
+#include "SymbolsTranslator.h"
 
 void MapTile::setPosition(Hex position)
 {
@@ -23,12 +23,13 @@ Hex MapTile::getPosition() const
 
 const std::string& MapTile::getSpritePath() const
 {
-    return SymbolsToPaths::symbols[symbol_];
+    return SymbolsTranslator::symbolsToPaths[symbol_];
 }
 
 Hex MapTile::getSpriteDimensions() const
 {
-    return Hex(MAP_TILE_WIDTH, MAP_TILE_HEIGHT);
+    // Display has its own dimensions so this return changes nothing
+    return Hex(0, 0);
 }
 
 int MapTile::getSpritePriority() const

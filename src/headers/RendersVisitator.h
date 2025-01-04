@@ -27,6 +27,7 @@ public:
     void visitMapManager(const MapManager& map_manager);
 protected:
     std::vector<const IRenderable*> objects_to_render_;
+    std::vector<const IRenderable*> decorations_to_render_;
     Hex grid_dimensions_;
     std::string background_;
     SceneType scene_type_;

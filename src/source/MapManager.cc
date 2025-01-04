@@ -1,11 +1,12 @@
 #include "MapManager.h"
+#include <sstream>
 #include "RendersVisitator.h"
 #include "MapFileConverter.h"
 #include "Logger.h"
-#include <sstream>
 
-MapManager::MapManager(const std::string& path)
-    : tiles(MapFileConverter::fileToMapConvertion(path))
+MapManager::MapManager()
+    : tiles_(MapFileConverter::fileToMapConvertion()),
+      decorations_(MapFileConverter::fileToDecorationsConvertion())
 {}
 
 void MapManager::accept(RendersVisitator& visitor) const
@@ -17,11 +18,11 @@ void MapManager::printMap() const
 {
     std::stringstream s;
     s << "\n";
-    for (int j = 0; j < tiles.getHeight(); ++j) 
+    for (int j = 0; j < tiles_.getHeight(); ++j)
     {
-        for (int i = 0; i < tiles.getWidth(); ++i) 
+        for (int i = 0; i < tiles_.getWidth(); ++i)
         {
-                s << tiles.at(Hex(i,j)).getSymbol() << " ";
+            s << tiles_.at(Hex(i,j)).getSymbol() << " ";
         }
         s << "\n";
     }
@@ -30,10 +31,15 @@ void MapManager::printMap() const
 
 const std::vector<MapTile>& MapManager::getTiles() const
 {
-    return tiles.getDataVector();
+    return tiles_.getDataVector();
+}
+
+const std::vector<MapDecoration>& MapManager::getDecorations() const
+{
+    return decorations_;
 }
 
 Hex MapManager::getMapGridDimensions() const
 {
-    return Hex(static_cast<int>(tiles.getWidth()), static_cast<int>(tiles.getHeight()));
+    return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
 }

@@ -94,7 +94,7 @@ void Display::renderBattle()
             for(int col = 0; col < grid_dimensions_.q; col++)
             {
                 SDL_Texture* texture = texture_manager_.getTexture(BATTLE_GRID_IDLE_PATH, renderer_).getTexture();
-                SDL_Rect destR = makeCellRect(Hex(col, row));
+                SDL_Rect destR = makeBattleCellRect(Hex(col, row));
                 SDL_RenderCopy(renderer_, texture, NULL, &destR);
             }
         }
@@ -123,6 +123,19 @@ void Display::renderMap()
     for (const auto& render : objects_to_render_) {
         try{
             SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
+            SDL_Rect destR = makeMapCellRect(*render);
+            SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+            SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
+        }
+        catch(const std::runtime_error& e){
+            Logger::error(e.what());
+        }
+    }
+
+    // Decorations
+    for (const auto& render : decorations_to_render_) {
+        try{
+            SDL_Texture* texture = texture_manager_.getTexture(render->getSpritePath(), renderer_).getTexture();
             SDL_Rect destR = makeMapObjectRect(*render);
             SDL_RendererFlip flip = render->isFlipped() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
             SDL_RenderCopyEx(renderer_, texture, NULL, &destR, 0, NULL, flip);
@@ -131,19 +144,19 @@ void Display::renderMap()
             Logger::error(e.what());
         }
     }
+
 }
 
 void Display::sortRenders()
 {
     std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const IRenderable* a, const IRenderable* b) {
         if (a->getSpritePriority() != b->getSpritePriority()) {
-            return a->getSpritePriority() > b->getSpritePriority();
+            return a->getSpritePriority() < b->getSpritePriority();
         } else {
             return a->getPosition().r < b->getPosition().r;
         }
     });
 }
-
 SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
 {
     SDL_Rect retRect;
@@ -159,7 +172,7 @@ SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
     return retRect;
 }
 
-SDL_Rect Display::makeCellRect(Hex position) const
+SDL_Rect Display::makeBattleCellRect(Hex position) const
 {
     SDL_Rect retRect;
     Hex pos = GridPositionParser::parse(position, 
@@ -174,13 +187,28 @@ SDL_Rect Display::makeCellRect(Hex position) const
     return retRect;
 }
 
-SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
+SDL_Rect Display::makeMapCellRect(const IRenderable& render) const
 {
     SDL_Rect retRect;
     Hex pos = GridPositionParser::parse(render.getPosition(), 
-                                        render.getSpriteDimensions(), 
+                                        Hex(MAP_GRID_CELL_SIZE, MAP_GRID_CELL_SIZE), 
                                         Hex(0,0),
-                                        Hex(0,0), 
+                                        Hex(0,0),
+                                        0);
+    retRect.h = MAP_GRID_CELL_SIZE;
+    retRect.w = MAP_GRID_CELL_SIZE;
+    retRect.x = pos.q;
+    retRect.y = pos.r;
+    return retRect;
+}
+
+SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
+{
+    SDL_Rect retRect;
+    Hex pos = GridPositionParser::parse(render.getPosition(),
+                                        Hex(MAP_GRID_CELL_SIZE, MAP_GRID_CELL_SIZE),
+                                        Hex(0,0),
+                                        Hex(0,0),
                                         0);
     retRect.h = render.getSpriteDimensions().r;
     retRect.w = render.getSpriteDimensions().q;

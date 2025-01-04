@@ -4,15 +4,14 @@
 #include <sstream>
 #include "Logger.h"
 
-HexMap<MapTile> MapFileConverter::fileToMapConvertion(const std::string& path)
+HexMap<MapTile> MapFileConverter::fileToMapConvertion()
 {
-    std::ifstream file(path);
+    std::ifstream file(GROUND_PATH);
     if (!file.is_open())
     {
         Logger::error("Could Not Open File Map");
         throw std::runtime_error("Could not open file!");
     }
-
     std::vector<MapTile> data;
     std::string line;
     size_t width = 0;
@@ -39,11 +38,46 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion(const std::string& path)
         ++pos_y;
         pos_x = 0;
     }
-    
     size_t height = data.size() / width;
     HexMap<MapTile> map(width, height);
     map.setData(data);
-
     return map;
 }
+
+
+std::vector<MapDecoration> MapFileConverter::fileToDecorationsConvertion()
+{
+    std::ifstream file(DECORATIONS_PATH);
+    if (!file.is_open())
+    {
+        Logger::error("Could Not Open Decorations File");
+        throw std::runtime_error("Could not open decorations file!");
+    }
+
+    std::vector<MapDecoration> data;
+    std::string line;
+
+    while (std::getline(file, line))
+    {
+        if (line.empty()) continue;
+
+        std::istringstream iss(line);
+        char symbol;
+        int pos_x, pos_y;
+
+        if (!(iss >> symbol >> pos_x >> pos_y))
+        {
+            Logger::error("Invalid line format in decorations file: " + line);
+            throw std::runtime_error("Invalid line format in decorations file!");
+        }
+
+        MapDecoration decoration;
+        decoration.setSymbol(symbol);
+        decoration.setPosition(Hex(pos_x, pos_y));
+        data.push_back(decoration);
+    }
+    return data;
+}
+
+
 

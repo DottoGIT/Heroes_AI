@@ -11,8 +11,14 @@
 #include <string.h>
 #include "HexMap.hpp"
 #include "MapTile.h"
+#include "MapDecoration.h"
+
+constexpr const char* GROUND_PATH = "data/ground.txt";
+constexpr const char* DECORATIONS_PATH = "data/decorations.txt";
+
 
 class MapFileConverter {
 public:
-    HexMap<MapTile> static fileToMapConvertion(const std::string& path);
+    HexMap<MapTile> static fileToMapConvertion();
+    std::vector<MapDecoration> static fileToDecorationsConvertion();
 };
