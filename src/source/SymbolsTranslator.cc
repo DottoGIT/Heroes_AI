@@ -32,7 +32,11 @@ std::map<char, std::string> SymbolsTranslator::symbolsToPaths{
     {'m', "media/sprites/map/woodMine_occupied.png"},
     {'n', "media/sprites/map/m1.png"},
     {'o', "media/sprites/map/m2.png"},
-    {'p', "media/sprites/map/m3.png"}
+    {'p', "media/sprites/map/m3.png"},
+    {'r', "media/sprites/map/f1.png"},
+    {'s', "media/sprites/map/pond.png"},
+    {'t', "media/sprites/map/p2.png"},
+    {'u', "media/sprites/map/g1.png"}
 };
 
 std::map<char, Hex> SymbolsTranslator::symbolsToSizes{
@@ -51,5 +55,9 @@ std::map<char, Hex> SymbolsTranslator::symbolsToSizes{
     {'m', Hex(154,64)},
     {'n', Hex(192,128)},
     {'o', Hex(128,96)},
-    {'p', Hex(128,64)}
+    {'p', Hex(128,64)},
+    {'r', Hex(128,128)},
+    {'s', Hex(160,96)},
+    {'t', Hex(96,32)},
+    {'u', Hex(64,32)}
 };
