@@ -2,41 +2,57 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "SymbolsTranslator.h"
 #include "Logger.h"
 
 HexMap<MapTile> MapFileConverter::fileToMapConvertion()
 {
-    std::ifstream file(GROUND_PATH);
-    if (!file.is_open())
+    std::ifstream file_ground(GROUND_PATH);
+    std::ifstream file_interactable(INTERACTABLE_PATH);
+    if (!file_ground.is_open() || !file_interactable.is_open())
     {
-        Logger::error("Could Not Open File Map");
-        throw std::runtime_error("Could not open file!");
+        Logger::error("Could Not Open Map Files");
+        throw std::runtime_error("Could Not Open Map Files!");
     }
     std::vector<MapTile> data;
-    std::string line;
+    std::string line_ground;
+    std::string line_interactable;
     size_t width = 0;
     int pos_y = 0;
-    int pos_x = 0;
     
-    while (std::getline(file, line)) 
+    while (std::getline(file_ground, line_ground) && std::getline(file_interactable, line_interactable)) 
     {
-        if (line.empty()) continue;
+        if (line_ground.empty() || line_interactable.empty()) continue;
 
         if (width == 0) 
         {
-            width = line.size();
+            width = line_ground.size();
         }
 
-        for (char c : line) 
+        if (line_ground.size() != line_interactable.size()) 
+        {
+            Logger::error("Mismatch in line length between ground and interactable files.");
+            continue; 
+        }
+
+        for(int i = 0; i < line_ground.length(); i++)
         {
             MapTile tile;
-            tile.setSymbol(c);
-            tile.setPosition(Hex(pos_x, pos_y));
+            tile.setSymbol(line_ground[i]);
+            tile.setPosition(Hex(i, pos_y));
+
+            if(SymbolsTranslator::symbolsToObjects[line_interactable[i]])
+            {
+                auto resource_form_file = SymbolsTranslator::symbolsToObjects[line_interactable[i]]->clone();
+                std::string sprite_path = SymbolsTranslator::symbolsToPaths[line_interactable[i]];
+                resource_form_file->setSpritePath(sprite_path);
+                tile.setInteractable(resource_form_file);
+            }
+
             data.push_back(tile);
-            ++pos_x;
         }
+
         ++pos_y;
-        pos_x = 0;
     }
     size_t height = data.size() / width;
     HexMap<MapTile> map(width, height);

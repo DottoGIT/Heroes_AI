@@ -7,7 +7,9 @@
 MapManager::MapManager()
     : tiles_(MapFileConverter::fileToMapConvertion()),
       decorations_(MapFileConverter::fileToDecorationsConvertion())
-{}
+{
+    hero_.setPosition(Hex(6, 5));
+}
 
 void MapManager::accept(RendersVisitator& visitor) const
 {
@@ -37,6 +39,11 @@ const std::vector<MapTile>& MapManager::getTiles() const
 const std::vector<MapDecoration>& MapManager::getDecorations() const
 {
     return decorations_;
+}
+
+const MapHero* MapManager::getHero() const
+{
+    return &hero_;
 }
 
 Hex MapManager::getMapGridDimensions() const

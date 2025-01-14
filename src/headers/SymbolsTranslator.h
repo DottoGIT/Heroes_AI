@@ -11,11 +11,16 @@
 
 #include <map>
 #include <string>
+#include <memory>
 #include "Hex.h"
+#include "IInteractable.h"
+#include "FieldArmy.h"
 
 class SymbolsTranslator {
 public:
     static std::map<char, std::string> symbolsToPaths;
     static std::map<char, Hex> symbolsToSizes;
+    static std::map<char, std::shared_ptr<IInteractable>> symbolsToObjects;
+    static std::shared_ptr<FieldArmy> createArmyFromSymbol(char s);
 };
 

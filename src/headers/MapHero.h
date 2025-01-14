@@ -1,11 +1,12 @@
 /*
- * File:        MapTile.h
- * Description: Contains data about single tile in map.
+ * File:        MapHero.h
+ * Description: Represents player army on the map
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
  * 
- * Date:        03.01.2025
+ * Date:        14.01.2025
  */
+
 #pragma once
 
 #include <memory>
@@ -14,20 +15,16 @@
 #include "IInteractable.h"
 #include "Hex.h"
 
+constexpr const char* HERO_SPRITE_PATH = "media/sprites/hero.png";
+constexpr const int HERO_SPRITE_WIDTH = 32;
+constexpr const int HERO_SPRITE_HEIGHT = 64;
 
-
-class MapTile : public IRenderable {
+class MapHero : public IRenderable {
 public:
-    MapTile() = default;
-    virtual ~MapTile() = default;
-
-    bool interact();
-    const IInteractable* getInteractable() const;
+    MapHero() = default;
+    virtual ~MapHero() = default;
 
     void setPosition(Hex position);
-    void setInteractable(std::shared_ptr<IInteractable> interactable);
-    void setSymbol(char symbol);
-    char getSymbol() const;
     
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
@@ -38,4 +35,5 @@ private:
     char symbol_;
     Hex position_;
     std::shared_ptr<IInteractable> interactable_;
+    std::string path_to_sprite_ = HERO_SPRITE_PATH;
 };

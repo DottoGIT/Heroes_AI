@@ -15,6 +15,7 @@
 #include "MapTile.h"
 #include "MapDecoration.h"
 #include "HexMap.hpp"
+#include "MapHero.h"
 
 class RendersVisitator;
 
@@ -24,9 +25,12 @@ public:
     void printMap() const;
     const std::vector<MapTile>& getTiles() const;
     const std::vector<MapDecoration>& getDecorations() const;
+    const MapHero* getHero() const;
     Hex getMapGridDimensions() const;
     void accept(RendersVisitator& visitor) const override;
 private:
     HexMap<MapTile> tiles_;
     std::vector<MapDecoration> decorations_;
+    MapHero hero_;
+
 };

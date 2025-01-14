@@ -24,12 +24,19 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
     for(const MapTile& tile : map_manager.getTiles())
     {
         objects_to_render_.push_back(&tile);
+        auto interacable = tile.getInteractable();
+        if(interacable)
+        {
+            decorations_to_render_.push_back(interacable);
+        }
     }
 
     for(const MapDecoration& decorations : map_manager.getDecorations())
     {
         decorations_to_render_.push_back(&decorations);
     }
+
+    decorations_to_render_.push_back(map_manager.getHero());
 
     scene_type_ = SceneType::Map;
     grid_dimensions_ = map_manager.getMapGridDimensions();

@@ -1,6 +1,11 @@
 #include "SymbolsTranslator.h"
+#include "Resource.h"
+#include "MapEnemy.h"
+#include "FieldUnitFactory.h"
+#include "UnitType.h"
 
-std::map<char, std::string> SymbolsTranslator::symbolsToPaths{
+std::map<char, std::string> SymbolsTranslator::symbolsToPaths
+{
     {'0', "media/sprites/map/ground.png"},
     {'1', "media/sprites/map/fog.png"},
     {'2', "media/sprites/map/shore_t.png"},
@@ -36,10 +41,24 @@ std::map<char, std::string> SymbolsTranslator::symbolsToPaths{
     {'r', "media/sprites/map/f1.png"},
     {'s', "media/sprites/map/pond.png"},
     {'t', "media/sprites/map/p2.png"},
-    {'u', "media/sprites/map/g1.png"}
+    {'u', "media/sprites/map/g1.png"},
+    
+    {'v', "media/sprites/resources/coal.png"},
+    {'w', "media/sprites/resources/mercury.png"},
+    {'x', "media/sprites/resources/sulfur.png"},
+    {'y', "media/sprites/resources/wood.png"},
+    {'z', "media/sprites/resources/gems.png"},
+    {'A', "media/sprites/resources/gold.png"},
+    {'B', "media/sprites/resources/crystal.png"},
+
+    {'C', "media/sprites/skeleton.png"},
+    {'D', "media/sprites/swordsman.png"},
+    {'E', "media/sprites/enchanter.png"},
+    {'F', "media/sprites/archer.png"},
 };
 
-std::map<char, Hex> SymbolsTranslator::symbolsToSizes{
+std::map<char, Hex> SymbolsTranslator::symbolsToSizes
+{
     {'a', Hex(64, 32)},
     {'b', Hex(156, 196)},
     {'c', Hex(32,32)},
@@ -61,3 +80,53 @@ std::map<char, Hex> SymbolsTranslator::symbolsToSizes{
     {'t', Hex(96,32)},
     {'u', Hex(64,32)}
 };
+
+
+std::map<char, std::shared_ptr<IInteractable>> SymbolsTranslator::symbolsToObjects
+{
+    {'0', nullptr},
+    {'v', std::make_shared<Resource>(ResourceType::Coal, 1)},
+    {'w', std::make_shared<Resource>(ResourceType::Mercury, 1)},
+    {'x', std::make_shared<Resource>(ResourceType::Sulfur, 1)},
+    {'y', std::make_shared<Resource>(ResourceType::Wood, 1)},
+    {'z', std::make_shared<Resource>(ResourceType::Gems, 1)},
+    {'A', std::make_shared<Resource>(ResourceType::Gold, 1000)},
+    {'B', std::make_shared<Resource>(ResourceType::Crystals, 1)},
+
+    {'C', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('C'))},
+    {'D', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('D'))},
+    {'E', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('E'))},
+    {'F', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('F'))},    
+};
+
+std::shared_ptr<FieldArmy> SymbolsTranslator::createArmyFromSymbol(char s)
+{
+    FieldUnitFactory unit_factory;
+    FieldArmy army(ArmyType::Computer);
+    
+    switch (s)
+    {
+    case 'C':
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        break;
+    case 'D':
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        break;
+    case 'E':
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        break;
+    case 'F':
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        break;
+    default:
+        break;
+    }
+
+    return std::make_shared<FieldArmy>(army);
+}

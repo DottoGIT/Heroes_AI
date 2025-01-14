@@ -41,7 +41,7 @@ void Display::render(const IManager& manager)
     SDL_RenderClear(renderer_);
 
     manager.accept(*this);
-    sortRenders();
+    sortRenders(objects_to_render_);
 
     
     switch (scene_type_)
@@ -50,6 +50,7 @@ void Display::render(const IManager& manager)
         renderBattle();
         break;
     case SceneType::Map:
+        sortRenders(decorations_to_render_);
         renderMap();
         break;
     default:
@@ -147,9 +148,9 @@ void Display::renderMap()
 
 }
 
-void Display::sortRenders()
+void Display::sortRenders(std::vector<const IRenderable*>& objects)
 {
-    std::sort(objects_to_render_.begin(), objects_to_render_.end(), [](const IRenderable* a, const IRenderable* b) {
+    std::sort(objects.begin(), objects.end(), [](const IRenderable* a, const IRenderable* b) {
         if (a->getSpritePriority() != b->getSpritePriority()) {
             return a->getSpritePriority() < b->getSpritePriority();
         } else {

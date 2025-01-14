@@ -42,7 +42,7 @@ private:
     SDL_Renderer* renderer_;
     SDL_Window* window_;
     TextureManager texture_manager_;
-    void sortRenders();
+    void sortRenders(std::vector<const IRenderable*>& objects);
     void renderBattle();
     void renderMap();
     
