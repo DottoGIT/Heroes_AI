@@ -15,6 +15,7 @@
 #include "IRenderable.h"
 #include "SceneType.h"
 #include "Hex.h"
+#include "ResourceCounter.h"
 
 class BattleManager;
 class MapManager;
@@ -31,4 +32,5 @@ protected:
     Hex grid_dimensions_;
     std::string background_;
     SceneType scene_type_;
+    std::map<ResourceType, int> resources;
 };

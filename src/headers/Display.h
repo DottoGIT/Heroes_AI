@@ -45,6 +45,7 @@ private:
     void sortRenders(std::vector<const IRenderable*>& objects);
     void renderBattle();
     void renderMap();
+    void renderResources();
     
     SDL_Rect makeRectFromRenderable(const IRenderable& render) const;
     SDL_Rect makeBattleCellRect(Hex position) const;

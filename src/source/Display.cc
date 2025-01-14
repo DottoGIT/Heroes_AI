@@ -5,6 +5,7 @@
 #include "HeroesAIExcept.h"
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
+#include "SDL_ttf.h"
 #include "IManager.h"
 #include "IRenderable.h"
 #include "GridPositionParser.h"
@@ -52,6 +53,7 @@ void Display::render(const IManager& manager)
     case SceneType::Map:
         sortRenders(decorations_to_render_);
         renderMap();
+        renderResources();
         break;
     default:
         Logger::error("Non existant scene type render request");
@@ -217,3 +219,76 @@ SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
     retRect.y = pos.r;
     return retRect;
 }
+
+
+void Display::renderResources()
+{
+    // Initialize SDL_ttf
+    if (TTF_Init() == -1) 
+    {
+        Logger::error("Failed to initialize SDL_ttf: " + std::string(TTF_GetError()));
+        return;
+    }
+
+    // Set draw color and render red square
+    SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
+    SDL_Rect redSquare = { 0, 0, 800, 25 };
+    SDL_Color textColor = { 255, 255, 255, 255 }; // White color
+    SDL_RenderFillRect(renderer_, &redSquare);
+
+    // Load font
+    TTF_Font* font = TTF_OpenFont("media/fonts/pixel_font.ttf", 12);
+    if (!font) 
+    {
+        Logger::error("Could not load font: " + std::string(TTF_GetError()));
+        TTF_Quit(); // Clean up SDL_ttf before exiting
+        return;
+    }
+
+    int offset = 30; // Offset for each resource's position
+    // Iterate through the resources map and render each resource with its value
+    for (const auto& entry : resources)
+    {
+        // Create the text (resource name and value) using stringstream
+        std::stringstream ss;
+        ss << entry.first << ": " << entry.second;
+
+        // Convert stringstream to string
+        std::string text = ss.str();
+
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+        if (!textSurface)
+        {
+            Logger::error("Failed to create text surface: " + std::string(TTF_GetError()));
+            TTF_CloseFont(font);
+            TTF_Quit();
+            return;
+        }
+
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer_, textSurface);
+        if (!textTexture)
+        {
+            Logger::error("Failed to create text texture: " + std::string(SDL_GetError()));
+            SDL_FreeSurface(textSurface);
+            TTF_CloseFont(font);
+            TTF_Quit();
+            return;
+        }
+
+        // Render text at the current offset
+        SDL_Rect textRect = { offset, 8, textSurface->w, textSurface->h };
+        SDL_RenderCopy(renderer_, textTexture, NULL, &textRect);
+
+        SDL_DestroyTexture(textTexture);
+        SDL_FreeSurface(textSurface);
+
+        // Increment offset for the next text
+        offset += 108; // Adjust for spacing between resource items
+    }
+
+    // Clean up
+    TTF_CloseFont(font);
+    TTF_Quit();
+}
+
+

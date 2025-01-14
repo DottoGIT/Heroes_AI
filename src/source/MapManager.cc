@@ -50,3 +50,9 @@ Hex MapManager::getMapGridDimensions() const
 {
     return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
 }
+
+
+const std::map<ResourceType, int>& MapManager::getResources() const
+{
+    return resources_.getAllResources();
+}
