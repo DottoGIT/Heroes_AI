@@ -7,6 +7,8 @@
  * Date:        27.11.2024
  */
 
+#pragma once
+
 class Health
 {
 private:
