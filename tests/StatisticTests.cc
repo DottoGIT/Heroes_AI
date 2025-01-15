@@ -7,7 +7,7 @@
  * Date:        27.12.2024
  */
 
-#define BOOST_TEST_MODULE UnitTests
+#define BOOST_TEST_MODULE StatisticTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
 
