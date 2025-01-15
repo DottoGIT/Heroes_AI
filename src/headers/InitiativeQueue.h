@@ -8,18 +8,29 @@
  */
 #pragma once
 
-#include <queue>
 #include <vector>
 #include <memory>
 #include "FieldUnit.h"
+#include "FieldArmy.h"
+
+
+struct FieldUnitIndex
+{
+    ArmyType type;
+    uint32_t index;
+public:
+    FieldUnitIndex(ArmyType type, uint32_t index);
+};
+
 
 class InitiativeQueue
 {
 public:
     InitiativeQueue();
-    InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>>& units);
-    std::shared_ptr<FieldUnit> popNextAndPush();
-    std::vector<std::shared_ptr<FieldUnit>> lookUpNextUnits(unsigned int number_of_units) const;
+    InitiativeQueue(const FieldArmy& player, const FieldArmy& enemy);
+    const FieldUnitIndex current() const;
+    const FieldUnitIndex next();
+    const std::vector<FieldUnitIndex>& getQueue() const;
 private:
-    std::queue<std::shared_ptr<FieldUnit>> unitsQueue_;
+    std::vector<FieldUnitIndex> queue_;
 };

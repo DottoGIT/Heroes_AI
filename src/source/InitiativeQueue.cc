@@ -1,42 +1,47 @@
 #include "InitiativeQueue.h"
 #include <algorithm>
 
+FieldUnitIndex::FieldUnitIndex(ArmyType pType, uint32_t pIndex)
+    : type(pType), index(pIndex)
+{}
+
 InitiativeQueue::InitiativeQueue()
 {}
 
-InitiativeQueue::InitiativeQueue(const std::vector<std::shared_ptr<FieldUnit>> &units)
-{ 
-    std::vector<std::shared_ptr<FieldUnit>> sortedUnits = units;
-    std::sort(sortedUnits.begin(), sortedUnits.end(), [](const std::shared_ptr<FieldUnit>& a, const std::shared_ptr<FieldUnit>& b) {
-        return a->getInitiative() > b->getInitiative();
-    });
-
-    for (const auto& unit : sortedUnits) {
-        unitsQueue_.push(unit);
-    }
-}
-
-std::shared_ptr<FieldUnit> InitiativeQueue::popNextAndPush() {
-    if (unitsQueue_.empty()) {
-        return nullptr;
-    }
-    auto nextUnit = unitsQueue_.front();
-    unitsQueue_.pop();
-    unitsQueue_.push(nextUnit);
-    return nextUnit;
-}
-
-std::vector<std::shared_ptr<FieldUnit>> InitiativeQueue::lookUpNextUnits(unsigned int number_of_units) const
+InitiativeQueue::InitiativeQueue(const FieldArmy &player, const FieldArmy &enemy)
 {
-    std::vector<std::shared_ptr<FieldUnit>> nextUnits;
-    std::queue<std::shared_ptr<FieldUnit>> tempQueue = unitsQueue_;
+    queue_.reserve(player.getUnits().size() + enemy.getUnits().size());
+    std::for_each(
+        std::cbegin(player.getUnits()), std::cend(player.getUnits()),
+        [this, i = 0](int) mutable {queue_.emplace_back(ArmyType::Player, i);}
+    );
+    std::for_each(
+        std::cbegin(enemy.getUnits()), std::cend(enemy.getUnits()),
+        [this, i = 0](int) mutable {queue_.emplace_back(ArmyType::Player, i);}
+    );
+    std::sort(
+        queue_.begin(), queue_.end(),
+        [&](const FieldUnitIndex& a, const FieldUnitIndex& b) {
+            Statistic initiative_a = (a.type == ArmyType::Player) ?
+                player.getUnits().at(a.index).getInitiative() : enemy.getUnits().at(a.index).getInitiative();
+            Statistic initiative_b = (b.type == ArmyType::Player) ?
+                player.getUnits().at(b.index).getInitiative() : enemy.getUnits().at(b.index).getInitiative();
+            return initiative_a > initiative_b;
+        });
+}
 
-    for (unsigned int i = 0; i < number_of_units; ++i) {
-        std::shared_ptr<FieldUnit> popped = tempQueue.front();
-        tempQueue.pop();
-        tempQueue.push(popped);
-        nextUnits.push_back(popped);
-    }
+const FieldUnitIndex InitiativeQueue::current() const
+{
+    return queue_.front();
+}
 
-    return nextUnits;
+const FieldUnitIndex InitiativeQueue::next()
+{
+    if (queue_.size() < 2) return queue_.front();
+    std::rotate(queue_.begin(), queue_.begin() + 1, queue_.end());
+}
+
+const std::vector<FieldUnitIndex> &InitiativeQueue::getQueue() const
+{
+    return queue_;
 }
