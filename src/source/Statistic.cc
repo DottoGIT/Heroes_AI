@@ -1,8 +1,8 @@
 #include "Statistic.h"
 
 Statistic::Statistic(int value)
-{
-}
+    : value_(value)
+{}
 
 unsigned int Statistic::get() const
 {
