@@ -21,7 +21,7 @@ public:
     //bool operator==(const Statistic& other) const;
     //bool operator!=(const Statistic& other) const;
     //bool operator<(const Statistic& other) const;
-    //bool operator>(const Statistic& other) const;
+    bool operator>(const Statistic& other) const;
     //bool operator<=(const Statistic& other) const;
     //bool operator>=(const Statistic& other) const;
 };
