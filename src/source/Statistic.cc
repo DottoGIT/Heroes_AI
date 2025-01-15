@@ -13,3 +13,8 @@ void Statistic::increase(unsigned int value)
 {
     value_ += value;
 }
+
+bool Statistic::operator>(const Statistic &other) const
+{
+    return value_ > other.value_;
+}
