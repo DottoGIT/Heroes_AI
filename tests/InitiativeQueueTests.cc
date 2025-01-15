@@ -2,7 +2,7 @@
  * File:        InitiativeQueueTests.cc
  * Description: Unit tests for InitiativeQueue class
  *
- * Authors:     Wojciech Sarwiński
+ * Authors:     Wojciech Sarwiński <https://github.com/sarwoj>
  * 
  * Date:        27.12.2024
  */
