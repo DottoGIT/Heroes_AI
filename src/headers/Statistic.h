@@ -1,10 +1,10 @@
 /*
- * File:        Hex.h
+ * File:        Statistic.h
  * Description: Class representing a Unit or FieldUnit statistic like Strength or Initiative
  *
  * Author:      Wojciech Sarwiński
  * 
- * Date:        05.11.2024
+ * Date:        27.11.2024
  */
 
 class Statistic
