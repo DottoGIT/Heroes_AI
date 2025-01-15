@@ -1,8 +1,9 @@
 /*
  * File:        Unit.h
- * Description: Represents playable units in battle filed.
+ * Description: Represents playable units on battle filed.
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ *              Wojciech Sarwiński <https://github.com/sarwoj>
  * 
  * Date:        05.11.2024
  */
@@ -11,55 +12,31 @@
 #include <string>
 #include <memory>
 
-#include "Unit.h"
 #include "IRenderable.h"
+#include "Unit.h"
+#include "Health.h"
 #include "Hex.h"
 
-class AttackStrategy;
-enum class AttackType;
-enum class ArmyType;
-
-class FieldUnit : public Unit, public IRenderable
+class FieldUnit : public IRenderable
 {
 public:
-    FieldUnit(
-         const UnitType& type,
-         const std::string& path_to_sprite_idle,
-         unsigned int quantity,
-         const std::string& path_to_sprite_dead,
-         unsigned int single_unit_health,
-         unsigned int attack_strength,
-         unsigned int walk_range,
-         unsigned int initiative,
-         std::unique_ptr<AttackStrategy> attack_strategy);
-    ~FieldUnit() = default;
-    void walkToCell();
-    void takeDamage();
-
-    void setArmy(const ArmyType& army);
-    void setPosition(Hex hex);
-
-    const std::string& getPathToSpriteDead() const;
-    unsigned int getSingleUnitHealth() const;
-    unsigned int getAttackStrength() const;
-    unsigned int getWalkRange() const;
-    unsigned int getInitiative() const;
-    AttackType getAttackType() const;
-    Hex getPosition() const;
-    ArmyType getArmyType() const;
-
-    
-    const std::string& getSpritePath() const override;
-    int getPriority() const override;
-
+    FieldUnit(const Unit& unit, Hex position);
+    const UnitType& getUnitType() const;
+    const Hex& getPosition() const;
+    void setPosition(Hex new_position);
+    const Health& getHealth() const;
+    void takeDamage(unsigned int damage);
+    const Statistic& getAttackStrength() const;
+    const Statistic& getAttackRange() const;
+    const Statistic& getWalkRange() const;
+    const Statistic& getInitiative() const;
 
 private:
-    std::unique_ptr<AttackStrategy> attack_strategy_;
-    const std::string path_to_sprite_dead_;
-    const unsigned int single_unit_health_;
-    const unsigned int attack_strength_;
-    const unsigned int walk_range_;
-    const unsigned int initiative_;
-    Hex position_ = Hex(0, 0);
-    ArmyType army_;
+    const UnitType type_;
+    Hex position_;
+    Health health_;
+    const Statistic attack_strength_;
+    const Statistic attack_range_;
+    const Statistic walk_range_;
+    const Statistic initiative_;
 };
