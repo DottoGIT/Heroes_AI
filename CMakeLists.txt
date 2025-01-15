@@ -31,7 +31,6 @@ target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main 
 add_executable(UnitTests tests/UnitTests.cc)
 target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
 
-
 add_executable(HexTests tests/HexTests.cc)
 target_link_libraries(HexTests Boost::unit_test_framework)
 target_sources(HexTests PRIVATE src/source/Hex.cc)
@@ -40,7 +39,30 @@ add_executable(HexMapTests tests/HexMapTests.cc)
 target_link_libraries(HexMapTests Boost::unit_test_framework)
 target_sources(HexMapTests PRIVATE src/source/Hex.cc src/headers/HexMap.hpp)
 
+add_executable(HealthTests tests/HealthTests.cc)
+target_link_libraries(HealthTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+add_executable(StatisticTests tests/StatisticTests.cc)
+target_link_libraries(StatisticTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+add_executable(UnitClassTests tests/UnitClassTests.cc)
+target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+add_executable(FieldUnitTests tests/FieldUnitTests.cc)
+target_link_libraries(FieldUnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+add_executable(FieldArmyTests tests/FieldArmyTests.cc)
+target_link_libraries(FieldArmyTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+add_executable(InitiativeQueueTests tests/InitiativeQueueTests.cc)
+target_link_libraries(InitiativeQueueTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
 enable_testing()
 add_test(NAME UnitTests COMMAND UnitTests)
 add_test(NAME HexTests COMMAND HexTests)
 add_test(NAME HexMapTests COMMAND HexMapTests)
+add_test(NAME HealthTests COMMAND HealthTests)
+add_test(NAME StatisticTests COMMAND StatisticTests)
+add_test(NAME FieldUnitTests COMMAND FieldUnitTests)
+add_test(NAME FieldArmyTests COMMAND FieldArmyTests)
+add_test(NAME InitiativeQueueTests COMMAND InitiativeQueueTests)
