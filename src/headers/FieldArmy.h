@@ -1,8 +1,9 @@
 /*
  * File:        FieldArmy.h
- * Description: Represents playable Player and AI forces on battle field.
+ * Description: Represents playable Player or AI forces on battle field.
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ *              Wojciech Sarwinski <https://github.com/sarwoj>
  * 
  * Date:        05.11.2024
  */
@@ -17,10 +18,11 @@ class FieldArmy
 {
 public:
     FieldArmy();
-    FieldArmy(const ArmyType& type);
-    void addUnit(std::shared_ptr<FieldUnit> unit);
-    std::vector<std::shared_ptr<FieldUnit>> getUnits() const;
+    void addUnit(FieldUnit unit);
+    const std::vector<FieldUnit>& getUnits() const;
+    FieldUnit& at(const size_t index);
+    std::vector<FieldUnit>::const_iterator cbegin() const;
+    std::vector<FieldUnit>::const_iterator cend() const;
 private:
-    std::vector<std::shared_ptr<FieldUnit>> units_;
-    ArmyType type_;
+    std::vector<FieldUnit> units_;
 };

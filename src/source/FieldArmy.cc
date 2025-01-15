@@ -1,21 +1,34 @@
 #include "FieldArmy.h"
 #include "ArmyType.h"
 
+constexpr size_t MAX_UNIT_COUNT = 7;
+
 FieldArmy::FieldArmy()
-{}
-
-FieldArmy::FieldArmy(const ArmyType &type)
 {
-    type_ = type; 
+    units_.reserve(MAX_UNIT_COUNT);
 }
 
-void FieldArmy::addUnit(std::shared_ptr<FieldUnit> unit)
+void FieldArmy::addUnit(FieldUnit unit)
 {
-    unit->setArmy(type_);
-    units_.push_back(unit);
+    units_.push_back(std::move(unit));
 }
 
-std::vector<std::shared_ptr<FieldUnit>> FieldArmy::getUnits() const 
+const std::vector<FieldUnit>& FieldArmy::getUnits() const 
 {
     return units_;
+}
+
+FieldUnit &FieldArmy::at(const size_t index)
+{
+    return units_.at(index);
+}
+
+std::vector<FieldUnit>::const_iterator FieldArmy::cbegin() const
+{
+    return units_.cbegin();
+}
+
+std::vector<FieldUnit>::const_iterator FieldArmy::cend() const
+{
+    return units_.cend();
 }
