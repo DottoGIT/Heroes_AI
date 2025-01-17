@@ -163,7 +163,7 @@ void Display::sortRenders(std::vector<const IRenderable*>& objects)
 SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
 {
     SDL_Rect retRect;
-    Hex pos = GridPositionParser::parse(render.getPosition(), 
+    Hex pos = GridPositionParser::parseGridToPosition(render.getPosition(), 
                                         Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
                                         Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
                                         Hex(5,-60), 
@@ -178,7 +178,7 @@ SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
 SDL_Rect Display::makeBattleCellRect(Hex position) const
 {
     SDL_Rect retRect;
-    Hex pos = GridPositionParser::parse(position, 
+    Hex pos = GridPositionParser::parseGridToPosition(position, 
                                         Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
                                         Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
                                         Hex(0,0),
@@ -193,7 +193,7 @@ SDL_Rect Display::makeBattleCellRect(Hex position) const
 SDL_Rect Display::makeMapCellRect(const IRenderable& render) const
 {
     SDL_Rect retRect;
-    Hex pos = GridPositionParser::parse(render.getPosition(), 
+    Hex pos = GridPositionParser::parseGridToPosition(render.getPosition(), 
                                         Hex(MAP_GRID_CELL_SIZE, MAP_GRID_CELL_SIZE), 
                                         Hex(0,0),
                                         Hex(0,0),
@@ -208,7 +208,7 @@ SDL_Rect Display::makeMapCellRect(const IRenderable& render) const
 SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
 {
     SDL_Rect retRect;
-    Hex pos = GridPositionParser::parse(render.getPosition(),
+    Hex pos = GridPositionParser::parseGridToPosition(render.getPosition(),
                                         Hex(MAP_GRID_CELL_SIZE, MAP_GRID_CELL_SIZE),
                                         Hex(0,0),
                                         Hex(0,0),

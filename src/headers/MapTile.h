@@ -27,6 +27,7 @@ public:
 
     void setPosition(Hex position);
     void setInteractable(std::shared_ptr<IInteractable> interactable);
+    void setWalkable(bool is_walkable);
     void setSymbol(char symbol);
     char getSymbol() const;
     
@@ -39,5 +40,6 @@ public:
 private:
     char symbol_;
     Hex position_;
+    bool is_walkable_ = true;
     std::shared_ptr<IInteractable> interactable_;
 };

@@ -41,4 +41,5 @@ private:
     MapHero hero_;
     ResourceCounter resources_;
     std::weak_ptr<InputController> input_controller_;
+    MapTile* marked_tile_ = nullptr;
 };

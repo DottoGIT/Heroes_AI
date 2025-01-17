@@ -3,6 +3,7 @@
 #include "RendersVisitator.h"
 #include "MapFileConverter.h"
 #include "Logger.h"
+#include "GridPositionParser.h"
 
 MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
@@ -80,5 +81,19 @@ const std::map<ResourceType, int>& MapManager::getResources() const
 
 void MapManager::reactToClick(bool left_button, Hex click_position)
 {
-    Logger::debug("click");
+    Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
+    pos.r--;
+    if(pos.r >= tiles_.getHeight() || pos.q >= tiles_.getWidth())
+    {
+        return;
+    }
+    MapTile* clicked_tile = &tiles_.at(pos);
+    if(marked_tile_ != nullptr && marked_tile_->getPosition() == clicked_tile->getPosition())
+    {
+        hero_.setPosition(pos);
+    }
+    else
+    {
+        marked_tile_ = clicked_tile;
+    }
 }
