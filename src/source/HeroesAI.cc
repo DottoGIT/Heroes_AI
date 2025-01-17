@@ -10,6 +10,9 @@
 HeroesAI::HeroesAI()
 {
     display_ = std::make_unique<Display>();
+    inputController_ = std::make_shared<InputController>();
+    mapManager_ = std::make_unique<MapManager>(inputController_);
+
     isRunning_ = false;
     currentScene_ = SceneType::Map;
 
@@ -38,11 +41,6 @@ HeroesAI::HeroesAI()
     // Battlemanager
     battleManager_ = std::make_unique<BattleManager>(playerArmy, computerArmy);
     
-    ///////////////////////////////////////////////////////////
-    /*            DEVELOPMENT ONLY CREATION OF MAP           */
-    ///////////////////////////////////////////////////////////
-
-    mapManager_ = std::make_unique<MapManager>();
 }
 
 HeroesAI::~HeroesAI()
@@ -66,11 +64,23 @@ int HeroesAI::init()
 
 void HeroesAI::start()
 {
+    Uint64 frame_start;
+    Uint64 frame_time;
+
     while(isRunning_)
     {
+        frame_start = SDL_GetPerformanceCounter();
+
         handleEvents();
         update();
         render();
+
+        // Wait for stable frame rate
+        frame_time = (SDL_GetPerformanceCounter() - frame_start) / SDL_GetPerformanceFrequency();
+        if(frame_time < FRAME_RATE)
+        {
+            SDL_Delay(Uint32(FRAME_RATE - frame_time) * 1000);
+        }
     }
 }
 
@@ -85,6 +95,7 @@ void HeroesAI::handleEvents()
             isRunning_ = false;
             break;
         default:
+            inputController_->processInput(event);
             break;
     }
 }

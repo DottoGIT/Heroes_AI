@@ -4,7 +4,7 @@
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
  * 
- * Date:        14.01.2024
+ * Date:        14.01.2025
  */
 
 #pragma once

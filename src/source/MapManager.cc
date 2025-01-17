@@ -4,11 +4,32 @@
 #include "MapFileConverter.h"
 #include "Logger.h"
 
-MapManager::MapManager()
+MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
-      decorations_(MapFileConverter::fileToDecorationsConvertion())
+      decorations_(MapFileConverter::fileToDecorationsConvertion()),
+      input_controller_(input_controller)
 {
     hero_.setPosition(Hex(6, 5));
+    if(auto locked = input_controller_.lock())
+    {
+        locked->subscribeToMouseClick(this);
+    }
+    else
+    {
+        Logger::warning("Input Manager destroyed before MapManager");
+    }
+}
+
+MapManager::~MapManager()
+{
+    if(auto locked = input_controller_.lock())
+    {
+        locked->unsubscribeFromMouseClick(this);
+    }
+    else
+    {
+        Logger::warning("Input Manager destroyed before MapManager");
+    }
 }
 
 void MapManager::accept(RendersVisitator& visitor) const
@@ -33,7 +54,7 @@ void MapManager::printMap() const
 
 const std::vector<MapTile>& MapManager::getTiles() const
 {
-    return tiles_.getDataVector();
+    return tiles_.getConstDataVector();
 }
 
 const std::vector<MapDecoration>& MapManager::getDecorations() const
@@ -55,4 +76,9 @@ Hex MapManager::getMapGridDimensions() const
 const std::map<ResourceType, int>& MapManager::getResources() const
 {
     return resources_.getAllResources();
+}
+
+void MapManager::reactToClick(bool left_button, Hex click_position)
+{
+    Logger::debug("click");
 }

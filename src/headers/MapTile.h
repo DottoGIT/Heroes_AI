@@ -14,9 +14,10 @@
 #include "IInteractable.h"
 #include "Hex.h"
 
+constexpr int MAP_TILE_SIZE = 32;
 
-
-class MapTile : public IRenderable {
+class MapTile : public IRenderable
+{
 public:
     MapTile() = default;
     virtual ~MapTile() = default;
@@ -34,6 +35,7 @@ public:
     virtual int getSpritePriority() const override;
     virtual Hex getPosition() const override;
     virtual bool isFlipped() const override;
+
 private:
     char symbol_;
     Hex position_;

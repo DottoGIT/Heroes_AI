@@ -1,5 +1,6 @@
 #include "MapTile.h"
 #include "SymbolsTranslator.h"
+#include "Logger.h"
 
 void MapTile::setPosition(Hex position)
 {
@@ -39,8 +40,7 @@ const std::string& MapTile::getSpritePath() const
 
 Hex MapTile::getSpriteDimensions() const
 {
-    // Display has its own dimensions so this return changes nothing
-    return Hex(0, 0);
+    return Hex(MAP_TILE_SIZE, MAP_TILE_SIZE);
 }
 
 int MapTile::getSpritePriority() const
@@ -57,7 +57,7 @@ bool MapTile::interact()
 {
     if(!interactable_)
     {
-        return false;
+    return false;
     }
 
     interactable_->interact(*this);

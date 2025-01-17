@@ -25,8 +25,9 @@ private:
     std::vector<T> data_;
 public:
     HexMap(std::size_t width, std::size_t height);
-    void setData(const std::vector<T>& data_);
-    const std::vector<T>& getDataVector() const;
+    void setData(std::vector<T>& data_);
+    std::vector<T>& getDataVector();                    // Used by InputController
+    const std::vector<T>& getConstDataVector() const;   // Used by Display
     T& at(Hex hex);
     const T& at(const Hex hex) const;
     bool inBounds(Hex hex) const;
@@ -70,7 +71,7 @@ HexMap<T>::HexMap(std::size_t width, std::size_t height)
 {}
 
 template <typename T>
-void HexMap<T>::setData(const std::vector<T>& data)
+void HexMap<T>::setData(std::vector<T>& data)
 {
     if(data.size() != data_.size())
         throw std::out_of_range("Data sizes do not match!");
@@ -79,7 +80,13 @@ void HexMap<T>::setData(const std::vector<T>& data)
 
 
 template <typename T>
-const std::vector<T>& HexMap<T>::getDataVector() const
+std::vector<T>& HexMap<T>::getDataVector()
+{
+    return data_;
+}
+
+template <typename T>
+const std::vector<T>& HexMap<T>::getConstDataVector() const
 {
     return data_;
 }
