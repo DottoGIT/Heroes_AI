@@ -30,6 +30,7 @@ public:
     void setWalkable(bool is_walkable);
     void setSymbol(char symbol);
     char getSymbol() const;
+    bool isWalkable() const;
     
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;

@@ -1,8 +1,13 @@
 #include "MapHero.h"
 
-void MapHero::setPosition(Hex position)
+void MapHero::setPosition(const Hex& position)
 {
     position_ = position;
+}
+
+void MapHero::setFlip(bool is_flipped)
+{
+    is_flipped_ = is_flipped;
 }
 
 Hex MapHero::getPosition() const
@@ -27,5 +32,5 @@ int MapHero::getSpritePriority() const
 
 bool MapHero::isFlipped() const
 {
-    return false;
+    return is_flipped_;
 }

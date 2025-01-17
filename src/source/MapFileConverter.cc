@@ -9,7 +9,10 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion()
 {
     std::ifstream file_ground(GROUND_PATH);
     std::ifstream file_interactable(INTERACTABLE_PATH);
-    if (!file_ground.is_open() || !file_interactable.is_open())
+    std::ifstream file_walkable(WALKABLE_PATH);
+    if (!file_ground.is_open() || 
+        !file_interactable.is_open() ||
+        !file_walkable.is_open())
     {
         Logger::error("Could Not Open Map Files");
         throw std::runtime_error("Could Not Open Map Files!");
@@ -17,21 +20,29 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion()
     std::vector<MapTile> data;
     std::string line_ground;
     std::string line_interactable;
+    std::string line_walkable;
     size_t width = 0;
     int pos_y = 0;
     
-    while (std::getline(file_ground, line_ground) && std::getline(file_interactable, line_interactable)) 
+    while (std::getline(file_ground, line_ground) && 
+           std::getline(file_interactable, line_interactable) &&
+           std::getline(file_walkable, line_walkable)) 
     {
-        if (line_ground.empty() || line_interactable.empty()) continue;
+        if (line_ground.empty() || line_interactable.empty() || line_walkable.empty()) 
+        {
+            Logger::warning("Empty Line Detected Inside Map File");
+            continue;
+        }
 
         if (width == 0) 
         {
             width = line_ground.size();
         }
 
-        if (line_ground.size() != line_interactable.size()) 
+        if ((line_ground.size() != line_interactable.size()) ||
+            (line_ground.size() != line_walkable.size())) 
         {
-            Logger::error("Mismatch in line length between ground and interactable files.");
+            Logger::error("Mismatch in line length between map files.");
             continue; 
         }
 
@@ -40,6 +51,7 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion()
             MapTile tile;
             tile.setSymbol(line_ground[i]);
             tile.setPosition(Hex(i, pos_y));
+            tile.setWalkable(line_walkable[i] == '0');
 
             if(SymbolsTranslator::symbolsToObjects[line_interactable[i]])
             {

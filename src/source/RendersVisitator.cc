@@ -37,6 +37,7 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
     }
 
     decorations_to_render_.push_back(map_manager.getHero());
+    decorations_to_render_.push_back(map_manager.getPointer());
 
     scene_type_ = SceneType::Map;
     grid_dimensions_ = map_manager.getMapGridDimensions();

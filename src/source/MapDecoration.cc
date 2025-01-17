@@ -32,7 +32,7 @@ Hex MapDecoration::getSpriteDimensions() const
 
 int MapDecoration::getSpritePriority() const
 {
-    return OBJECT_PRIORTITY_1;
+    return OBJECT_PRIORTITY_2;
 }
 
 bool MapDecoration::isFlipped() const

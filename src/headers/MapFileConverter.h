@@ -16,6 +16,7 @@
 constexpr const char* GROUND_PATH = "data/ground.txt";
 constexpr const char* DECORATIONS_PATH = "data/decorations.txt";
 constexpr const char* INTERACTABLE_PATH = "data/interactable.txt";
+constexpr const char* WALKABLE_PATH = "data/walkable.txt";
 
 class MapFileConverter {
 public:

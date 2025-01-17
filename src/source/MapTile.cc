@@ -7,6 +7,11 @@ void MapTile::setPosition(Hex position)
     position_ = position;
 }
 
+void MapTile::setWalkable(bool is_walkable)
+{
+    is_walkable_ = is_walkable;
+}
+
 void MapTile::setInteractable(std::shared_ptr<IInteractable> interactable)
 {
     interactable_ = interactable;
@@ -31,6 +36,12 @@ char MapTile::getSymbol() const
 Hex MapTile::getPosition() const
 {
     return position_;
+}
+
+
+bool MapTile::isWalkable() const
+{
+    return is_walkable_;   
 }
 
 const std::string& MapTile::getSpritePath() const

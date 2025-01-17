@@ -24,16 +24,19 @@ public:
     MapHero() = default;
     virtual ~MapHero() = default;
 
-    void setPosition(Hex position);
-    
+    void setPosition(const Hex& position);
+    void setFlip(bool is_flipped);
+
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
     virtual int getSpritePriority() const override;
     virtual Hex getPosition() const override;
     virtual bool isFlipped() const override;
+
 private:
     char symbol_;
     Hex position_;
+    bool is_flipped_ = false;
     std::shared_ptr<IInteractable> interactable_;
     std::string path_to_sprite_ = HERO_SPRITE_PATH;
 };

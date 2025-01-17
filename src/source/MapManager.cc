@@ -68,6 +68,11 @@ const MapHero* MapManager::getHero() const
     return &hero_;
 }
 
+const MapPointer* MapManager::getPointer() const
+{
+    return &pointer_;
+}
+
 Hex MapManager::getMapGridDimensions() const
 {
     return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
@@ -82,18 +87,24 @@ const std::map<ResourceType, int>& MapManager::getResources() const
 void MapManager::reactToClick(bool left_button, Hex click_position)
 {
     Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
-    pos.r--;
+    
     if(pos.r >= tiles_.getHeight() || pos.q >= tiles_.getWidth())
     {
         return;
     }
     MapTile* clicked_tile = &tiles_.at(pos);
+    if(!clicked_tile->isWalkable()) return;
+
     if(marked_tile_ != nullptr && marked_tile_->getPosition() == clicked_tile->getPosition())
     {
-        hero_.setPosition(pos);
+        Hex hero_offset = Hex(pos.q, pos.r-1);
+        hero_.setFlip(hero_offset.q < hero_.getPosition().q);
+        hero_.setPosition(hero_offset);
+        pointer_.hide();
     }
     else
     {
         marked_tile_ = clicked_tile;
+        pointer_.setPosition(pos);
     }
 }

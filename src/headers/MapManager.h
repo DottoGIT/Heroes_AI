@@ -20,6 +20,7 @@
 #include "ResourceCounter.h"
 #include "InputController.h"
 #include "IClickable.h"
+#include "MapPointer.h"
 
 class RendersVisitator;
 
@@ -32,6 +33,7 @@ public:
     const std::vector<MapDecoration>& getDecorations() const;
     const std::map<ResourceType, int>& getResources() const;
     const MapHero* getHero() const;
+    const MapPointer* getPointer() const;
     Hex getMapGridDimensions() const;
     void accept(RendersVisitator& visitor) const override;
     virtual void reactToClick(bool left_button, Hex click_position) override;
@@ -39,6 +41,7 @@ private:
     HexMap<MapTile> tiles_;
     std::vector<MapDecoration> decorations_;
     MapHero hero_;
+    MapPointer pointer_;
     ResourceCounter resources_;
     std::weak_ptr<InputController> input_controller_;
     MapTile* marked_tile_ = nullptr;
