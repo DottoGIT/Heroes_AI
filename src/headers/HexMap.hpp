@@ -34,7 +34,7 @@ public:
     std::vector<Hex> getNeighbors(Hex hex) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance) const;
-    std::vector<Hex> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance) const;
+    std::vector<Hex> getReachableTiles(Hex start, const std::function<bool(Hex)>& reachable, unsigned distance) const;
     size_t getWidth() const;
     size_t getHeight() const;
 
@@ -229,7 +229,7 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance) const
+inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, const std::function<bool(Hex)> &reachable, unsigned distance) const
 {
     if (distance == 0) return {};
 
@@ -266,7 +266,7 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bo
         if (*it) {
             result.push_back(it.coords());
         }
-    })
+    });
     return result;
 }
 
