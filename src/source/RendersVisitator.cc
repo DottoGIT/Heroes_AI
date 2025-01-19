@@ -36,6 +36,14 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
         decorations_to_render_.push_back(&decorations);
     }
 
+    for(const FogTile& fog : map_manager.getFog())
+    {
+        if(fog.isActive())
+        {
+            decorations_to_render_.push_back(&fog);
+        }
+    }
+
     decorations_to_render_.push_back(map_manager.getHero());
     decorations_to_render_.push_back(map_manager.getPointer());
 

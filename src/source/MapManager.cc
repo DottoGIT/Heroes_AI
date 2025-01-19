@@ -7,10 +7,12 @@
 
 MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
+      fog_(HexMap<FogTile>(tiles_.getWidth()+1, tiles_.getHeight())),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
       input_controller_(input_controller)
 {
-    hero_.setPosition(Hex(6, 5));
+    hero_.setPosition(PLAYER_START_POSITION);
+    initFogOfWar(PLAYER_START_POSITION);
     if(auto locked = input_controller_.lock())
     {
         locked->subscribeToMouseClick(this);
@@ -58,6 +60,11 @@ const std::vector<MapTile>& MapManager::getTiles() const
     return tiles_.getConstDataVector();
 }
 
+const std::vector<FogTile>& MapManager::getFog() const
+{
+    return fog_.getConstDataVector();
+}
+
 const std::vector<MapDecoration>& MapManager::getDecorations() const
 {
     return decorations_;
@@ -100,11 +107,39 @@ void MapManager::reactToClick(bool left_button, Hex click_position)
         Hex hero_offset = Hex(pos.q, pos.r-1);
         hero_.setFlip(hero_offset.q < hero_.getPosition().q);
         hero_.setPosition(hero_offset);
+        updateFogOfWar(pos);
         pointer_.hide();
     }
     else
     {
         marked_tile_ = clicked_tile;
         pointer_.setPosition(pos);
+    }
+}
+
+void MapManager::initFogOfWar(const Hex& point)
+{
+    for(int y = 0; y < fog_.getHeight(); y++)
+    {
+        for(int x = 0; x < fog_.getWidth(); x++)
+        {
+            fog_.at(Hex(x,y)).setPosition(Hex(x-1,y));
+        }
+    }
+    updateFogOfWar(point);
+}
+
+void MapManager::updateFogOfWar(const Hex& point)
+{
+    for (int y = 0; y < fog_.getHeight(); y++)
+    {
+        for (int x = 0; x < fog_.getWidth(); x++)
+        {
+            Hex tile(x, y);
+            if (point.distanceTo(tile) <= DISCOVERY_RADIUS)
+            {
+                fog_.at(tile).setActive(false);
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ struct Hex
     int q, r;
     Hex();
     Hex(int q, int r);
-
+    int distanceTo(const Hex& other) const;
     bool operator==(const Hex& other) const;
     bool operator!=(const Hex& other) const;
     Hex operator+(const Hex& other) const;

@@ -26,6 +26,12 @@ Hex::Hex(int q, int r)
 Hex::Hex()
         : q(0), r(0) {}
 
+
+int Hex::distanceTo(const Hex& other) const
+{
+        return int(sqrt(pow(other.q - q, 2) + pow(other.r - r, 2)));
+}
+
 bool Hex::operator==(const Hex& other) const {
         return q == other.q && r == other.r;
 }
