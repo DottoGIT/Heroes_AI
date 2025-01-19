@@ -4,6 +4,7 @@
 #include "MapFileConverter.h"
 #include "Logger.h"
 #include "GridPositionParser.h"
+#include "Resource.h"
 
 MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
@@ -85,12 +86,6 @@ Hex MapManager::getMapGridDimensions() const
     return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
 }
 
-
-const std::map<ResourceType, int>& MapManager::getResources() const
-{
-    return resources_.getAllResources();
-}
-
 void MapManager::reactToClick(bool left_button, Hex click_position)
 {
     Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
@@ -104,10 +99,9 @@ void MapManager::reactToClick(bool left_button, Hex click_position)
 
     if(marked_tile_ != nullptr && marked_tile_->getPosition() == clicked_tile->getPosition())
     {
-        Hex hero_offset = Hex(pos.q, pos.r-1);
-        hero_.setFlip(hero_offset.q < hero_.getPosition().q);
-        hero_.setPosition(hero_offset);
+        moveHero(pos);
         updateFogOfWar(pos);
+        clicked_tile->interact();
         pointer_.hide();
     }
     else
@@ -142,4 +136,11 @@ void MapManager::updateFogOfWar(const Hex& point)
             }
         }
     }
+}
+
+void MapManager::moveHero(const Hex& point)
+{
+    Hex hero_offset = Hex(point.q, point.r-1);
+    hero_.setFlip(hero_offset.q < hero_.getPosition().q);
+    hero_.setPosition(hero_offset);
 }

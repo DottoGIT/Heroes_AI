@@ -35,7 +35,6 @@ public:
     const std::vector<MapTile>& getTiles() const;
     const std::vector<FogTile>& getFog() const;
     const std::vector<MapDecoration>& getDecorations() const;
-    const std::map<ResourceType, int>& getResources() const;
     const MapHero* getHero() const;
     const MapPointer* getPointer() const;
     Hex getMapGridDimensions() const;
@@ -49,10 +48,10 @@ private:
     std::vector<MapDecoration> decorations_;
     MapHero hero_;
     MapPointer pointer_;
-    ResourceCounter resources_;
     std::weak_ptr<InputController> input_controller_;
     MapTile* marked_tile_ = nullptr;
 
     void initFogOfWar(const Hex& point);
     void updateFogOfWar(const Hex& point);
+    void moveHero(const Hex& point);
 };

@@ -26,7 +26,7 @@ public:
     MapEnemy(std::shared_ptr<FieldArmy> army);
     ~MapEnemy() = default;
 
-    void interact(MapTile& myTile) override;
+    bool interact() override;
     void setPosition(const Hex& position) override;
     void setSpritePath(const std::string& path) override;
     std::shared_ptr<IInteractable> clone() const override;

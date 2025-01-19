@@ -49,5 +49,4 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
 
     scene_type_ = SceneType::Map;
     grid_dimensions_ = map_manager.getMapGridDimensions();
-    resources = map_manager.getResources();
 }

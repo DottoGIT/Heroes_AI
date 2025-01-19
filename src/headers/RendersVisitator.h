@@ -32,5 +32,4 @@ protected:
     Hex grid_dimensions_;
     std::string background_;
     SceneType scene_type_;
-    std::map<ResourceType, int> resources;
 };

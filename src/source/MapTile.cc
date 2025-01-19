@@ -68,9 +68,15 @@ bool MapTile::interact()
 {
     if(!interactable_)
     {
-    return false;
+        return false;
     }
 
-    interactable_->interact(*this);
+    bool delete_after_interaction = interactable_->interact();
+
+    if(delete_after_interaction)
+    {
+        interactable_ = nullptr;
+    }
+
     return true;
 }

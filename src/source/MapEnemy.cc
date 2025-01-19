@@ -7,11 +7,12 @@ MapEnemy::MapEnemy(std::shared_ptr<FieldArmy> army)
 {
 }
 
-void MapEnemy::interact(MapTile& myTile)
+bool MapEnemy::interact()
 {
     std::stringstream ss;
     ss << "Enemy encoutered, army size: " << army_->getUnits().size();
     Logger::info(ss.str());
+    return false;
 }
 
 void MapEnemy::setPosition(const Hex& position)

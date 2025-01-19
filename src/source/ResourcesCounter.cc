@@ -3,13 +3,13 @@
 ResourceCounter::ResourceCounter() 
 {
     resources_ = {
-        {ResourceType::Wood, 20},
-        {ResourceType::Coal, 20},
-        {ResourceType::Mercury, 5},
-        {ResourceType::Sulfur, 5},
-        {ResourceType::Crystals, 5},
-        {ResourceType::Gems, 5},
-        {ResourceType::Gold, 10000},
+        {ResourceType::Wood, 0},
+        {ResourceType::Coal, 0},
+        {ResourceType::Mercury, 0},
+        {ResourceType::Sulfur, 0},
+        {ResourceType::Crystals, 0},
+        {ResourceType::Gems, 0},
+        {ResourceType::Gold, 0},
     };
 }
 
