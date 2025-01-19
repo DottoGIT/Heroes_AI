@@ -1,6 +1,6 @@
 /*
  * File:        Hex.h
- * Description: Implements Hex offset coordinates "even-r"
+ * Description: Implements Hex offset coordinates "axial"
  *              Based on article Hexagonal Grids from Red Blob Games
  *              link: https://www.redblobgames.com/grids/hexagons/
  *

@@ -2,21 +2,13 @@
 #include "Hex.h"
 
 namespace {
-        static const std::array<Hex, 6> neighbour_offsets_odd = {
-                Hex(-1, -1),
-                Hex(0, -1),
-                Hex(1, 0),
-                Hex(0, 1),
+        static const std::array<Hex, 6> neighbour_offsets = {
+                Hex( 1, 0),
+                Hex( 0, 1),
                 Hex(-1, 1),
-                Hex(-1, 0)
-        };
-        static const std::array<Hex, 6> neighbour_offsets_even = {
-                Hex(0, -1),
-                Hex(1, -1),
-                Hex(1, 0),
-                Hex(1, 1),
-                Hex(0, 1),
-                Hex(-1, 0)
+                Hex(-1, 0),
+                Hex( 0,-1),
+                Hex( 1,-1)
         };
 };
 
@@ -42,10 +34,9 @@ Hex Hex::operator+(const Hex &other) const
 
 std::array<Hex, 6> Hex::neighbors() const
 {
-    std::array<Hex, 6> offsets = r % 2 ? neighbour_offsets_odd : neighbour_offsets_even;
     std::array<Hex, 6> results;
     std::transform(
-        offsets.begin(), offsets.end(), results.begin(),
+        neighbour_offsets.begin(), neighbour_offsets.end(), results.begin(),
         [this](const Hex& hex_offset){
                 return *this + hex_offset;
         });
