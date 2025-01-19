@@ -32,3 +32,13 @@ std::vector<FieldUnit>::const_iterator FieldArmy::cend() const
 {
     return units_.cend();
 }
+
+std::vector<FieldUnit>::iterator FieldArmy::begin()
+{
+    return units_.begin();
+}
+
+std::vector<FieldUnit>::iterator FieldArmy::end()
+{
+    return units_.end();
+}
