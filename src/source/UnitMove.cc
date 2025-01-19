@@ -4,23 +4,23 @@ UnitMove::UnitMove()
     : type_(MoveType::Wait)
 {}
 
-UnitMove::UnitMove(MoveType type, const Hex move_target, const Hex attack_target)
-    : type_(type), move_target_(move_target), attack_target_(attack_target)
+UnitMove::UnitMove(MoveType type, const Hex target)
+    : type_(type), target_(target)
 {}
 
 UnitMove UnitMove::move(const Hex move_target)
 {
-    return UnitMove(MoveType::Move, move_target, Hex());
+    return UnitMove(MoveType::Move, move_target);
 }
 
 UnitMove UnitMove::attack(const Hex attack_target)
 {
-    return UnitMove(MoveType::Attack, Hex(), attack_target);
+    return UnitMove(MoveType::Attack, attack_target);
 }
 
-UnitMove UnitMove::moveAndAttack(const Hex move_target, const Hex attack_target)
+UnitMove UnitMove::wait()
 {
-    return UnitMove(MoveType::MoveAndAttack, move_target, attack_target);
+    return UnitMove(MoveType::Wait, Hex());
 }
 
 const MoveType UnitMove::getType() const
@@ -28,12 +28,7 @@ const MoveType UnitMove::getType() const
     return type_;
 }
 
-const Hex UnitMove::getMoveTarget() const
+const Hex UnitMove::getTarget() const
 {
-    return move_target_;
-}
-
-const Hex UnitMove::getAttackTarget() const
-{
-    return attack_target_;
+    return target_;
 }

@@ -13,24 +13,21 @@
 enum class MoveType {
     Wait,
     Move,
-    Attack,
-    MoveAndAttack
+    Attack
 };
 
 class UnitMove
 {
 private:
     MoveType type_;
-    Hex move_target_;
-    Hex attack_target_;
+    Hex target_;
 private:
-    UnitMove(MoveType type, const Hex move_target, const Hex attack_target);
+    UnitMove(MoveType type, const Hex target);
 public:
     UnitMove();
     static UnitMove move(const Hex move_target);
     static UnitMove attack(const Hex attack_target);
-    static UnitMove moveAndAttack(const Hex move_target, const Hex attack_target);
+    static UnitMove wait();
     const MoveType getType() const;
-    const Hex getMoveTarget() const;
-    const Hex getAttackTarget() const;
+    const Hex getTarget() const;
 };
