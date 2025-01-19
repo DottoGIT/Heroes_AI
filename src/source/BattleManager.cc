@@ -2,9 +2,31 @@
 #include "RendersVisitator.h"
 #include "Logger.h"
 
+namespace {
+    std::array<Hex, 7> playerStartPositions = {
+        Hex(0, 0),
+        Hex(-1, 2),
+        Hex()
+    };
+};
+
 BattleManager::BattleManager()
     : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT)
 {}
+
+BattleManager::BattleManager(
+    const std::vector<Unit> &playerArmy, const std::vector<Unit> &enemyArmy,
+    HexMap<Tile> map
+)   : map_(std::move(map))
+{
+    FieldArmy playerFieldArmy;
+    std::for_each(playerArmy.begin(), playerArmy.end(),
+        [&, index = 0](const Unit& unit) mutable {
+            playerFieldArmy.addUnit(FieldUnit(playerArmy.at(index), playerStartPositions.at(index)));
+            index++;
+        }
+    );
+}
 
 BattleManager::BattleManager(const FieldArmy &playerArmy, const FieldArmy &botArmy)
     : playerArmy_(playerArmy), botArmy_(botArmy), map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT)

@@ -12,11 +12,9 @@
 #include <memory>
 #include <vector>
 
+#include "BattleField.h"
 #include "Hex.h"
-#include "FieldArmy.h"
 #include "IManager.h"
-#include "InitiativeQueue.h"
-#include "FieldUnit.h"
 #include "HexMap.hpp"
 
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
@@ -27,17 +25,14 @@ class BattleManager : public IManager
 {
 public:
     BattleManager();
-    BattleManager(const FieldArmy& playerArmy, const FieldArmy& botArmy);
+    BattleManager(const std::vector<Unit>& playerArmy, const std::vector<Unit>& enemyArmy, HexMap<Tile> map);
     std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
     const std::string& getBackground() const;
     void accept(RendersVisitator& visitor) const override;
 private:
-    FieldArmy playerArmy_;
-    FieldArmy botArmy_;
-    HexMap<std::shared_ptr<FieldUnit>> map_;
-    InitiativeQueue initiativeQueue_;
+    BattleField field_;
+    HexMap<Tile> map_;
     std::string background_;
 
-    void setInitiativeQueue();
     void setUnitsInStartingPositions();
 };
