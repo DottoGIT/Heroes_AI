@@ -36,6 +36,8 @@ public:
     int getSpritePriority() const override;
     Hex getPosition() const override;
     bool isFlipped() const override;
+    
+    virtual MapObjectType myObjectType() const override;
 
 private:
     ResourceType type_;

@@ -18,6 +18,17 @@ namespace {
                 Hex(0, 1),
                 Hex(-1, 0)
         };
+        static const std::array<Hex, 9> neighbour_offsets_square = {
+                Hex(-1, -1),
+                Hex(0, -1),
+                Hex(1, -1),
+                Hex(1, 0),
+                Hex(1, 1),
+                Hex(0, 1),
+                Hex(-1, 1),
+                Hex(-1, 0),
+                Hex(0, 0)
+        };
 };
 
 Hex::Hex(int q, int r)
@@ -50,6 +61,18 @@ std::array<Hex, 6> Hex::neighbors() const
 {
     std::array<Hex, 6> offsets = r % 2 ? neighbour_offsets_odd : neighbour_offsets_even;
     std::array<Hex, 6> results;
+    std::transform(
+        offsets.begin(), offsets.end(), results.begin(),
+        [this](const Hex& hex_offset){
+                return *this + hex_offset;
+        });
+    return results;
+}
+
+std::array<Hex, 9> Hex::neighborsSquare() const
+{
+    std::array<Hex, 9> offsets = neighbour_offsets_square;
+    std::array<Hex, 9> results;
     std::transform(
         offsets.begin(), offsets.end(), results.begin(),
         [this](const Hex& hex_offset){

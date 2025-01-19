@@ -22,6 +22,7 @@ struct Hex
     bool operator!=(const Hex& other) const;
     Hex operator+(const Hex& other) const;
     std::array<Hex, 6> neighbors() const;
+    std::array<Hex, 9> neighborsSquare() const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Hex& hex);

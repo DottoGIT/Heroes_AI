@@ -61,3 +61,8 @@ bool Resource::isFlipped() const
 {
     return false;
 }
+
+MapObjectType Resource::myObjectType() const
+{
+    return MapObjectType::Resource;
+}

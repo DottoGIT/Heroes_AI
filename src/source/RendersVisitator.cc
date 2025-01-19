@@ -24,7 +24,7 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
     for(const MapTile& tile : map_manager.getTiles())
     {
         objects_to_render_.push_back(&tile);
-        auto interacable = tile.getInteractable();
+        auto interacable = tile.getConstInteractable();
         if(interacable)
         {
             decorations_to_render_.push_back(interacable);

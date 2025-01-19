@@ -101,13 +101,13 @@ void MapManager::reactToClick(bool left_button, Hex click_position)
     {
         moveHero(pos);
         updateFogOfWar(pos);
-        clicked_tile->interact();
+        interactWithTile(pos);
         pointer_.hide();
     }
     else
     {
         marked_tile_ = clicked_tile;
-        pointer_.setPosition(pos);
+        pointer_.setPosition(pos, isTileOccupiedByUnit(pos));
     }
 }
 
@@ -144,3 +144,34 @@ void MapManager::moveHero(const Hex& point)
     hero_.setFlip(hero_offset.q < hero_.getPosition().q);
     hero_.setPosition(hero_offset);
 }
+
+MapEnemy* MapManager::isTileOccupiedByUnit(const Hex& point)
+{
+    Hex unitOffset = Hex(point.q, point.r-1);
+    std::array<Hex, 9> neighbours = unitOffset.neighborsSquare();
+
+    for(const auto& n : neighbours)
+    {
+        MapTile tile = tiles_.at(n);
+        if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::Enemy)
+        {
+
+            MapEnemy* enemy = dynamic_cast<MapEnemy*>(tile.getInteractable());
+            return enemy;
+        }
+    }
+    return nullptr;
+}
+
+void MapManager::interactWithTile(const Hex& point)
+{
+    MapEnemy* foundEnemy = isTileOccupiedByUnit(point);
+    if(!foundEnemy)
+    {
+        tiles_.at(point).interact();
+        return;
+    }
+
+    foundEnemy->interact();
+}
+

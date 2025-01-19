@@ -22,6 +22,7 @@
 #include "IClickable.h"
 #include "MapPointer.h"
 #include "FogTile.h"
+#include "MapEnemy.h"
 
 class RendersVisitator;
 
@@ -54,4 +55,6 @@ private:
     void initFogOfWar(const Hex& point);
     void updateFogOfWar(const Hex& point);
     void moveHero(const Hex& point);
+    MapEnemy* isTileOccupiedByUnit(const Hex& point);
+    void interactWithTile(const Hex& point);
 };

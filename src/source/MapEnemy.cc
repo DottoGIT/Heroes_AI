@@ -54,3 +54,8 @@ bool MapEnemy::isFlipped() const
 {
     return false;
 }
+
+MapObjectType MapEnemy::myObjectType() const
+{
+    return MapObjectType::Enemy;
+}

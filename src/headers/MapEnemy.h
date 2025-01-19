@@ -37,6 +37,8 @@ public:
     Hex getPosition() const override;
     bool isFlipped() const override;
 
+    virtual MapObjectType myObjectType() const override;
+
 private:
     std::shared_ptr<FieldArmy> army_;
     std::string path_to_sprite_;
