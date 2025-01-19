@@ -43,6 +43,13 @@ std::array<Hex, 6> Hex::neighbors() const
     return results;
 }
 
+unsigned Hex::distance(const Hex &other) const
+{
+    return (abs(q - other.q)
+          + abs(q + r - other.q - other.r)
+          + abs(r - other.r)) / 2;
+}
+
 std::ostream& operator<<(std::ostream& os, const Hex& hex) {
         os << "Hex(q: " << hex.q << ", r: " << hex.r << ")";
         return os;
