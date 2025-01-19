@@ -114,10 +114,9 @@ const T& HexMap<T>::at(const Hex hex) const
 template <typename T>
 bool HexMap<T>::inBounds(Hex hex) const
 {
-    std::size_t index = hexToIndex( hex);
-    if (hex.q < 0 || hex.q >= width_)
-        return false;
     if (hex.r < 0 || hex.r >= height_)
+        return false;
+    if ((hex.q + hex.r % 2) < 0 || (hex.q + hex.r % 2) >= width_)
         return false;
     return true;
 }
@@ -274,7 +273,7 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bo
 template <typename T>
 inline std::size_t HexMap<T>::hexToIndex(Hex hex) const noexcept
 {
-    return hex.r * width_ + hex.q;
+    return (hex.r + hex.q % 2) * width_ + hex.q;
 }
 
 template <typename T>
