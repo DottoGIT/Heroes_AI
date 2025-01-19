@@ -16,6 +16,7 @@
 #include "RendersVisitator.h"
 #include "TextureManager.h"
 #include "Hex.h"
+#include "SDL_ttf.h"
 
 constexpr int BATTLE_GRID_ANCHOR_X = 0;
 constexpr int BATTLE_GRID_ANCHOR_Y = 100;
@@ -41,11 +42,16 @@ public:
 private:
     SDL_Renderer* renderer_;
     SDL_Window* window_;
+    TTF_Font* font_;
     TextureManager texture_manager_;
+
     void sortRenders(std::vector<const IRenderable*>& objects);
     void renderBattle();
     void renderMap();
     void renderResources();
+    void rednerVictoryScreen();
+
+    void initFont();
     
     SDL_Rect makeRectFromRenderable(const IRenderable& render) const;
     SDL_Rect makeBattleCellRect(Hex position) const;

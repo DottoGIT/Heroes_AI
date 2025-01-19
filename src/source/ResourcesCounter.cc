@@ -36,3 +36,15 @@ const std::map<ResourceType, int>& ResourceCounter::getAllResources() const
 {
     return resources_;
 }
+
+bool ResourceCounter::allResourcesCollected() const
+{
+    return 
+        getResourceAmount(ResourceType::Wood)       == 3 &&
+        getResourceAmount(ResourceType::Coal)       == 3 &&
+        getResourceAmount(ResourceType::Mercury)    == 2 &&
+        getResourceAmount(ResourceType::Sulfur)     == 1 &&
+        getResourceAmount(ResourceType::Crystals)   == 2 &&
+        getResourceAmount(ResourceType::Gems)       == 1 &&
+        getResourceAmount(ResourceType::Gold)       == 3000;
+}

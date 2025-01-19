@@ -36,8 +36,12 @@ private:
     void handleEvents();
     void update();
     void render();
+
+    void waitForFPS(Uint64 frame_start);
     
-    bool isRunning_;
+    bool is_running_ = false;
+    bool gameWon = false;
+
     SceneType currentScene_;
 
     std::unique_ptr<Display> display_;

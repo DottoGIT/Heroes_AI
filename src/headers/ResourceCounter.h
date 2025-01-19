@@ -26,9 +26,10 @@ public:
         return instance;
     }
 
-    int getResourceAmount(ResourceType resource) const;
     void setResourceAmount(ResourceType resource, int amount);
     void modifyResourceAmount(ResourceType resource, int delta);
+    int getResourceAmount(ResourceType resource) const;
+    bool allResourcesCollected() const;
     const std::map<ResourceType, int>& getAllResources() const;
 
 private:

@@ -5,7 +5,6 @@
 #include "HeroesAIExcept.h"
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
-#include "SDL_ttf.h"
 #include "IManager.h"
 #include "IRenderable.h"
 #include "GridPositionParser.h"
@@ -14,7 +13,9 @@
 
 Display::Display()
     : window_(nullptr), renderer_(nullptr), texture_manager_()
-{}
+{
+    initFont();
+}
 
 Display::~Display()
 {
@@ -55,6 +56,10 @@ void Display::render(const IManager& manager)
         sortRenders(decorations_to_render_);
         renderMap();
         renderResources();
+        if(ResourceCounter::getInstance().allResourcesCollected())
+        {
+            rednerVictoryScreen();
+        }
         break;
     default:
         Logger::error("Non existant scene type render request");
@@ -76,8 +81,15 @@ void Display::clean()
         Logger::warning("Display.clean(): Window pointer is nullptr");
     }
 
+    if(font_ == nullptr)
+    {
+        Logger::warning("Display.clean(): Font pointer is nullptr");
+    }
+
     SDL_DestroyWindow(window_);
     SDL_DestroyRenderer(renderer_);
+    TTF_CloseFont(font_);
+    TTF_Quit();
 }
 
 void Display::renderBattle()
@@ -224,26 +236,12 @@ SDL_Rect Display::makeMapObjectRect(const IRenderable& render) const
 
 void Display::renderResources()
 {
-    if (TTF_Init() == -1) 
-    {
-        Logger::error("Failed to initialize SDL_ttf: " + std::string(TTF_GetError()));
-        return;
-    }
-
     SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
     SDL_Rect redSquare = { 0, 0, 800, 25 };
     SDL_Color textColor = { 255, 255, 255, 255 };
     SDL_RenderFillRect(renderer_, &redSquare);
 
     // Load font
-    TTF_Font* font = TTF_OpenFont("media/fonts/pixel_font.ttf", 12);
-    if (!font) 
-    {
-        Logger::error("Could not load font: " + std::string(TTF_GetError()));
-        TTF_Quit();
-        return;
-    }
-
     int offset = 30;
     for (const auto& entry : ResourceCounter::getInstance().getAllResources())
     {
@@ -251,12 +249,11 @@ void Display::renderResources()
         ss << entry.first << ": " << entry.second;
         std::string text = ss.str();
 
-        SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font_, text.c_str(), textColor);
         if (!textSurface)
         {
             Logger::error("Failed to create text surface: " + std::string(TTF_GetError()));
-            TTF_CloseFont(font);
-            TTF_Quit();
+            
             return;
         }
 
@@ -265,20 +262,72 @@ void Display::renderResources()
         {
             Logger::error("Failed to create text texture: " + std::string(SDL_GetError()));
             SDL_FreeSurface(textSurface);
-            TTF_CloseFont(font);
-            TTF_Quit();
             return;
         }
 
-        SDL_Rect textRect = { offset, 8, textSurface->w, textSurface->h };
+        SDL_Rect textRect = { offset, 5, textSurface->w, textSurface->h };
         SDL_RenderCopy(renderer_, textTexture, NULL, &textRect);
         SDL_DestroyTexture(textTexture);
         SDL_FreeSurface(textSurface);
         offset += 108;
     }
+}
 
-    TTF_CloseFont(font);
-    TTF_Quit();
+void Display::rednerVictoryScreen()
+{
+    int popupX = 200;
+    int popupY = 250;
+    int popupWidth = 400;
+    int popupHeight = 50;
+
+    // Define text properties
+    const char* victoryText = "You Have Collected All Of The Resources. You Won!";
+    SDL_Color textColor = { 255, 255, 255, 255 };
+    SDL_SetRenderDrawColor(renderer_, 50, 50, 50, 200);
+    SDL_Rect popup = { popupX, popupY, popupWidth, popupHeight };
+    SDL_RenderFillRect(renderer_, &popup);
+    SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
+    SDL_RenderDrawRect(renderer_, &popup);
+
+    // Make Text Surface
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font_, victoryText, textColor);
+    if (textSurface == nullptr) {
+        std::cerr << "Error rendering text: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    // Make Text Texture
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer_, textSurface);
+    SDL_FreeSurface(textSurface);
+    if (textTexture == nullptr) {
+        std::cerr << "Error creating text texture: " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    int textWidth, textHeight;
+    SDL_QueryTexture(textTexture, nullptr, nullptr, &textWidth, &textHeight);
+    int textX = popupX + (popupWidth - textWidth) / 2;
+    int textY = popupY + (popupHeight - textHeight) / 2 + 3;
+    SDL_Rect textRect = { textX, textY, textWidth, textHeight };
+
+    SDL_RenderCopy(renderer_, textTexture, nullptr, &textRect);
+    SDL_DestroyTexture(textTexture);
+}
+
+void Display::initFont()
+{
+    if (TTF_Init() == -1) 
+    {
+        Logger::error("Failed to initialize SDL_ttf: " + std::string(TTF_GetError()));
+        return;
+    }
+    font_ = TTF_OpenFont("media/fonts/pixel_font.ttf", 12);
+    if (!font_) 
+    {
+        Logger::error("Could not load font: " + std::string(TTF_GetError()));
+        TTF_Quit();
+        return;
+    }
 }
 
 

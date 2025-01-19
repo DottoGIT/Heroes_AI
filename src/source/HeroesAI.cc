@@ -13,7 +13,6 @@ HeroesAI::HeroesAI()
     inputController_ = std::make_shared<InputController>();
     mapManager_ = std::make_unique<MapManager>(inputController_);
 
-    isRunning_ = false;
     currentScene_ = SceneType::Map;
 
     ///////////////////////////////////////////////////////////
@@ -57,7 +56,7 @@ int HeroesAI::init()
         Logger::error(e.what());
         return 1;
     }
-    isRunning_ = true;
+    is_running_ = true;
 
     return 0;
 }
@@ -65,9 +64,8 @@ int HeroesAI::init()
 void HeroesAI::start()
 {
     Uint64 frame_start;
-    Uint64 frame_time;
 
-    while(isRunning_)
+    while(is_running_)
     {
         frame_start = SDL_GetPerformanceCounter();
 
@@ -75,12 +73,7 @@ void HeroesAI::start()
         update();
         render();
 
-        // Wait for stable frame rate
-        frame_time = (SDL_GetPerformanceCounter() - frame_start) / SDL_GetPerformanceFrequency();
-        if(frame_time < FRAME_RATE)
-        {
-            SDL_Delay(Uint32(FRAME_RATE - frame_time) * 1000);
-        }
+        waitForFPS(frame_start);
     }
 }
 
@@ -92,7 +85,7 @@ void HeroesAI::handleEvents()
     {
         case SDL_QUIT:
             Logger::debug("Quit Action Detected, Stopping the Game");
-            isRunning_ = false;
+            is_running_ = false;
             break;
         default:
             inputController_->processInput(event);
@@ -122,5 +115,15 @@ void HeroesAI::render()
         break;
     default:
         Logger::error("Unrecognized Scene Type: ");
+    }
+}
+
+
+void HeroesAI::waitForFPS(Uint64 frame_start)
+{
+    Uint64 frame_time = (SDL_GetPerformanceCounter() - frame_start) / SDL_GetPerformanceFrequency();
+    if(frame_time < FRAME_RATE)
+    {
+        SDL_Delay(Uint32(FRAME_RATE - frame_time) * 1000);
     }
 }
