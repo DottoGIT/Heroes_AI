@@ -15,10 +15,12 @@ private:
     InitiativeQueue queue_;
     HexMap<Tile>* map_;
 public:
+    BattleField();
     BattleField(FieldArmy player, FieldArmy enemy, HexMap<Tile>* map);
-    const FieldArmy& getPlayer();
-    const FieldArmy& getEnemy();
-    const InitiativeQueue& getQueue();
+    const FieldArmy& getPlayer() const;
+    const FieldArmy& getEnemy() const;
+    const HexMap<Tile>* getMap() const;
+    const InitiativeQueue& getQueue() const;
     std::vector<UnitMove> getMoves() const;
     BattleField makeMove(const UnitMove unit_move) const;
 };
