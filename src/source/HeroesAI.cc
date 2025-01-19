@@ -4,7 +4,7 @@
 #include "Logger.h"
 #include "FieldArmy.h"
 #include "FieldUnit.h"
-#include "FieldUnitFactory.h"
+#include "UnitFactory.h"
 #include "UnitType.h"
 
 HeroesAI::HeroesAI()

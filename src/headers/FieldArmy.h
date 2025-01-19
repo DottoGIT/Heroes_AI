@@ -23,6 +23,8 @@ public:
     FieldUnit& at(const size_t index);
     std::vector<FieldUnit>::const_iterator cbegin() const;
     std::vector<FieldUnit>::const_iterator cend() const;
+    std::vector<FieldUnit>::iterator begin();
+    std::vector<FieldUnit>::iterator end();
 private:
     std::vector<FieldUnit> units_;
 };
