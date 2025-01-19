@@ -32,9 +32,9 @@ public:
     const T& at(const Hex hex) const;
     bool inBounds(Hex hex) const;
     std::vector<Hex> getNeighbors(Hex hex) const;
-    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
-    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
-    std::vector<Hex> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
+    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable) const;
+    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance) const;
+    std::vector<Hex> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance) const;
     size_t getWidth() const;
     size_t getHeight() const;
 
@@ -147,7 +147,7 @@ inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable)
+inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable) const
 {
     if (!reachable(end) || !inBounds(end)) return {};
 
@@ -184,7 +184,7 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance)
+inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance) const
 {
     if (!reachable(end) || !inBounds(end) || distance == 0) return {};
 
@@ -229,7 +229,7 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance)
+inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance) const
 {
     if (distance == 0) return {};
 
