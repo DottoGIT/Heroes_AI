@@ -25,12 +25,18 @@ private:
     std::vector<T> data_;
 public:
     HexMap(std::size_t width, std::size_t height);
+    void setData(std::vector<T>& data_);
+    std::vector<T>& getDataVector();                    // Used by InputController
+    const std::vector<T>& getConstDataVector() const;   // Used by Display
     T& at(Hex hex);
+    const T& at(const Hex hex) const;
     bool inBounds(Hex hex) const;
     std::vector<Hex> getNeighbors(Hex hex) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
     std::vector<Hex> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
+    size_t getWidth() const;
+    size_t getHeight() const;
 
 
     struct Iterator {
@@ -65,7 +71,38 @@ HexMap<T>::HexMap(std::size_t width, std::size_t height)
 {}
 
 template <typename T>
+void HexMap<T>::setData(std::vector<T>& data)
+{
+    if(data.size() != data_.size())
+        throw std::out_of_range("Data sizes do not match!");
+    data_ = data;
+}
+
+
+template <typename T>
+std::vector<T>& HexMap<T>::getDataVector()
+{
+    return data_;
+}
+
+template <typename T>
+const std::vector<T>& HexMap<T>::getConstDataVector() const
+{
+    return data_;
+}
+
+template <typename T>
 T& HexMap<T>::at(Hex hex)
+{
+    if (!inBounds(hex))
+        throw std::out_of_range("Column or row out of range!");
+    std::size_t index = hexToIndex(hex);
+    
+    return data_[index];
+}
+
+template <typename T>
+const T& HexMap<T>::at(const Hex hex) const
 {
     if (!inBounds(hex))
         throw std::out_of_range("Column or row out of range!");
@@ -83,6 +120,18 @@ bool HexMap<T>::inBounds(Hex hex) const
     if (hex.r < 0 || hex.r >= height_)
         return false;
     return true;
+}
+
+template <typename T>
+size_t HexMap<T>::getWidth() const
+{
+    return width_;
+}
+
+template <typename T>
+size_t HexMap<T>::getHeight() const
+{
+    return height_;
 }
 
 template <typename T>

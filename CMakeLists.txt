@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(Boost 1.83 REQUIRED COMPONENTS unit_test_framework)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 include_directories(src src/headers src/enums)
 include_directories(${Boost_INCLUDE_DIRS})
@@ -26,10 +27,10 @@ add_library(Heroes_AI_lib ${SOURCES} ${HEADERS})
 
 add_executable(Heroes_AI src/main.cc)
 
-target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
+target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
 
 add_executable(UnitTests tests/UnitTests.cc)
-target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
+target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
 
 add_executable(HexTests tests/HexTests.cc)
 target_link_libraries(HexTests Boost::unit_test_framework)

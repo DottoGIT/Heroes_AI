@@ -4,9 +4,9 @@ REM
 
 REM
 set BUILD_DIR=.\build
-set EXECUTABLE_MAIN=%BUILD_DIR%\Release\Heroes_AI.exe
-set EXECUTABLE_TESTS=%BUILD_DIR%\Release\UnitTests.exe
-set VCPKG=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+set EXECUTABLE_MAIN=%BUILD_DIR%\Debug\Heroes_AI.exe
+set EXECUTABLE_TESTS=%BUILD_DIR%\Debug\UnitTests.exe
+set VCPKG=D:\vcpkg\scripts\buildsystems\vcpkg.cmake
 
 REM
 if "%~1"=="" (
@@ -36,6 +36,20 @@ if /I "%~1"=="main" (
     ) else (
         echo Main executable not found. Building the project first...
     )
+    goto :eof
+)
+
+REM
+if /I "%~1"=="build-run" (
+    echo Building the project...
+    if not exist "%BUILD_DIR%" (
+        mkdir "%BUILD_DIR%"
+    )
+    cd "%BUILD_DIR%"
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=%VCPKG%
+    cmake --build .
+    cd ..
+    "%EXECUTABLE_MAIN%"
     goto :eof
 )
 

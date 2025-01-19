@@ -17,6 +17,8 @@
 #include "IManager.h"
 #include "HexMap.hpp"
 
+class RendersVisitator;
+
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
 
@@ -28,6 +30,8 @@ public:
     BattleManager(const std::vector<Unit>& playerArmy, const std::vector<Unit>& enemyArmy, HexMap<Tile> map);
     std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
     const std::string& getBackground() const;
+    Hex getBattleGridDimensions() const;
+
     void accept(RendersVisitator& visitor) const override;
 private:
     BattleField field_;

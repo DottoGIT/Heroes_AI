@@ -12,6 +12,7 @@ Uproszczona wersja gry Heroes III z implementacją algorytmu min-max
 - cmake
 
 # Automatyczna kompilacja i uruchomienie
+!UWAGA! aby outlook nie flagował zip'a jako wirus, pliki boot w projekcie mają inne nazwy i rozszerzenia, które należy zmienić na te podane poniżej.
 ### Windows
 Do automatycznej kompilacji i uruchomienia projektu służy plik **boot.bat**, który za argument przyjmuje
 - **build**: buduje projekt w oparciu o sprecyzowany wewnątrz niego toolchain
@@ -26,6 +27,8 @@ mkdir build
 cd ./build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=/path/to/toolchain.cmake
 cmake --build .
+./Debug/HexTests.exe
+./Debug/HexMapTests.exe
 ./Debug/UnitTests.exe
 ./Debug/Heroes_AI.exe
 ```
@@ -38,6 +41,9 @@ mkdir -p build
 cd build
 cmake ..
 cmake --build .
-./UnitTests
-./Heroes_AI
+cd ..
+./build/HexTests
+./build/HexMapTests
+./build/UnitTests
+./build/Heroes_AI
 ```
