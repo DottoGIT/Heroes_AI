@@ -30,7 +30,7 @@ public:
     std::vector<Hex> getNeighbors(Hex hex) const;
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable);
     std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance);
-    HexMap<bool> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
+    std::vector<Hex> getReachableTiles(Hex start, std::function<bool(Hex)>& reachable, unsigned distance);
 
 
     struct Iterator {
@@ -181,9 +181,45 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline HexMap<bool> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance)
+inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, std::function<bool(Hex)> &reachable, unsigned distance)
 {
-    return HexMap<bool>();
+    if (distance == 0) return {};
+
+    HexMap<Hex> previous(width_, height_);
+    HexMap<uint8_t> visited(width_, height_);
+    HexMap<unsigned> distanceFrom(width_, height_);
+    std::fill(visited.begin(), visited.end(), false);
+
+    previous.at(start) = start;
+    visited.at(start) = true;
+    distanceFrom.at(start) = 0;
+
+    std::queue<Hex> queue;
+    queue.push(start);
+    while (!queue.empty())
+    {
+        Hex current = queue.front();
+        queue.pop();
+        visited.at(current) = true;
+        if (distanceFrom.at(current) == distance) continue;
+
+        unsigned neighboringDistance = distanceFrom.at(current) + 1;
+
+        for (Hex neighbour : getNeighbors(current)) {
+            if (visited.at(neighbour) || !reachable(neighbour)) continue;
+            visited.at(neighbour) = true;
+            queue.push(neighbour);
+            previous.at(neighbour) = current;
+            distanceFrom.at(neighbour) = neighboringDistance;
+        }
+    }
+    std::vector<Hex> result;
+    std::for_each(visited.begin(), visited.end(), [&](const HexMap<uint8_t>::Iterator& it) {
+        if (*it) {
+            result.push_back(it.coords());
+        }
+    })
+    return result;
 }
 
 template <typename T>
