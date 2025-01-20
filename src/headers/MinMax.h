@@ -4,9 +4,8 @@
 class MinMax
 {
 private:
-    /* data */
 public:
     MinMax(const BattleField& battlefield);
-    float evaluate(const BattleField& battlefield) const;
-    BattleField minMax(BattleField battlefield, int depth);
+    int evaluate(const BattleField& battlefield) const;
+    std::pair<BattleField, int> minMax(BattleField battlefield, int depth, int alpha, int beta);
 };
