@@ -12,6 +12,7 @@
 
 enum class ArmyType
 {
+    NONE,
     Player,
     Computer
 };
