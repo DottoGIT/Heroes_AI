@@ -30,8 +30,8 @@ BOOST_AUTO_TEST_CASE(InitiativeQueue_constructor)
     ));
     InitiativeQueue queue(player, enemy);
     BOOST_REQUIRE_EQUAL(2, queue.getQueue().size());
-    BOOST_CHECK_EQUAL(ArmyType::Computer, queue.getQueue().at(0));
-    BOOST_CHECK_EQUAL(ArmyType::Player, queue.getQueue().at(1));
+    BOOST_CHECK_EQUAL(ArmyType::Computer, queue.getQueue().at(0).type);
+    BOOST_CHECK_EQUAL(ArmyType::Player, queue.getQueue().at(1).type);
 }
 
 BOOST_AUTO_TEST_CASE(InitiativeQueue_constructor_larger_size) 

@@ -22,10 +22,10 @@ BOOST_AUTO_TEST_CASE(FieldUnit_Constructor)
     BOOST_CHECK_EQUAL(UnitType::Archer, my_fieldUnit.getUnitType());
     BOOST_CHECK_EQUAL(Hex(8, 9), my_fieldUnit.getPosition());
     BOOST_CHECK_EQUAL(6, my_fieldUnit.getHealth().get());
-    BOOST_CHECK_EQUAL(4, my_fieldUnit.getAttackStrength());
-    BOOST_CHECK_EQUAL(5, my_fieldUnit.getAttackRange());
-    BOOST_CHECK_EQUAL(6, my_fieldUnit.getWalkRange());
-    BOOST_CHECK_EQUAL(7, my_fieldUnit.getInitiative());
+    BOOST_CHECK_EQUAL(4, my_fieldUnit.getAttackStrength().get());
+    BOOST_CHECK_EQUAL(5, my_fieldUnit.getAttackRange().get());
+    BOOST_CHECK_EQUAL(6, my_fieldUnit.getWalkRange().get());
+    BOOST_CHECK_EQUAL(7, my_fieldUnit.getInitiative().get());
 }
 
 BOOST_AUTO_TEST_CASE(FieldUnit_setPosition)
