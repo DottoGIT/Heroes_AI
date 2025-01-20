@@ -6,9 +6,8 @@
 void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
 {
     objects_to_render_.clear();
-    auto allUnits = battle_manager.getAllUnits();
     
-    for(const std::unique_ptr<FieldUnitRenderable>& fieldUnit : allUnits)
+    for(const std::unique_ptr<FieldUnitRenderable>& fieldUnit : battle_manager.getAllUnits())
     {
         objects_to_render_.push_back(fieldUnit.get());
     }
