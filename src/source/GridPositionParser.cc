@@ -22,3 +22,17 @@ Hex GridPositionParser::parsePositionToGrid(const Hex& screen_pos, const Hex& ce
     int relative_q = (q - ((relative_r + 1) % 2) * even_row_indent) / cell_dimensions.q;
     return Hex(relative_q, relative_r);
 }
+
+Hex GridPositionParser::axialToOddr(const Hex &hex)
+{
+    int col = hex.q + (hex.r - (hex.r&1)) / 2;
+    int row = hex.r;
+    return Hex(col, row);
+}
+
+Hex GridPositionParser::OddrToAxial(const Hex &hex)
+{
+    int q = hex.q - (hex.r - (hex.q&1)) / 2;
+    int r = hex.r;
+    return Hex(q, r);
+}
