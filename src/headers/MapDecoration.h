@@ -8,7 +8,6 @@
  */
 
 #pragma once
-
 #include <string>
 #include "IRenderable.h"
 #include "Hex.h"

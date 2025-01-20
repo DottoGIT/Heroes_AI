@@ -7,10 +7,9 @@
  * Date:        01.12.2024
  */
 
-#include "Display.h"
-
 #include <iostream>
 #include <algorithm>
+#include "Display.h"
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
 #include "IManager.h"

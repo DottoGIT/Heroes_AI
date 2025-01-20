@@ -9,7 +9,6 @@
  */
 
 #pragma once
-
 #include "IRenderable.h"
 #include "Hex.h"
 

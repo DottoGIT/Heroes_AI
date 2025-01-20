@@ -7,8 +7,8 @@
  * Date:        01.12.2024
  */
 
-#include "Logger.h"
 #include <iomanip>
+#include "Logger.h"
 
 std::mutex Logger::mtx_;
 

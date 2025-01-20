@@ -9,7 +9,6 @@
 
 
 #include "HeroesAI.h"
-
 #include "Logger.h"
 #include "FieldArmy.h"
 #include "FieldUnit.h"

@@ -6,8 +6,8 @@
  * 
  * Date:        04.11.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class AttackType {

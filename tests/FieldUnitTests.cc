@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE FieldUnitTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "FieldUnit.h"
 #include "UnitType.h"
 

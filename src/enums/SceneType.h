@@ -6,8 +6,8 @@
  * 
  * Date:        17.12.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class SceneType

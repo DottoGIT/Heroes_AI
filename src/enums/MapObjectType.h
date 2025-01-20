@@ -6,8 +6,8 @@
  * 
  * Date:        19.01.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class MapObjectType {

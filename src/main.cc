@@ -7,7 +7,6 @@
  */
 
 #include <memory>
-
 #include "HeroesAI.h"
 #include "Logger.h"
 

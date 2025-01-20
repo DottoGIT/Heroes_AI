@@ -8,9 +8,7 @@
  */
 
 #pragma once
-
 #include <string>
-
 #include "IInteractable.h"
 #include "IRenderable.h"
 #include "ResourceType.h"

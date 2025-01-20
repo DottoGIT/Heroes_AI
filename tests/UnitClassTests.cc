@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE UnitClassTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "Unit.h"
 #include "UnitType.h"
 

@@ -7,8 +7,8 @@
  * Date:        02.12.2024
  */
 
-#include "Texture.h"
 #include <stdexcept>
+#include "Texture.h"
 
 Texture::Texture(const std::string &path, SDL_Renderer* renderer)
 {

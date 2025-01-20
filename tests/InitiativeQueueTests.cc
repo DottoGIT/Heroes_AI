@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE InitiativeQueueTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "InitiativeQueue.h"
 #include "UnitType.h"
 

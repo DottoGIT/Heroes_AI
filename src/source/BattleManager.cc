@@ -8,7 +8,6 @@
  */
 
 #include "BattleManager.h"
-
 #include "RendersVisitator.h"
 #include "Logger.h"
 

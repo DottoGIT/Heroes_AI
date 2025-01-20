@@ -9,7 +9,6 @@
  */
 
 #pragma once
-
 #include <vector>
 #include <memory>
 #include "FieldUnit.h"

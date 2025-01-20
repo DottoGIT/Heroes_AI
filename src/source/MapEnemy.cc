@@ -7,8 +7,8 @@
  * Date:        14.01.2025
  */
 
-#include "MapEnemy.h"
 #include <string>
+#include "MapEnemy.h"
 #include "Logger.h"
 
 MapEnemy::MapEnemy(Army army)

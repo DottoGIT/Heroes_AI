@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE UnitTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "Hex.h"
 
 BOOST_AUTO_TEST_CASE(Hex_Constructor)

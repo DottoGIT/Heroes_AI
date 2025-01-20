@@ -11,7 +11,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-
 #include "SDL2/SDL.h"
 #include "RendersVisitator.h"
 #include "TextureManager.h"

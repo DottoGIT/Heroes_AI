@@ -7,8 +7,8 @@
  * Date:        03.01.2025
  */
 
-#include "MapManager.h"
 #include <sstream>
+#include "MapManager.h"
 #include "RendersVisitator.h"
 #include "MapFileConverter.h"
 #include "Logger.h"

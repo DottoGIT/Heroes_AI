@@ -15,7 +15,6 @@
 #include <stdexcept>
 #include <queue>
 #include <functional>
-
 #include "Hex.h"
 
 template <typename T>

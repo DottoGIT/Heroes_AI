@@ -8,11 +8,9 @@
  */
 
 #pragma once
-
 #include <string>
 #include <vector>
 #include <memory>
-
 #include "IManager.h"
 #include "MapTile.h"
 #include "MapDecoration.h"

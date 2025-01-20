@@ -8,11 +8,9 @@
  */
 
 #pragma once
-
 #include <queue>
 #include <memory>
 #include <vector>
-
 #include "BattleField.h"
 #include "Army.h"
 #include "Hex.h"

@@ -7,10 +7,10 @@
  * Date:        03.01.2025
  */
 
-#include "MapFileConverter.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "MapFileConverter.h"
 #include "SymbolsTranslator.h"
 #include "Logger.h"
 

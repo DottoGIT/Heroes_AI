@@ -9,10 +9,8 @@
  */
 
 #pragma once
-
 #include <string>
 #include <memory>
-
 #include "Unit.h"
 #include "Health.h"
 #include "Hex.h"

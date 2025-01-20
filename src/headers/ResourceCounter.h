@@ -8,11 +8,10 @@
  */
 
 #pragma once
-
-#include "ResourceType.h"
 #include <map>
 #include <memory>
 #include <mutex>
+#include "ResourceType.h"
 
 class ResourceCounter 
 {

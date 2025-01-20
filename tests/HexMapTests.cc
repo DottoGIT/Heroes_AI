@@ -11,7 +11,6 @@
 #include <boost/test/included/unit_test.hpp>
 #include <boost/mpl/list.hpp>
 #include <algorithm>
-
 #include "HexMap.hpp"
 
 typedef boost::mpl::list<int, bool> test_types;

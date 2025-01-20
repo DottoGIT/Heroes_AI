@@ -7,6 +7,9 @@
  * Date:        27.12.2024
  */
 
+#pragma once
+#include <ostream>
+
 enum class MoveType {
     WAIT,
     MOVE,

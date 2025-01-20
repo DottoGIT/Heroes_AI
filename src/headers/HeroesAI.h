@@ -8,10 +8,8 @@
  */
 
 #pragma once
-
 #include <string>
 #include <memory>
-
 #include "Display.h"
 #include "MapManager.h"
 #include "BattleManager.h"

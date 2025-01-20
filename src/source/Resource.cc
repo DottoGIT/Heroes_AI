@@ -7,8 +7,8 @@
  * Date:        14.01.2024
  */
 
-#include "Resource.h"
 #include <string>
+#include "Resource.h"
 #include "Logger.h"
 #include "ResourceCounter.h"
 

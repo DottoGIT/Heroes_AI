@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE HealthTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "Health.h"
 
 BOOST_AUTO_TEST_CASE(Health_Constructor)

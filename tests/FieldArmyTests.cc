@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE FieldArmyTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "FieldArmy.h"
 #include "UnitType.h"
 

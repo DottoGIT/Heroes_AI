@@ -8,10 +8,8 @@
  */
 
 #pragma once
-
 #include <string>
 #include <memory>
-
 #include "IInteractable.h"
 #include "IRenderable.h"
 #include "Army.h"
