@@ -3,8 +3,6 @@
 #include "Unit.h"
 #include "FieldUnit.h"
 #include "UnitType.h"
-#include "RangeStrategy.h"
-#include "MeleeStrategy.h"
 
 
 
