@@ -116,7 +116,7 @@ bool HexMap<T>::inBounds(Hex hex) const
 {
     if (hex.r < 0 || hex.r >= height_)
         return false;
-    if ((hex.q + hex.r % 2) < 0 || (hex.q + hex.r % 2) >= width_)
+    if ((hex.q + hex.r / 2) < 0 || (hex.q + hex.r / 2) >= width_)
         return false;
     return true;
 }

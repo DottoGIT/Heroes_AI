@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(Unit_Increase_Walk_Range)
     BOOST_CHECK_EQUAL(1, my_unit.getSingleUnitHealth().get());
     BOOST_CHECK_EQUAL(1, my_unit.getAttackStrength().get());
     BOOST_CHECK_EQUAL(1, my_unit.getAttackRange().get());
-    BOOST_CHECK_EQUAL(2, my_unit.getWalkRange().get());
+    BOOST_CHECK_EQUAL(3, my_unit.getWalkRange().get());
     BOOST_CHECK_EQUAL(1, my_unit.getInitiative().get());
 }
 

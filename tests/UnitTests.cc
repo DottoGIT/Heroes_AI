@@ -13,6 +13,11 @@
 
 // BOOST_AUTO_TEST_SUITE(Units_Tests)
 
+BOOST_AUTO_TEST_CASE(Test_Boost)
+{
+    BOOST_CHECK(true);
+}
+
 //////////////////////////////////////////////////
 /*                    Unit                      */
 //////////////////////////////////////////////////
