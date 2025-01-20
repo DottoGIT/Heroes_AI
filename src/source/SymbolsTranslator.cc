@@ -1,8 +1,9 @@
 #include "SymbolsTranslator.h"
 #include "Resource.h"
 #include "MapEnemy.h"
-#include "FieldUnitFactory.h"
+#include "UnitFactory.h"
 #include "UnitType.h"
+#include "Army.h"
 
 std::map<char, std::string> SymbolsTranslator::symbolsToPaths
 {
@@ -99,10 +100,10 @@ std::map<char, std::shared_ptr<IInteractable>> SymbolsTranslator::symbolsToObjec
     {'F', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('F'))},    
 };
 
-std::shared_ptr<FieldArmy> SymbolsTranslator::createArmyFromSymbol(char s)
+Army SymbolsTranslator::createArmyFromSymbol(char s)
 {
-    FieldUnitFactory unit_factory;
-    FieldArmy army(ArmyType::Computer);
+    UnitFactory unit_factory;
+    Army army;
     
     switch (s)
     {
@@ -128,5 +129,5 @@ std::shared_ptr<FieldArmy> SymbolsTranslator::createArmyFromSymbol(char s)
         break;
     }
 
-    return std::make_shared<FieldArmy>(army);
+    army;
 }

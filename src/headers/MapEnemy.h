@@ -14,7 +14,7 @@
 
 #include "IInteractable.h"
 #include "IRenderable.h"
-#include "FieldArmy.h"
+#include "Army.h"
 
 class MapTile;
 
@@ -23,7 +23,7 @@ constexpr const size_t ENEMY_HEIGHT = 64;
 
 class MapEnemy : public IInteractable {
 public:
-    MapEnemy(std::shared_ptr<FieldArmy> army);
+    MapEnemy(Army army);
     ~MapEnemy() = default;
 
     void interact(MapTile& myTile) override;
@@ -38,7 +38,7 @@ public:
     bool isFlipped() const override;
 
 private:
-    std::shared_ptr<FieldArmy> army_;
+    Army army_;
     std::string path_to_sprite_;
     Hex position_;
 };

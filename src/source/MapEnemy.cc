@@ -2,15 +2,15 @@
 #include <string>
 #include "Logger.h"
 
-MapEnemy::MapEnemy(std::shared_ptr<FieldArmy> army)
-    : army_(army)
+MapEnemy::MapEnemy(Army army)
+    : army_(std::move(army))
 {
 }
 
-void MapEnemy::interact(MapTile& myTile)
+void MapEnemy::interact(MapTile &myTile)
 {
     std::stringstream ss;
-    ss << "Enemy encoutered, army size: " << army_->getUnits().size();
+    ss << "Enemy encoutered, army size: " << army_.getUnits().size();
     Logger::info(ss.str());
 }
 
