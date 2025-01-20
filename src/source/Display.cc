@@ -55,10 +55,10 @@ void Display::render(const IManager& manager)
 
     switch (scene_type_)
     {
-    case SceneType::Battle:
+    case SceneType::BATTLE:
         renderBattle();
         break;
-    case SceneType::Map:
+    case SceneType::MAP:
         sortRenders(decorations_to_render_);
         renderMap();
         renderResources();

@@ -99,11 +99,11 @@ void BattleManager::makeMove(UnitMove unit_move)
     std::vector<std::unique_ptr<FieldUnitRenderable>> units_to_render;
     for (const FieldUnit& unit : field_.getPlayer().getUnits())
     {
-        units_to_render.emplace_back(std::make_unique<FieldUnitRenderable>(unit, texture_idle_.at(unit.getUnitType()), texture_dead_.at(unit.getUnitType()), ArmyType::Player));
+        units_to_render.emplace_back(std::make_unique<FieldUnitRenderable>(unit, texture_idle_.at(unit.getUnitType()), texture_dead_.at(unit.getUnitType()), ArmyType::PLAYER));
     }
     for (const FieldUnit& unit : field_.getEnemy().getUnits())
     {
-        units_to_render.emplace_back(std::make_unique<FieldUnitRenderable>(unit, texture_idle_.at(unit.getUnitType()), texture_dead_.at(unit.getUnitType()), ArmyType::Computer));
+        units_to_render.emplace_back(std::make_unique<FieldUnitRenderable>(unit, texture_idle_.at(unit.getUnitType()), texture_dead_.at(unit.getUnitType()), ArmyType::COMPUTER));
     }
     renderable_units_ = std::move(units_to_render);
 

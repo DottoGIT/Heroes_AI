@@ -66,5 +66,5 @@ bool MapEnemy::isFlipped() const
 
 MapObjectType MapEnemy::myObjectType() const
 {
-    return MapObjectType::Enemy;
+    return MapObjectType::ENEMY;
 }

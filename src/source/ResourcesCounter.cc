@@ -12,13 +12,13 @@
 ResourceCounter::ResourceCounter() 
 {
     resources_ = {
-        {ResourceType::Wood, 0},
-        {ResourceType::Coal, 0},
-        {ResourceType::Mercury, 0},
-        {ResourceType::Sulfur, 0},
-        {ResourceType::Crystals, 0},
-        {ResourceType::Gems, 0},
-        {ResourceType::Gold, 0},
+        {ResourceType::WOOD, 0},
+        {ResourceType::COAL, 0},
+        {ResourceType::MERCURY, 0},
+        {ResourceType::SULFUR, 0},
+        {ResourceType::CRYSTALS, 0},
+        {ResourceType::GEMS, 0},
+        {ResourceType::GOLD, 0},
     };
 }
 
@@ -49,11 +49,11 @@ const std::map<ResourceType, int>& ResourceCounter::getAllResources() const
 bool ResourceCounter::allResourcesCollected() const
 {
     return 
-        getResourceAmount(ResourceType::Wood)       == 3 &&
-        getResourceAmount(ResourceType::Coal)       == 3 &&
-        getResourceAmount(ResourceType::Mercury)    == 2 &&
-        getResourceAmount(ResourceType::Sulfur)     == 1 &&
-        getResourceAmount(ResourceType::Crystals)   == 2 &&
-        getResourceAmount(ResourceType::Gems)       == 1 &&
-        getResourceAmount(ResourceType::Gold)       == 3000;
+        getResourceAmount(ResourceType::WOOD)       == 3 &&
+        getResourceAmount(ResourceType::COAL)       == 3 &&
+        getResourceAmount(ResourceType::MERCURY)    == 2 &&
+        getResourceAmount(ResourceType::SULFUR)     == 1 &&
+        getResourceAmount(ResourceType::CRYSTALS)   == 2 &&
+        getResourceAmount(ResourceType::GEMS)       == 1 &&
+        getResourceAmount(ResourceType::GOLD)       == 3000;
 }

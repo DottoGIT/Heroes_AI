@@ -11,16 +11,16 @@
 #include <ostream>
 
 enum class AttackType {
-    Melee,
-    Ranged
+    MELEE,
+    RANGED
 };
 
 inline std::ostream& operator<<(std::ostream& os, AttackType type) {
     switch (type) {
-        case AttackType::Melee:
+        case AttackType::MELEE:
             os << "Melee";
             break;
-        case AttackType::Ranged:
+        case AttackType::RANGED:
             os << "Ranged";
             break;
         default:

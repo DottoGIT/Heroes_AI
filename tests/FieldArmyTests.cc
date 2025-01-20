@@ -25,12 +25,12 @@ BOOST_AUTO_TEST_CASE(FieldArmy_addUnit)
     FieldArmy army;
     army.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", ""),
+            Unit(UnitType::ARCHER, 2, 3, 4, 5, 6, 7, "", ""),
             Hex(8, 9)
     ));
     
     BOOST_REQUIRE_EQUAL(1, army.getUnits().size());
-    BOOST_CHECK_EQUAL(UnitType::Archer, army.at(0).getUnitType());
+    BOOST_CHECK_EQUAL(UnitType::ARCHER, army.at(0).getUnitType());
 }
 
 BOOST_AUTO_TEST_CASE(FieldArmy_citerator)
@@ -38,14 +38,14 @@ BOOST_AUTO_TEST_CASE(FieldArmy_citerator)
     FieldArmy army;
     army.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", ""),
+            Unit(UnitType::ARCHER, 2, 3, 4, 5, 6, 7, "", ""),
             Hex(8, 9)
     ));
 
     BOOST_REQUIRE_EQUAL(1, army.getUnits().size());
     auto it = army.cbegin();
     BOOST_REQUIRE(it != army.cend());
-    BOOST_CHECK_EQUAL(UnitType::Archer, it->getUnitType());
+    BOOST_CHECK_EQUAL(UnitType::ARCHER, it->getUnitType());
     ++it;
     BOOST_CHECK(it == army.cend());
 }

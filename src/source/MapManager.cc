@@ -181,7 +181,7 @@ MapEnemy* MapManager::isTileOccupiedByUnit(const Hex& point)
     {
         if(n.q < 0 || n.r < 0 || n.q >= MAP_WIDTH || n.r >= MAP_HEIGHT) continue;
         MapTile tile = tiles_[n.q][n.r];
-        if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::Enemy)
+        if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::ENEMY)
         {
 
             MapEnemy* enemy = dynamic_cast<MapEnemy*>(tile.getInteractable());

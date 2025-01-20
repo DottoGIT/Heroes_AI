@@ -21,7 +21,7 @@ void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
         objects_to_render_.push_back(fieldUnit.get());
     }
     background_ = battle_manager.getBackground();
-    scene_type_ = SceneType::Battle;
+    scene_type_ = SceneType::BATTLE;
     grid_dimensions_ = battle_manager.getBattleGridDimensions();
 }
 
@@ -56,6 +56,6 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
     decorations_to_render_.push_back(map_manager.getHero());
     decorations_to_render_.push_back(map_manager.getPointer());
 
-    scene_type_ = SceneType::Map;
+    scene_type_ = SceneType::MAP;
     grid_dimensions_ = map_manager.getMapGridDimensions();
 }

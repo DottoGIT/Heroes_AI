@@ -9,12 +9,7 @@
 
 #pragma once
 #include "Hex.h"
-
-enum class MoveType {
-    Wait,
-    Move,
-    Attack
-};
+#include "MoveType.h"
 
 class UnitMove
 {

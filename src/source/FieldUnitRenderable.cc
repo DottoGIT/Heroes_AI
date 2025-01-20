@@ -11,7 +11,7 @@
 #include "UnitType.h"
 
 FieldUnitRenderable::FieldUnitRenderable(FieldUnit unit, std::string path_to_idle, std::string path_to_dead, ArmyType army)
-    : position_(unit.getPosition()), alive_(unit.getHealth().isAlive()), path_to_idle_(path_to_idle), path_to_dead_(path_to_dead), flipped_(army == ArmyType::Computer)
+    : position_(unit.getPosition()), alive_(unit.getHealth().isAlive()), path_to_idle_(path_to_idle), path_to_dead_(path_to_dead), flipped_(army == ArmyType::COMPUTER)
 {}
 
 const std::string &FieldUnitRenderable::getSpritePath() const

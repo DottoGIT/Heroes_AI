@@ -24,19 +24,19 @@ InitiativeQueue::InitiativeQueue(const FieldArmy &player, const FieldArmy &enemy
     int index = 0;
     for (const FieldUnit& unit : player.getUnits())
     {
-        queue_.emplace_back(ArmyType::Player, index++);
+        queue_.emplace_back(ArmyType::PLAYER, index++);
     }
     index = 0;
     for (const FieldUnit& unit : enemy.getUnits())
     {
-        queue_.emplace_back(ArmyType::Computer, index++);
+        queue_.emplace_back(ArmyType::COMPUTER, index++);
     }
     std::sort(
         queue_.begin(), queue_.end(),
         [&](const FieldUnitIndex& a, const FieldUnitIndex& b) {
-            Statistic initiative_a = (a.type == ArmyType::Player) ?
+            Statistic initiative_a = (a.type == ArmyType::PLAYER) ?
                 player.getUnits().at(a.index).getInitiative() : enemy.getUnits().at(a.index).getInitiative();
-            Statistic initiative_b = (b.type == ArmyType::Player) ?
+            Statistic initiative_b = (b.type == ArmyType::PLAYER) ?
                 player.getUnits().at(b.index).getInitiative() : enemy.getUnits().at(b.index).getInitiative();
             return initiative_a > initiative_b;
         });

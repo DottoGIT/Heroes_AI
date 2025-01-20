@@ -12,16 +12,16 @@
 
 enum class SceneType
 {
-    Battle,
-    Map
+    BATTLE,
+    MAP
 };
 
 inline std::ostream& operator<<(std::ostream& os, SceneType type) {
     switch (type) {
-        case SceneType::Battle:
+        case SceneType::BATTLE:
             os << "Battle";
             break;
-        case SceneType::Map:
+        case SceneType::MAP:
             os << "Map";
             break;
         default:

@@ -12,16 +12,16 @@
 
 enum class ArmyType
 {
-    Player,
-    Computer
+    PLAYER,
+    COMPUTER
 };
 
 inline std::ostream& operator<<(std::ostream& os, ArmyType type) {
     switch (type) {
-        case ArmyType::Player:
+        case ArmyType::PLAYER:
             os << "Player";
             break;
-        case ArmyType::Computer:
+        case ArmyType::COMPUTER:
             os << "Computer";
             break;
         default:
