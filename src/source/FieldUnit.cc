@@ -17,7 +17,7 @@ const Hex &FieldUnit::getPosition() const
     return position_;
 }
 
-void FieldUnit::setPosition(Hex new_position)
+void FieldUnit::setPosition(const Hex new_position)
 {
     position_ = new_position;
 }
