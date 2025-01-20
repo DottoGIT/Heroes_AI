@@ -44,8 +44,8 @@ BOOST_AUTO_TEST_CASE(FieldArmy_citerator)
 
     BOOST_REQUIRE_EQUAL(1, army.getUnits().size());
     auto it = army.cbegin();
-    BOOST_REQUIRE_NE(it, army.cend());
+    BOOST_REQUIRE(it != army.cend());
     BOOST_CHECK_EQUAL(UnitType::Archer, it->getUnitType());
     ++it;
-    BOOST_CHECK_EQUAL(it, army.cend());
+    BOOST_CHECK(it == army.cend());
 }
