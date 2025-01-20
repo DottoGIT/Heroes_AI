@@ -1,5 +1,5 @@
 /*
- * File:        Unit.h
+ * File:        FieldUnit.h
  * Description: Represents playable units on battle filed.
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
@@ -12,12 +12,11 @@
 #include <string>
 #include <memory>
 
-#include "IRenderable.h"
 #include "Unit.h"
 #include "Health.h"
 #include "Hex.h"
 
-class FieldUnit : public IRenderable
+class FieldUnit
 {
 public:
     FieldUnit(const Unit& unit, Hex position);
