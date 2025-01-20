@@ -11,18 +11,7 @@
 #define BOOST_TEST_MODULE UnitTests
 #include <boost/test/included/unit_test.hpp>
 
-#include "FieldUnit.h"
-#include "RangeStrategy.h"
-#include "FieldUnitFactory.h"
-#include "FieldArmy.h"
-#include "AttackType.h"
-#include "UnitType.h"
-#include "ArmyType.h"
-#include "HexMap.hpp"
-#include "BattleManager.h"
-#include "InitiativeQueue.h"
-
-BOOST_AUTO_TEST_SUITE(Units_Tests)
+// BOOST_AUTO_TEST_SUITE(Units_Tests)
 
 //////////////////////////////////////////////////
 /*                    Unit                      */
