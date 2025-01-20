@@ -11,7 +11,7 @@
 #include "IRenderable.h"
 
 constexpr int FOG_TILE_SIZE = 64;
-constexpr char* PATH_TO_SPRITE = "media/sprites/fog.png";
+constexpr const char* PATH_TO_SPRITE = "media/sprites/fog.png";
 
 class FogTile : public IRenderable
 {

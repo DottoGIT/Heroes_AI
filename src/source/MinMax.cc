@@ -1,6 +1,7 @@
+#include <algorithm>
+#include <limits>
 #include "MinMax.h"
 #include "BattleField.h"
-#include <algorithm>
 
 MinMax::MinMax(const BattleField &battlefield)
 {}
