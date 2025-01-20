@@ -25,6 +25,7 @@ public:
     const InitiativeQueue& getQueue() const;
     std::vector<UnitMove> getMoves() const;
     BattleField makeMove(const UnitMove unit_move) const;
+    const FieldUnit& activeUnit() const;
 private:
     void attack(const Hex target);
     void move(const Hex target);
@@ -36,5 +37,4 @@ private:
     FieldArmy& passiveArmy();
     const FieldArmy& passiveArmy() const;
     FieldUnit& activeUnit();
-    const FieldUnit& activeUnit() const;
 };

@@ -73,6 +73,11 @@ const ArmyType BattleManager::getCurrentPlayer() const
     return field_.getQueue().current().type;
 }
 
+const FieldUnit &BattleManager::getCurrentUnit() const
+{
+    return field_.activeUnit();
+}
+
 const MoveType BattleManager::getCurrentMoveType() const
 {
     return field_.getCurrentMoveType();
