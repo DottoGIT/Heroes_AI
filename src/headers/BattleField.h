@@ -28,6 +28,7 @@ public:
     std::vector<UnitMove> getMoves() const;
     BattleField makeMove(const UnitMove unit_move) const;
     const FieldUnit& activeUnit() const;
+    ArmyType whoWon() const;
 private:
     MoveType current_move_;
     FieldArmy player_;

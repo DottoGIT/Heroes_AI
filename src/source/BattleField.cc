@@ -168,3 +168,19 @@ const FieldUnit &BattleField::activeUnit() const
     FieldUnitIndex current = queue_.current();
     return activeArmy().getUnits().at(current.index);
 }
+
+ArmyType BattleField::whoWon() const
+{
+    if (std::all_of(enemy_.cbegin(), enemy_.cend(),
+            [](const FieldUnit& unit) {
+                return !unit.getHealth().isAlive();
+            })
+        ) return ArmyType::COMPUTER;
+    
+    if (std::all_of(player_.cbegin(), player_.cend(),
+            [](const FieldUnit& unit) {
+                return !unit.getHealth().isAlive();
+            })
+        ) return ArmyType::PLAYER;
+    return ArmyType::NONE;
+}
