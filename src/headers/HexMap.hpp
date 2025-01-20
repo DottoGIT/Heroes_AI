@@ -262,11 +262,9 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, const std::funct
         }
     }
     std::vector<Hex> result;
-    std::for_each(visited.begin(), visited.end(), [&](const HexMap<uint8_t>::Iterator& it) {
-        if (*it) {
-            result.push_back(it.coords());
-        }
-    });
+    for (auto it = visited.begin(); it != visited.end(); ++it) {
+        if (*it) result.push_back(it.coords());
+    }
     return result;
 }
 
@@ -298,7 +296,7 @@ inline bool HexMap<T>::Iterator::operator!=(const Iterator &other) const
 template <typename T>
 inline Hex HexMap<T>::Iterator::coords() const
 {
-    int r = index / map->width_;
-    int q = index % map->width_ - (r / 2);
+    int r = static_cast<int>(index / map->width_);
+    int q = static_cast<int>(index % map->width_ - (r / 2));
     return Hex(q, r);
 }
