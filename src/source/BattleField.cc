@@ -75,7 +75,7 @@ void BattleField::attack(const Hex target)
         throw std::out_of_range("No attack target at position");
     it->takeDamage(damage);
     current_move_ = MoveType::Move;
-    queue_.next();
+    nextUnit();
 }
 
 void BattleField::move(const Hex target)
@@ -86,7 +86,7 @@ void BattleField::move(const Hex target)
 
 void BattleField::wait()
 {
-    if (current_move_ == MoveType::Attack) queue_.next();
+    if (current_move_ == MoveType::Attack) nextUnit();
     current_move_ = (current_move_ == MoveType::Attack) ? MoveType::Move : MoveType::Attack;
 }
 
@@ -155,6 +155,12 @@ FieldUnit &BattleField::activeUnit()
 {
     FieldUnitIndex current = queue_.current();
     return activeArmy().at(current.index);
+}
+
+void BattleField::nextUnit()
+{
+    queue_.next();
+    while (!activeUnit().getHealth().isAlive()) queue_.next();
 }
 
 const FieldUnit &BattleField::activeUnit() const

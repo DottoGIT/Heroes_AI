@@ -46,4 +46,5 @@ private:
     FieldArmy& passiveArmy();
     const FieldArmy& passiveArmy() const;
     FieldUnit& activeUnit();
+    void nextUnit();
 };
