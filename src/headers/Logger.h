@@ -31,7 +31,7 @@ public:
     static void debug(const std::string& message);
 
 private:
-    static std::mutex mtx;
+    static std::mutex mtx_;
     static std::string getLogLevelString(LogLevel level);
     static std::string getCurrentTime();
 };

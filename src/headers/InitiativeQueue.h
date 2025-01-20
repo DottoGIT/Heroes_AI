@@ -19,7 +19,6 @@ struct FieldUnitIndex
 {
     ArmyType type;
     uint32_t index;
-public:
     FieldUnitIndex(ArmyType type, uint32_t index);
 };
 

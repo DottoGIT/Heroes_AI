@@ -35,7 +35,6 @@ public:
     Display();
     ~Display();
     void init(const char* window_title, int window_width, int window_height);
-
     void render(const IManager& manager);
     void clean();
 

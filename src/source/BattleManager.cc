@@ -13,7 +13,7 @@
 #include "Logger.h"
 
 namespace {
-    std::array<Hex, 7> playerStartPositions = {
+    std::array<Hex, 7> player_start_positions = {
         Hex(0, 0),
         Hex(-1, 2),
         Hex(-2, 4),
@@ -25,7 +25,7 @@ namespace {
 };
 
 namespace {
-    std::array<Hex, 7> enemyStartPositions = {
+    std::array<Hex, 7> enemy_start_positions = {
         Hex(14, 0),
         Hex(13, 2),
         Hex(12, 4),
@@ -40,26 +40,26 @@ BattleManager::BattleManager()
     : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT), field_()
 {}
 
-BattleManager::BattleManager(const Army &playerArmy, const Army &enemyArmy, HexMap<Tile> map)
+BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, HexMap<Tile> map)
     : map_(std::move(map))
 {
-    FieldArmy playerFieldArmy;
-    std::for_each(playerArmy.cbegin(), playerArmy.cend(),
+    FieldArmy player_field_army;
+    std::for_each(player_army.cbegin(), player_army.cend(),
     [&, index = 0](const Unit& unit) mutable {
-        playerFieldArmy.addUnit(FieldUnit(unit, playerStartPositions.at(index)));
+        player_field_army.addUnit(FieldUnit(unit, player_start_positions.at(index)));
         texture_idle_[unit.getType()] = unit.getPathIdle();
         texture_dead_[unit.getType()] = unit.getPathDead();
         index++;
     });
-    FieldArmy enemyFieldArmy;
-    std::for_each(enemyArmy.cbegin(), enemyArmy.cend(),
+    FieldArmy enemy_field_army;
+    std::for_each(enemy_army.cbegin(), enemy_army.cend(),
     [&, index = 0](const Unit& unit) mutable {
-        enemyFieldArmy.addUnit(FieldUnit(unit, enemyStartPositions.at(index)));
+        enemy_field_army.addUnit(FieldUnit(unit, enemy_start_positions.at(index)));
         texture_idle_[unit.getType()] = unit.getPathIdle();
         texture_dead_[unit.getType()] = unit.getPathDead();
         index++;
     });
-    field_ = BattleField(std::move(playerFieldArmy), std::move(enemyFieldArmy), &map_);
+    field_ = BattleField(std::move(player_field_army), std::move(enemy_field_army), &map_);
     background_ = "media/sprites/battlebg_green.png";
 }
 
@@ -93,9 +93,9 @@ const MoveType BattleManager::getCurrentMoveType() const
     return field_.getCurrentMoveType();
 }
 
-void BattleManager::MakeMove(UnitMove unitMove)
+void BattleManager::makeMove(UnitMove unit_move)
 {
-    field_ = field_.makeMove(unitMove);
+    field_ = field_.makeMove(unit_move);
     std::vector<std::unique_ptr<FieldUnitRenderable>> units_to_render;
     for (const FieldUnit& unit : field_.getPlayer().getUnits())
     {

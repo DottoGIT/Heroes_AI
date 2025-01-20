@@ -23,7 +23,7 @@ void InputController::processInput(const SDL_Event& event) const
             int mouseX = event.button.x;
             int mouseY = event.button.y;
             
-            for (IClickable* observer : mouse_click_observers) 
+            for (IClickable* observer : mouse_click_observers_) 
             {
                 if (observer) 
                 {
@@ -38,16 +38,16 @@ void InputController::processInput(const SDL_Event& event) const
 }
 
 void InputController::subscribeToMouseClick(IClickable* observer) {
-    if (observer && std::find(mouse_click_observers.begin(), mouse_click_observers.end(), observer) == mouse_click_observers.end()) 
+    if (observer && std::find(mouse_click_observers_.begin(), mouse_click_observers_.end(), observer) == mouse_click_observers_.end()) 
     {
-        mouse_click_observers.push_back(observer);
+        mouse_click_observers_.push_back(observer);
     }
 }
 
 void InputController::unsubscribeFromMouseClick(IClickable* observer) {
-    mouse_click_observers.erase
+    mouse_click_observers_.erase
     (
-        std::remove(mouse_click_observers.begin(), mouse_click_observers.end(), observer),
-        mouse_click_observers.end()
+        std::remove(mouse_click_observers_.begin(), mouse_click_observers_.end(), observer),
+        mouse_click_observers_.end()
     );
 }

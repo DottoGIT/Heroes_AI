@@ -30,14 +30,14 @@ class BattleManager : public IManager
 {
 public:
     BattleManager();
-    BattleManager(const Army& playerArmy, const Army& enemyArmy, HexMap<Tile> map);
+    BattleManager(const Army& player_army, const Army& enemy_army, HexMap<Tile> map);
     const BattleField& getBattleField() const;
     const std::string& getBackground() const;
     Hex getBattleGridDimensions() const;
     const ArmyType getCurrentPlayer() const;
     const FieldUnit& getCurrentUnit() const;
     const MoveType getCurrentMoveType() const;
-    void MakeMove(UnitMove unitMove);
+    void makeMove(UnitMove unitMove);
 
     const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
 
