@@ -8,30 +8,22 @@
  */
 
 #pragma once
-
 #include <iostream>
 #include <string>
 #include <mutex>
 #include <sstream>
 #include <ctime>
+#include "LogLevel.h"
 
 class Logger {
 public:
-    enum class LogLevel {
-        INFO,
-        WARNING,
-        ERROR,
-        DEBUG
-    };
-
     static void log(LogLevel level, const std::string& message);
     static void info(const std::string& message);
     static void warning(const std::string& message);
     static void error(const std::string& message);
     static void debug(const std::string& message);
-
 private:
-    static std::mutex mtx;
+    static std::mutex mtx_;
     static std::string getLogLevelString(LogLevel level);
     static std::string getCurrentTime();
 };

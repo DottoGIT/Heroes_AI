@@ -8,28 +8,27 @@
  */
 
 #pragma once
-
 #include <ostream>
 
 enum class UnitType {
-    Archer,
-    Enchanter,
-    Skeleton,
-    Swordsman
+    ARCHER,
+    ENCHANTER,
+    SKELETON,
+    SWORDSMAN
 };
 
 inline std::ostream& operator<<(std::ostream& os, UnitType type) {
     switch (type) {
-        case UnitType::Archer:
+        case UnitType::ARCHER:
             os << "Archer";
             break;
-        case UnitType::Enchanter:
+        case UnitType::ENCHANTER:
             os << "Enchanter";
             break;
-        case UnitType::Skeleton:
+        case UnitType::SKELETON:
             os << "Skeleton";
             break;
-        case UnitType::Swordsman:
+        case UnitType::SWORDSMAN:
             os << "Swordsman";
             break;
         default:

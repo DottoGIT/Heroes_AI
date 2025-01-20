@@ -6,21 +6,21 @@
  * 
  * Date:        19.01.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class MapObjectType {
-    Resource,
-    Enemy
+    RESOURCE,
+    ENEMY
 };
 
 inline std::ostream& operator<<(std::ostream& os, MapObjectType type) {
     switch (type) {
-        case MapObjectType::Resource:
+        case MapObjectType::RESOURCE:
             os << "Resource";
             break;
-        case MapObjectType::Enemy:
+        case MapObjectType::ENEMY:
             os << "Enemy";
             break;
         default:

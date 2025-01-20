@@ -9,7 +9,6 @@
 
 
 #include "HeroesAI.h"
-
 #include "Logger.h"
 #include "FieldArmy.h"
 #include "FieldUnit.h"
@@ -22,7 +21,7 @@ HeroesAI::HeroesAI()
     inputController_ = std::make_shared<InputController>();
     mapManager_ = std::make_unique<MapManager>(inputController_);
 
-    currentScene_ = SceneType::Map;
+    currentScene_ = SceneType::MAP;
 
     initPlayer();
 }
@@ -87,14 +86,14 @@ void HeroesAI::render()
 {
     switch (currentScene_)
     {
-    case SceneType::Map:
+    case SceneType::MAP:
         if(mapManager_ == nullptr)
         {
             Logger::error("Map Manager is not set");
         }
         display_->render(*mapManager_);
         break;
-    case SceneType::Battle:
+    case SceneType::BATTLE:
         if(battleManager_ == nullptr)
         {
             Logger::error("Battle Manager is not set");
@@ -109,8 +108,8 @@ void HeroesAI::render()
 void HeroesAI::initPlayer()
 {
     UnitFactory unit_factory;
-    auto archer = unit_factory.CreateUnit(UnitType::Archer, 20);
-    auto swordsman = unit_factory.CreateUnit(UnitType::Swordsman, 30);
+    auto archer = unit_factory.CreateUnit(UnitType::ARCHER, 20);
+    auto swordsman = unit_factory.CreateUnit(UnitType::SWORDSMAN, 30);
     player_army_.addUnit(archer);
     player_army_.addUnit(swordsman);
 }

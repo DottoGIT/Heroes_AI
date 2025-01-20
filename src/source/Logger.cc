@@ -7,13 +7,13 @@
  * Date:        01.12.2024
  */
 
-#include "Logger.h"
 #include <iomanip>
+#include "Logger.h"
 
-std::mutex Logger::mtx;
+std::mutex Logger::mtx_;
 
 void Logger::log(LogLevel level, const std::string& message) {
-    std::lock_guard<std::mutex> lock(mtx);
+    std::lock_guard<std::mutex> lock(mtx_);
     std::string levelString = getLogLevelString(level);
     std::string logMessage = getCurrentTime() + " [" + levelString + "] " + message;
     std::cout << logMessage << std::endl;

@@ -8,7 +8,6 @@
  */
 
 #pragma once
-
 #include <vector>
 #include <memory>
 #include "SDL2/SDL_image.h"

@@ -14,7 +14,7 @@ BattleField::BattleField()
 {}
 
 BattleField::BattleField(FieldArmy player, FieldArmy enemy, HexMap<Tile> *map)
-    : player_(std::move(player)), enemy_(std::move(enemy)), queue_(player_, enemy_), map_(map), current_move_(MoveType::Move)
+    : player_(std::move(player)), enemy_(std::move(enemy)), queue_(player_, enemy_), map_(map), current_move_(MoveType::MOVE)
 {}
 
 const MoveType BattleField::getCurrentMoveType() const
@@ -44,7 +44,7 @@ const InitiativeQueue &BattleField::getQueue() const
 
 std::vector<UnitMove> BattleField::getMoves() const
 {
-    if (current_move_ == MoveType::Move) {
+    if (current_move_ == MoveType::MOVE) {
         return getMoveMoves();
     }
     return getAttackMoves();
@@ -53,9 +53,9 @@ std::vector<UnitMove> BattleField::getMoves() const
 BattleField BattleField::makeMove(const UnitMove unit_move) const
 {
     BattleField nextState(player_, enemy_, map_);
-    if (unit_move.getType() == MoveType::Move) {
+    if (unit_move.getType() == MoveType::MOVE) {
         nextState.move(unit_move.getTarget());
-    } else if (unit_move.getType() == MoveType::Attack) {
+    } else if (unit_move.getType() == MoveType::ATTACK) {
         nextState.attack(unit_move.getTarget());
     } else {
         nextState.wait();
@@ -74,20 +74,20 @@ void BattleField::attack(const Hex target)
     if (it == passiveArmy().end())
         throw std::out_of_range("No attack target at position");
     it->takeDamage(damage);
-    current_move_ = MoveType::Move;
+    current_move_ = MoveType::MOVE;
     nextUnit();
 }
 
 void BattleField::move(const Hex target)
 {
     activeUnit().setPosition(target);
-    current_move_ = MoveType::Attack;
+    current_move_ = MoveType::ATTACK;
 }
 
 void BattleField::wait()
 {
-    if (current_move_ == MoveType::Attack) nextUnit();
-    current_move_ = (current_move_ == MoveType::Attack) ? MoveType::Move : MoveType::Attack;
+    if (current_move_ == MoveType::ATTACK) nextUnit();
+    current_move_ = (current_move_ == MoveType::ATTACK) ? MoveType::MOVE : MoveType::ATTACK;
 }
 
 std::vector<UnitMove> BattleField::getAttackMoves() const
@@ -130,25 +130,25 @@ std::vector<UnitMove> BattleField::getMoveMoves() const
 FieldArmy &BattleField::activeArmy()
 {
     FieldUnitIndex current = queue_.current();
-    return (current.type == ArmyType::Player) ? player_ : enemy_;
+    return (current.type == ArmyType::PLAYER) ? player_ : enemy_;
 }
 
 const FieldArmy &BattleField::activeArmy() const
 {
     FieldUnitIndex current = queue_.current();
-    return (current.type == ArmyType::Player) ? player_ : enemy_;
+    return (current.type == ArmyType::PLAYER) ? player_ : enemy_;
 }
 
 FieldArmy &BattleField::passiveArmy()
 {
     FieldUnitIndex current = queue_.current();
-    return (current.type != ArmyType::Player) ? player_ : enemy_;
+    return (current.type != ArmyType::PLAYER) ? player_ : enemy_;
 }
 
 const FieldArmy &BattleField::passiveArmy() const
 {
     FieldUnitIndex current = queue_.current();
-    return (current.type != ArmyType::Player) ? player_ : enemy_;
+    return (current.type != ArmyType::PLAYER) ? player_ : enemy_;
 }
 
 FieldUnit &BattleField::activeUnit()

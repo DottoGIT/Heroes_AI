@@ -15,15 +15,8 @@
 #include "Tile.h"
 #include "UnitMove.h"
 
-
 class BattleField
 {
-private:
-    MoveType current_move_;
-    FieldArmy player_;
-    FieldArmy enemy_;
-    InitiativeQueue queue_;
-    HexMap<Tile>* map_;
 public:
     BattleField();
     BattleField(FieldArmy player, FieldArmy enemy, HexMap<Tile>* map);
@@ -36,6 +29,11 @@ public:
     BattleField makeMove(const UnitMove unit_move) const;
     const FieldUnit& activeUnit() const;
 private:
+    MoveType current_move_;
+    FieldArmy player_;
+    FieldArmy enemy_;
+    InitiativeQueue queue_;
+    HexMap<Tile>* map_;
     void attack(const Hex target);
     void move(const Hex target);
     void wait();

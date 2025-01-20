@@ -8,11 +8,9 @@
  */
 
 #pragma once
-
 #include <queue>
 #include <memory>
 #include <vector>
-
 #include "BattleField.h"
 #include "Army.h"
 #include "Hex.h"
@@ -25,22 +23,19 @@ class RendersVisitator;
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
 
-
 class BattleManager : public IManager
 {
 public:
     BattleManager();
-    BattleManager(const Army& playerArmy, const Army& enemyArmy, HexMap<Tile> map);
+    BattleManager(const Army& player_army, const Army& enemy_army, HexMap<Tile> map);
     const BattleField& getBattleField() const;
     const std::string& getBackground() const;
     Hex getBattleGridDimensions() const;
     const ArmyType getCurrentPlayer() const;
     const FieldUnit& getCurrentUnit() const;
     const MoveType getCurrentMoveType() const;
-    void MakeMove(UnitMove unitMove);
-
+    void makeMove(UnitMove unitMove);
     const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
-
     void accept(RendersVisitator& visitor) const override;
 private:
     BattleField field_;

@@ -13,16 +13,13 @@
 
 constexpr int BACKGROUND_PRIORTITY = 0;
 constexpr int GIZMOS_PRIORTITY = 1;
-
 constexpr int OBJECT_PRIORTITY_1 = 2;
 constexpr int OBJECT_PRIORTITY_2 = 3;
 constexpr int OBJECT_PRIORTITY_3 = 4;
 constexpr int OBJECT_PRIORTITY_4 = 5;
-
 constexpr int UI_PRIORTITY_1 = 6;
 constexpr int UI_PRIORTITY_2 = 7;
 constexpr int UI_PRIORTITY_3 = 8;
-
 constexpr int ONE_TILE_UNIT_WIDTH = 48;
 constexpr int ONE_TILE_UNIT_HEIGHT = 96;
 

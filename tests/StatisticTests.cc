@@ -10,7 +10,6 @@
 #define BOOST_TEST_MODULE StatisticTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "Statistic.h"
 
 BOOST_AUTO_TEST_CASE(Statistic_Constructor)

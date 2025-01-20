@@ -95,13 +95,13 @@ std::map<char, Hex> SymbolsTranslator::symbolsToSizes
 std::map<char, std::shared_ptr<IInteractable>> SymbolsTranslator::symbolsToObjects
 {
     {'0', nullptr},
-    {'v', std::make_shared<Resource>(ResourceType::Coal, 1)},
-    {'w', std::make_shared<Resource>(ResourceType::Mercury, 1)},
-    {'x', std::make_shared<Resource>(ResourceType::Sulfur, 1)},
-    {'y', std::make_shared<Resource>(ResourceType::Wood, 1)},
-    {'z', std::make_shared<Resource>(ResourceType::Gems, 1)},
-    {'A', std::make_shared<Resource>(ResourceType::Gold, 1000)},
-    {'B', std::make_shared<Resource>(ResourceType::Crystals, 1)},
+    {'v', std::make_shared<Resource>(ResourceType::COAL, 1)},
+    {'w', std::make_shared<Resource>(ResourceType::MERCURY, 1)},
+    {'x', std::make_shared<Resource>(ResourceType::SULFUR, 1)},
+    {'y', std::make_shared<Resource>(ResourceType::WOOD, 1)},
+    {'z', std::make_shared<Resource>(ResourceType::GEMS, 1)},
+    {'A', std::make_shared<Resource>(ResourceType::GOLD, 1000)},
+    {'B', std::make_shared<Resource>(ResourceType::CRYSTALS, 1)},
 
     {'C', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('C'))},
     {'D', std::make_shared<MapEnemy>(SymbolsTranslator::createArmyFromSymbol('D'))},
@@ -117,22 +117,22 @@ Army SymbolsTranslator::createArmyFromSymbol(char s)
     switch (s)
     {
     case 'C':
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
         break;
     case 'D':
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
         break;
     case 'E':
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
         break;
     case 'F':
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::Archer, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
         break;
     default:
         break;

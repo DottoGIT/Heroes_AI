@@ -7,8 +7,8 @@
  * Date:        02.12.2024
  */
 
-#include "TextureManager.h"
 #include <stdexcept>
+#include "TextureManager.h"
 
 const Texture& TextureManager::getTexture(const std::string& identifier, SDL_Renderer* renderer)
 {

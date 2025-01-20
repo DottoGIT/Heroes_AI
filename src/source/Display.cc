@@ -7,10 +7,9 @@
  * Date:        01.12.2024
  */
 
-#include "Display.h"
-
 #include <iostream>
 #include <algorithm>
+#include "Display.h"
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
 #include "IManager.h"
@@ -55,10 +54,10 @@ void Display::render(const IManager& manager)
 
     switch (scene_type_)
     {
-    case SceneType::Battle:
+    case SceneType::BATTLE:
         renderBattle();
         break;
-    case SceneType::Map:
+    case SceneType::MAP:
         sortRenders(decorations_to_render_);
         renderMap();
         renderResources();

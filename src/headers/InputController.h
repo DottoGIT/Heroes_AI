@@ -22,5 +22,5 @@ public:
     void subscribeToMouseClick(IClickable* observer);
     void unsubscribeFromMouseClick(IClickable* observer);
 private:
-    std::vector<IClickable*> mouse_click_observers;
+    std::vector<IClickable*> mouse_click_observers_;
 };

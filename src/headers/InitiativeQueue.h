@@ -9,7 +9,6 @@
  */
 
 #pragma once
-
 #include <vector>
 #include <memory>
 #include "FieldUnit.h"
@@ -19,7 +18,6 @@ struct FieldUnitIndex
 {
     ArmyType type;
     uint32_t index;
-public:
     FieldUnitIndex(ArmyType type, uint32_t index);
 };
 

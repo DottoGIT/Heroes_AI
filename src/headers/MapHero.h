@@ -8,7 +8,6 @@
  */
 
 #pragma once
-
 #include <memory>
 #include <string>
 #include "IRenderable.h"
@@ -23,16 +22,13 @@ class MapHero : public IRenderable {
 public:
     MapHero() = default;
     virtual ~MapHero() = default;
-
     void setPosition(const Hex& position);
     void setFlip(bool is_flipped);
-
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
     virtual int getSpritePriority() const override;
     virtual Hex getPosition() const override;
     virtual bool isFlipped() const override;
-
 private:
     char symbol_;
     Hex position_;

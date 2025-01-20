@@ -7,8 +7,8 @@
  * Date:        14.01.2024
  */
 
-#include "Resource.h"
 #include <string>
+#include "Resource.h"
 #include "Logger.h"
 #include "ResourceCounter.h"
 
@@ -73,5 +73,5 @@ bool Resource::isFlipped() const
 
 MapObjectType Resource::myObjectType() const
 {
-    return MapObjectType::Resource;
+    return MapObjectType::RESOURCE;
 }

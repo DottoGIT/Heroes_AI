@@ -9,8 +9,8 @@
  * Date:        05.11.2024
  */
 
-#include "Hex.h"
 #include <algorithm>
+#include "Hex.h"
 
 namespace {
         static const std::array<Hex, 6> neighbour_offsets = {

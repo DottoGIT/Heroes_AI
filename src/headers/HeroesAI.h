@@ -8,10 +8,8 @@
  */
 
 #pragma once
-
 #include <string>
 #include <memory>
-
 #include "Display.h"
 #include "MapManager.h"
 #include "BattleManager.h"
@@ -28,23 +26,17 @@ class HeroesAI
 public:
     HeroesAI();
     ~HeroesAI();
-
     int init();
     void start();
-
 private:
     void handleEvents();
     void update();
     void render();
     void initPlayer();
-
     void waitForFPS(Uint64 frame_start);
-    
     bool is_running_ = false;
-
     SceneType currentScene_;
     Army player_army_;
-
     std::unique_ptr<Display> display_;
     std::shared_ptr<InputController> inputController_;
     std::unique_ptr<MapManager> mapManager_;

@@ -9,20 +9,10 @@
 
 #pragma once
 #include "Hex.h"
-
-enum class MoveType {
-    Wait,
-    Move,
-    Attack
-};
+#include "MoveType.h"
 
 class UnitMove
 {
-private:
-    MoveType type_;
-    Hex target_;
-private:
-    UnitMove(MoveType type, const Hex target);
 public:
     UnitMove();
     static UnitMove move(const Hex move_target);
@@ -30,4 +20,8 @@ public:
     static UnitMove wait();
     const MoveType getType() const;
     const Hex getTarget() const;
+private:
+    MoveType type_;
+    Hex target_;
+    UnitMove(MoveType type, const Hex target);
 };

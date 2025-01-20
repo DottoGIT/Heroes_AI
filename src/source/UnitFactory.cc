@@ -15,10 +15,10 @@
 
 UnitFactory::UnitFactory()
 {
-    registerUnit(UnitType::Archer, &UnitFactory::createArcher);
-    registerUnit(UnitType::Enchanter, &UnitFactory::createEnchanter);
-    registerUnit(UnitType::Skeleton, &UnitFactory::createSkeleton);
-    registerUnit(UnitType::Swordsman, &UnitFactory::createSwordsman);
+    registerUnit(UnitType::ARCHER, &UnitFactory::createArcher);
+    registerUnit(UnitType::ENCHANTER, &UnitFactory::createEnchanter);
+    registerUnit(UnitType::SKELETON, &UnitFactory::createSkeleton);
+    registerUnit(UnitType::SWORDSMAN, &UnitFactory::createSwordsman);
 }
 
 void UnitFactory::registerUnit(UnitType type, UnitCreator creator)
@@ -35,7 +35,7 @@ Unit UnitFactory::CreateUnit(const UnitType& type, unsigned int quantity) {
 
 Unit UnitFactory::createArcher(unsigned int quantity)
 {
-    const UnitType                  UNIT_TYPE               = UnitType::Archer;
+    const UnitType                  UNIT_TYPE               = UnitType::ARCHER;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/archer.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/archer_dead.png";
@@ -50,7 +50,7 @@ Unit UnitFactory::createArcher(unsigned int quantity)
 
 Unit UnitFactory::createEnchanter(unsigned int quantity)
 {
-    const UnitType                  UNIT_TYPE               = UnitType::Enchanter;
+    const UnitType                  UNIT_TYPE               = UnitType::ENCHANTER;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/enchanter.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/enchanter_dead.png";
@@ -65,7 +65,7 @@ Unit UnitFactory::createEnchanter(unsigned int quantity)
 
 Unit UnitFactory::createSkeleton(unsigned int quantity)
 {
-    const UnitType                  UNIT_TYPE               = UnitType::Skeleton;
+    const UnitType                  UNIT_TYPE               = UnitType::SKELETON;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/skeleton.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/skeleton_dead.png";
@@ -80,7 +80,7 @@ Unit UnitFactory::createSkeleton(unsigned int quantity)
 
 Unit UnitFactory::createSwordsman(unsigned int quantity)
 {
-    const UnitType                  UNIT_TYPE               = UnitType::Swordsman;
+    const UnitType                  UNIT_TYPE               = UnitType::SWORDSMAN;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/swordsman.png";
     const unsigned int              QUANTITY                = quantity;
     const std::string               PATH_TO_SPRITE_DEAD     = "path/to/swordsman_dead.png";

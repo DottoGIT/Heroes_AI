@@ -8,7 +8,6 @@
  */
 
 #pragma once
-
 #include <memory>
 #include <unordered_map>
 #include <string>
@@ -20,14 +19,10 @@ class UnitFactory {
 public:
     UnitFactory();
     Unit CreateUnit(const UnitType& type, unsigned int quantity = 1);
-
 private:
     using UnitCreator = Unit(UnitFactory::*)(unsigned int);
-
     std::unordered_map<UnitType, UnitCreator> unit_creators_;
-
     void registerUnit(UnitType type, UnitCreator creator);
-
     // Units Creators
     Unit createArcher(unsigned int quantity);
     Unit createEnchanter(unsigned int quantity);

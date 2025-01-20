@@ -10,7 +10,7 @@
 #include "UnitMove.h"
 
 UnitMove::UnitMove()
-    : type_(MoveType::Wait)
+    : type_(MoveType::WAIT)
 {}
 
 UnitMove::UnitMove(MoveType type, const Hex target)
@@ -19,17 +19,17 @@ UnitMove::UnitMove(MoveType type, const Hex target)
 
 UnitMove UnitMove::move(const Hex move_target)
 {
-    return UnitMove(MoveType::Move, move_target);
+    return UnitMove(MoveType::MOVE, move_target);
 }
 
 UnitMove UnitMove::attack(const Hex attack_target)
 {
-    return UnitMove(MoveType::Attack, attack_target);
+    return UnitMove(MoveType::ATTACK, attack_target);
 }
 
 UnitMove UnitMove::wait()
 {
-    return UnitMove(MoveType::Wait, Hex());
+    return UnitMove(MoveType::WAIT, Hex());
 }
 
 const MoveType UnitMove::getType() const

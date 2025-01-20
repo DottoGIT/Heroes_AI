@@ -6,41 +6,41 @@
  * 
  * Date:        04.11.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class ResourceType {
-    Coal,
-    Mercury,
-    Sulfur,
-    Wood,
-    Gems,
-    Gold,
-    Crystals
+    COAL,
+    MERCURY,
+    SULFUR,
+    WOOD,
+    GEMS,
+    GOLD,
+    CRYSTALS
 };
 
 inline std::ostream& operator<<(std::ostream& os, ResourceType type) {
     switch (type) {
-        case ResourceType::Coal:
+        case ResourceType::COAL:
             os << "Coal";
             break;
-        case ResourceType::Mercury:
+        case ResourceType::MERCURY:
             os << "Mercury";
             break;
-        case ResourceType::Sulfur:
+        case ResourceType::SULFUR:
             os << "Sulfur";
             break;
-        case ResourceType::Wood:
+        case ResourceType::WOOD:
             os << "Wood";
             break;
-        case ResourceType::Gems:
+        case ResourceType::GEMS:
             os << "Gems";
             break;
-        case ResourceType::Gold:
+        case ResourceType::GOLD:
             os << "Gold";
             break;
-        case ResourceType::Crystals:
+        case ResourceType::CRYSTALS:
             os << "Crystals";
             break;
         default:

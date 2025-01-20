@@ -6,22 +6,22 @@
  * 
  * Date:        17.12.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class SceneType
 {
-    Battle,
-    Map
+    BATTLE,
+    MAP
 };
 
 inline std::ostream& operator<<(std::ostream& os, SceneType type) {
     switch (type) {
-        case SceneType::Battle:
+        case SceneType::BATTLE:
             os << "Battle";
             break;
-        case SceneType::Map:
+        case SceneType::MAP:
             os << "Map";
             break;
         default:

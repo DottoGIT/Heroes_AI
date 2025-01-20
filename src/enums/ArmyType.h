@@ -6,23 +6,23 @@
  * 
  * Date:        05.11.2024
  */
-#pragma once
 
+#pragma once
 #include <ostream>
 
 enum class ArmyType
 {
     NONE,
-    Player,
-    Computer
+    PLAYER,
+    COMPUTER
 };
 
 inline std::ostream& operator<<(std::ostream& os, ArmyType type) {
     switch (type) {
-        case ArmyType::Player:
+        case ArmyType::PLAYER:
             os << "Player";
             break;
-        case ArmyType::Computer:
+        case ArmyType::COMPUTER:
             os << "Computer";
             break;
         default:

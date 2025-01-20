@@ -17,7 +17,6 @@ public:
     Statistic(int value);
     unsigned int get() const;
     void increase(unsigned int value);
-
     //bool operator==(const Statistic& other) const;
     //bool operator!=(const Statistic& other) const;
     //bool operator<(const Statistic& other) const;

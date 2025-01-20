@@ -10,16 +10,15 @@
 #define BOOST_TEST_MODULE FieldUnitTests
 #include <boost/test/included/unit_test.hpp>
 #include <algorithm>
-
 #include "FieldUnit.h"
 #include "UnitType.h"
 
 BOOST_AUTO_TEST_CASE(FieldUnit_Constructor)
 {
-    Unit my_unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", "");
+    Unit my_unit(UnitType::ARCHER, 2, 3, 4, 5, 6, 7, "", "");
     FieldUnit my_fieldUnit(my_unit, Hex(8, 9));
 
-    BOOST_CHECK_EQUAL(UnitType::Archer, my_fieldUnit.getUnitType());
+    BOOST_CHECK_EQUAL(UnitType::ARCHER, my_fieldUnit.getUnitType());
     BOOST_CHECK_EQUAL(Hex(8, 9), my_fieldUnit.getPosition());
     BOOST_CHECK_EQUAL(6, my_fieldUnit.getHealth().get());
     BOOST_CHECK_EQUAL(4, my_fieldUnit.getAttackStrength().get());
@@ -30,7 +29,7 @@ BOOST_AUTO_TEST_CASE(FieldUnit_Constructor)
 
 BOOST_AUTO_TEST_CASE(FieldUnit_setPosition)
 {
-    Unit my_unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", "");
+    Unit my_unit(UnitType::ARCHER, 2, 3, 4, 5, 6, 7, "", "");
     FieldUnit my_fieldUnit(my_unit, Hex(8, 9));
 
     my_fieldUnit.setPosition(Hex(3, 4));
@@ -40,7 +39,7 @@ BOOST_AUTO_TEST_CASE(FieldUnit_setPosition)
 
 BOOST_AUTO_TEST_CASE(FieldUnit_damage)
 {
-    Unit my_unit(UnitType::Archer, 2, 5, 4, 5, 6, 7, "", "");
+    Unit my_unit(UnitType::ARCHER, 2, 5, 4, 5, 6, 7, "", "");
     FieldUnit my_fieldUnit(my_unit, Hex(8, 9));
 
     my_fieldUnit.takeDamage(3);
@@ -50,7 +49,7 @@ BOOST_AUTO_TEST_CASE(FieldUnit_damage)
 
 BOOST_AUTO_TEST_CASE(FieldUnit_lethal_damage)
 {
-    Unit my_unit(UnitType::Archer, 2, 5, 4, 5, 6, 7, "", "");
+    Unit my_unit(UnitType::ARCHER, 2, 5, 4, 5, 6, 7, "", "");
     FieldUnit my_fieldUnit(my_unit, Hex(8, 9));
 
     my_fieldUnit.takeDamage(15);
@@ -60,7 +59,7 @@ BOOST_AUTO_TEST_CASE(FieldUnit_lethal_damage)
 
 BOOST_AUTO_TEST_CASE(FieldUnit_exact_damage)
 {
-    Unit my_unit(UnitType::Archer, 2, 5, 4, 5, 6, 7, "", "");
+    Unit my_unit(UnitType::ARCHER, 2, 5, 4, 5, 6, 7, "", "");
     FieldUnit my_fieldUnit(my_unit, Hex(8, 9));
 
     my_fieldUnit.takeDamage(10);

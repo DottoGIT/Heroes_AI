@@ -15,7 +15,6 @@
 #include <stdexcept>
 #include <queue>
 #include <functional>
-
 #include "Hex.h"
 
 template <typename T>
@@ -37,8 +36,6 @@ public:
     std::vector<Hex> getReachableTiles(Hex start, const std::function<bool(Hex)>& reachable, unsigned distance) const;
     size_t getWidth() const;
     size_t getHeight() const;
-
-
     struct Iterator {
         public:
             using iterator_category = std::forward_iterator_tag;
@@ -60,7 +57,6 @@ public:
     };
     Iterator begin() { return Iterator(this, 0); }
     Iterator end() { return Iterator(this, data_.size()); }
-
 private:
     std::size_t hexToIndex(Hex hex) const noexcept;
 };
@@ -77,7 +73,6 @@ void HexMap<T>::setData(std::vector<T>& data)
         throw std::out_of_range("Data sizes do not match!");
     data_ = data;
 }
-
 
 template <typename T>
 std::vector<T>& HexMap<T>::getDataVector()
