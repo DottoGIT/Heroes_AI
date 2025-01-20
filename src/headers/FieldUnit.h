@@ -28,7 +28,6 @@ public:
     const Statistic& getAttackRange() const;
     const Statistic& getWalkRange() const;
     const Statistic& getInitiative() const;
-
 private:
     const UnitType type_;
     Hex position_;

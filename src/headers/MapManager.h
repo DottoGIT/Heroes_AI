@@ -43,7 +43,6 @@ public:
     virtual void reactToClick(bool left_button, Hex click_position) override;
 private:
     inline static const Hex PLAYER_START_POSITION = Hex(6,5);
-
     std::array<std::array<MapTile, MAP_HEIGHT>, MAP_WIDTH> tiles_;
     std::array<std::array<FogTile, MAP_HEIGHT>, MAP_WIDTH+1> fog_;
     std::vector<MapDecoration> decorations_;
@@ -51,7 +50,6 @@ private:
     MapPointer pointer_;
     std::weak_ptr<InputController> input_controller_;
     MapTile* marked_tile_ = nullptr;
-
     void initFogOfWar(const Hex& point);
     void updateFogOfWar(const Hex& point);
     void moveHero(const Hex& point);

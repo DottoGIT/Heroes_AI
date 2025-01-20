@@ -18,7 +18,6 @@ public:
     unsigned int get() const;
     void damage(unsigned int damage_value);
     bool isAlive() const;
-
     //bool operator==(const Health& other) const;
     //bool operator!=(const Health& other) const;
     //bool operator<(const Health& other) const;

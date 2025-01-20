@@ -23,7 +23,6 @@ public:
         unsigned int walk_range, unsigned int initiative,
         std::string path_to_idle, std::string path_to_dead
         );
-    
     const UnitType& getType() const;
     const Statistic& getQuantity() const;
     const Statistic& getSingleUnitHealth() const;

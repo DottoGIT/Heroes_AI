@@ -18,11 +18,10 @@ constexpr int MAP_POINTER_SIZE = 32;
 
 class MapPointer : public IRenderable 
 {
-public:    
+public:
+    MapPointer() = default;
     virtual ~MapPointer() = default;
-
     void hide();
-
     void setPosition(const Hex& position, bool danger_tile);
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;

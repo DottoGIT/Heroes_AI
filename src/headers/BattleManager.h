@@ -23,7 +23,6 @@ class RendersVisitator;
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
 
-
 class BattleManager : public IManager
 {
 public:
@@ -36,9 +35,7 @@ public:
     const FieldUnit& getCurrentUnit() const;
     const MoveType getCurrentMoveType() const;
     void makeMove(UnitMove unitMove);
-
     const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
-
     void accept(RendersVisitator& visitor) const override;
 private:
     BattleField field_;

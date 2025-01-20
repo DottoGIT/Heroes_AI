@@ -20,7 +20,6 @@ public:
     virtual ~FogTile() = default;
     void setPosition(Hex position);
     void setActive(bool active);
-    
     bool isActive() const;
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;

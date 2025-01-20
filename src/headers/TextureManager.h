@@ -12,7 +12,6 @@
 #include <string>
 #include "Texture.h"
 
-
 class TextureManager
 {
 public:

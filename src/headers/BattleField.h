@@ -15,7 +15,6 @@
 #include "Tile.h"
 #include "UnitMove.h"
 
-
 class BattleField
 {
 public:
@@ -35,7 +34,6 @@ private:
     FieldArmy enemy_;
     InitiativeQueue queue_;
     HexMap<Tile>* map_;
-
     void attack(const Hex target);
     void move(const Hex target);
     void wait();

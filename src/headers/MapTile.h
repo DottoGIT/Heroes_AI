@@ -21,24 +21,20 @@ class MapTile : public IRenderable
 public:
     MapTile() = default;
     virtual ~MapTile() = default;
-
     bool interact();
     IInteractable* getInteractable();
     const IInteractable* getConstInteractable() const;
-
     void setPosition(Hex position);
     void setInteractable(std::shared_ptr<IInteractable> interactable);
     void setWalkable(bool is_walkable);
     void setSymbol(char symbol);
     char getSymbol() const;
     bool isWalkable() const;
-    
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
     virtual int getSpritePriority() const override;
     virtual Hex getPosition() const override;
     virtual bool isFlipped() const override;
-
 private:
     char symbol_;
     Hex position_;
