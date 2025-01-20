@@ -5,8 +5,9 @@
 #include "SymbolsTranslator.h"
 #include "Logger.h"
 
-HexMap<MapTile> MapFileConverter::fileToMapConvertion()
+std::array<std::array<MapTile, CONVERTER_MAP_HEIGHT>, CONVERTER_MAP_WIDTH> MapFileConverter::fileToMapConvertion()
 {
+    std::array<std::array<MapTile, CONVERTER_MAP_HEIGHT>, CONVERTER_MAP_WIDTH> map;
     std::ifstream file_ground(GROUND_PATH);
     std::ifstream file_interactable(INTERACTABLE_PATH);
     std::ifstream file_walkable(WALKABLE_PATH);
@@ -17,7 +18,6 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion()
         Logger::error("Could Not Open Map Files");
         throw std::runtime_error("Could Not Open Map Files!");
     }
-    std::vector<MapTile> data;
     std::string line_ground;
     std::string line_interactable;
     std::string line_walkable;
@@ -60,15 +60,11 @@ HexMap<MapTile> MapFileConverter::fileToMapConvertion()
                 resource_form_file->setSpritePath(sprite_path);
                 tile.setInteractable(resource_form_file);
             }
-
-            data.push_back(tile);
+            map[i][pos_y] = tile;
         }
 
         ++pos_y;
     }
-    size_t height = data.size() / width;
-    HexMap<MapTile> map(width, height);
-    map.setData(data);
     return map;
 }
 

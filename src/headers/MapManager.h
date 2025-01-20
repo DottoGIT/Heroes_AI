@@ -15,7 +15,6 @@
 #include "IManager.h"
 #include "MapTile.h"
 #include "MapDecoration.h"
-#include "HexMap.hpp"
 #include "MapHero.h"
 #include "ResourceCounter.h"
 #include "InputController.h"
@@ -27,14 +26,16 @@
 class RendersVisitator;
 
 constexpr int DISCOVERY_RADIUS = 5;
+constexpr int MAP_WIDTH = 25;
+constexpr int MAP_HEIGHT = 18;
 
 class MapManager : public IManager, public IClickable{
 public:
     MapManager(std::weak_ptr<InputController> input_controller);
     ~MapManager();
     void printMap() const;
-    const std::vector<MapTile>& getTiles() const;
-    const std::vector<FogTile>& getFog() const;
+    std::vector<const MapTile*> getTiles() const;
+    std::vector<const FogTile*> getFog() const;
     const std::vector<MapDecoration>& getDecorations() const;
     const MapHero* getHero() const;
     const MapPointer* getPointer() const;
@@ -44,8 +45,8 @@ public:
 private:
     inline static const Hex PLAYER_START_POSITION = Hex(6,5);
 
-    HexMap<MapTile> tiles_;
-    HexMap<FogTile> fog_;
+    std::array<std::array<MapTile, MAP_HEIGHT>, MAP_WIDTH> tiles_;
+    std::array<std::array<FogTile, MAP_HEIGHT>, MAP_WIDTH+1> fog_;
     std::vector<MapDecoration> decorations_;
     MapHero hero_;
     MapPointer pointer_;

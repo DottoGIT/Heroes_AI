@@ -8,7 +8,6 @@
 
 MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
-      fog_(HexMap<FogTile>(tiles_.getWidth()+1, tiles_.getHeight())),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
       input_controller_(input_controller)
 {
@@ -45,25 +44,43 @@ void MapManager::printMap() const
 {
     std::stringstream s;
     s << "\n";
-    for (int j = 0; j < tiles_.getHeight(); ++j)
+    for (int j = 0; j < MAP_HEIGHT; ++j)
     {
-        for (int i = 0; i < tiles_.getWidth(); ++i)
+        for (int i = 0; i < MAP_WIDTH; ++i)
         {
-            s << tiles_.at(Hex(i,j)).getSymbol() << " ";
+            s << tiles_[i][j].getSymbol() << " ";
         }
         s << "\n";
     }
     Logger::debug(s.str());
 }
 
-const std::vector<MapTile>& MapManager::getTiles() const
+std::vector<const MapTile*> MapManager::getTiles() const
 {
-    return tiles_.getConstDataVector();
+    std::vector<const MapTile*> tiles_vector;
+
+    for (int j = 0; j < MAP_HEIGHT; ++j)
+    {
+        for (int i = 0; i < MAP_WIDTH; ++i)
+        {
+            tiles_vector.push_back(&tiles_[i][j]);
+        }
+    }
+    return tiles_vector;
 }
 
-const std::vector<FogTile>& MapManager::getFog() const
-{
-    return fog_.getConstDataVector();
+std::vector<const FogTile*> MapManager::getFog() const
+{    
+    std::vector<const FogTile*> fog_vector;
+
+    for (int j = 0; j < MAP_HEIGHT; ++j)
+    {
+        for (int i = 0; i < MAP_WIDTH+1; ++i)
+        {
+            fog_vector.push_back(&fog_[i][j]);
+        }
+    }
+    return fog_vector;
 }
 
 const std::vector<MapDecoration>& MapManager::getDecorations() const
@@ -83,18 +100,19 @@ const MapPointer* MapManager::getPointer() const
 
 Hex MapManager::getMapGridDimensions() const
 {
-    return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
+    return Hex(MAP_WIDTH, MAP_HEIGHT);
 }
 
 void MapManager::reactToClick(bool left_button, Hex click_position)
 {
     Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
     
-    if(pos.r >= tiles_.getHeight() || pos.q >= tiles_.getWidth())
+    if(pos.r >= MAP_HEIGHT || pos.q >= MAP_WIDTH)
     {
         return;
     }
-    MapTile* clicked_tile = &tiles_.at(pos);
+
+    MapTile* clicked_tile = &tiles_[pos.q][pos.r];
     if(!clicked_tile->isWalkable()) return;
 
     if(marked_tile_ != nullptr && marked_tile_->getPosition() == clicked_tile->getPosition())
@@ -113,11 +131,11 @@ void MapManager::reactToClick(bool left_button, Hex click_position)
 
 void MapManager::initFogOfWar(const Hex& point)
 {
-    for(int y = 0; y < fog_.getHeight(); y++)
+    for(int y = 0; y < MAP_HEIGHT; y++)
     {
-        for(int x = 0; x < fog_.getWidth(); x++)
+        for(int x = 0; x < MAP_WIDTH+1; x++)
         {
-            fog_.at(Hex(x,y)).setPosition(Hex(x-1,y));
+            fog_[x][y].setPosition(Hex(x-1,y));
         }
     }
     updateFogOfWar(point);
@@ -125,14 +143,14 @@ void MapManager::initFogOfWar(const Hex& point)
 
 void MapManager::updateFogOfWar(const Hex& point)
 {
-    for (int y = 0; y < fog_.getHeight(); y++)
+    for (int y = 0;  y < MAP_HEIGHT; y++)
     {
-        for (int x = 0; x < fog_.getWidth(); x++)
+        for (int x = 0; x < MAP_WIDTH+1; x++)
         {
             Hex tile(x, y);
             if (point.distanceTo(tile) <= DISCOVERY_RADIUS)
             {
-                fog_.at(tile).setActive(false);
+                fog_[x][y].setActive(false);
             }
         }
     }
@@ -152,7 +170,8 @@ MapEnemy* MapManager::isTileOccupiedByUnit(const Hex& point)
 
     for(const auto& n : neighbours)
     {
-        MapTile tile = tiles_.at(n);
+        if(n.q < 0 || n.r < 0 || n.q >= MAP_WIDTH || n.r >= MAP_HEIGHT) continue;
+        MapTile tile = tiles_[n.q][n.r];
         if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::Enemy)
         {
 
@@ -168,7 +187,7 @@ void MapManager::interactWithTile(const Hex& point)
     MapEnemy* foundEnemy = isTileOccupiedByUnit(point);
     if(!foundEnemy)
     {
-        tiles_.at(point).interact();
+        tiles_[point.q][point.r].interact();
         return;
     }
 

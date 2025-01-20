@@ -20,10 +20,11 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
 {
     objects_to_render_.clear();
     decorations_to_render_.clear();
-    for(const MapTile& tile : map_manager.getTiles())
+
+    for(const MapTile* tile : map_manager.getTiles())
     {
-        objects_to_render_.push_back(&tile);
-        auto interacable = tile.getConstInteractable();
+        objects_to_render_.push_back(tile);
+        auto interacable = tile->getConstInteractable();
         if(interacable)
         {
             decorations_to_render_.push_back(interacable);
@@ -35,11 +36,11 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
         decorations_to_render_.push_back(&decorations);
     }
 
-    for(const FogTile& fog : map_manager.getFog())
+    for(const FogTile* fog : map_manager.getFog())
     {
-        if(fog.isActive())
+        if(fog->isActive())
         {
-            decorations_to_render_.push_back(&fog);
+            decorations_to_render_.push_back(fog);
         }
     }
 

@@ -76,17 +76,20 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    if(mapManager_ == nullptr || battleManager_ == nullptr)
-    {
-        Logger::error("Not All Managers are Set");
-    }
-
     switch (currentScene_)
     {
     case SceneType::Map:
+        if(mapManager_ == nullptr)
+        {
+            Logger::error("Map Manager is not set");
+        }
         display_->render(*mapManager_);
         break;
     case SceneType::Battle:
+        if(battleManager_ == nullptr)
+        {
+            Logger::error("Battle Manager is not set");
+        }
         display_->render(*battleManager_);
         break;
     default:

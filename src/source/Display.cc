@@ -40,13 +40,11 @@ void Display::render(const IManager& manager)
         Logger::warning("Display.render(): Render pointer is nullptr");
         return;
     }
-
     SDL_RenderClear(renderer_);
-
+    
     manager.accept(*this);
     sortRenders(objects_to_render_);
 
-    
     switch (scene_type_)
     {
     case SceneType::Battle:
