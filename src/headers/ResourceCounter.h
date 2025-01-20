@@ -23,9 +23,9 @@ public:
         static ResourceCounter instance;
         return instance;
     }
-    void setResourceAmount(ResourceType resource, int amount);
-    void modifyResourceAmount(ResourceType resource, int delta);
-    int getResourceAmount(ResourceType resource) const;
+    void setResourceAmount(const ResourceType& resource, int amount);
+    void modifyResourceAmount(const ResourceType& resource, int delta);
+    int getResourceAmount(const ResourceType& resource) const;
     bool allResourcesCollected() const;
     const std::map<ResourceType, int>& getAllResources() const;
 private:

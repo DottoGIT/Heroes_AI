@@ -48,7 +48,7 @@ private:
     void rednerVictoryScreen();
     void initFont();
     SDL_Rect makeRectFromRenderable(const IRenderable& render) const;
-    SDL_Rect makeBattleCellRect(Hex position) const;
+    SDL_Rect makeBattleCellRect(const Hex& position) const;
     SDL_Rect makeMapCellRect(const IRenderable& render) const;
     SDL_Rect makeMapObjectRect(const IRenderable& render) const;
 };

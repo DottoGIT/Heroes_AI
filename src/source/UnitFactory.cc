@@ -21,7 +21,7 @@ UnitFactory::UnitFactory()
     registerUnit(UnitType::SWORDSMAN, &UnitFactory::createSwordsman);
 }
 
-void UnitFactory::registerUnit(UnitType type, UnitCreator creator)
+void UnitFactory::registerUnit(const UnitType& type, const UnitCreator& creator)
 {
     unit_creators_[type] = creator;
 }

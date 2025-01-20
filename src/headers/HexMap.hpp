@@ -28,12 +28,12 @@ public:
     std::vector<T>& getDataVector();                    // Used by InputController
     const std::vector<T>& getConstDataVector() const;   // Used by Display
     T& at(Hex hex);
-    const T& at(const Hex hex) const;
-    bool inBounds(Hex hex) const;
-    std::vector<Hex> getNeighbors(Hex hex) const;
-    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable) const;
-    std::vector<Hex> findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance) const;
-    std::vector<Hex> getReachableTiles(Hex start, const std::function<bool(Hex)>& reachable, unsigned distance) const;
+    const T& at(const Hex& hex) const;
+    bool inBounds(const Hex& hex) const;
+    std::vector<Hex> getNeighbors(const Hex& hex) const;
+    std::vector<Hex> findPath(const Hex& start, const Hex& end, const std::function<bool(Hex)>& reachable) const;
+    std::vector<Hex> findPath(const Hex& start, const Hex& end, const std::function<bool(Hex)>& reachable, unsigned distance) const;
+    std::vector<Hex> getReachableTiles(const Hex& start, const std::function<bool(Hex)>& reachable, unsigned distance) const;
     size_t getWidth() const;
     size_t getHeight() const;
     struct Iterator {
@@ -58,7 +58,7 @@ public:
     Iterator begin() { return Iterator(this, 0); }
     Iterator end() { return Iterator(this, data_.size()); }
 private:
-    std::size_t hexToIndex(Hex hex) const noexcept;
+    std::size_t hexToIndex(const Hex& hex) const noexcept;
 };
 
 template <typename T>
@@ -97,7 +97,7 @@ T& HexMap<T>::at(Hex hex)
 }
 
 template <typename T>
-const T& HexMap<T>::at(const Hex hex) const
+const T& HexMap<T>::at(const Hex& hex) const
 {
     if (!inBounds(hex))
         throw std::out_of_range("Column or row out of range!");
@@ -107,7 +107,7 @@ const T& HexMap<T>::at(const Hex hex) const
 }
 
 template <typename T>
-bool HexMap<T>::inBounds(Hex hex) const
+bool HexMap<T>::inBounds(const Hex& hex) const
 {
     if (hex.r < 0 || hex.r >= height_)
         return false;
@@ -129,7 +129,7 @@ size_t HexMap<T>::getHeight() const
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
+inline std::vector<Hex> HexMap<T>::getNeighbors(const Hex& hex) const
 {
     std::vector<Hex> neighbors;
 
@@ -142,7 +142,7 @@ inline std::vector<Hex> HexMap<T>::getNeighbors(Hex hex) const
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable) const
+inline std::vector<Hex> HexMap<T>::findPath(const Hex& start, const Hex& end, const std::function<bool(Hex)>& reachable) const
 {
     if (!reachable(end) || !inBounds(end)) return {};
 
@@ -179,7 +179,7 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::function<bool(Hex)>& reachable, unsigned distance) const
+inline std::vector<Hex> HexMap<T>::findPath(const Hex& start, const Hex& end, const std::function<bool(Hex)>& reachable, unsigned distance) const
 {
     if (!reachable(end) || !inBounds(end) || distance == 0) return {};
 
@@ -224,7 +224,7 @@ inline std::vector<Hex> HexMap<T>::findPath(Hex start, Hex end, const std::funct
 }
 
 template <typename T>
-inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, const std::function<bool(Hex)> &reachable, unsigned distance) const
+inline std::vector<Hex> HexMap<T>::getReachableTiles(const Hex& start, const std::function<bool(Hex)> &reachable, unsigned distance) const
 {
     if (distance == 0) return {};
 
@@ -264,7 +264,7 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(Hex start, const std::funct
 }
 
 template <typename T>
-inline std::size_t HexMap<T>::hexToIndex(Hex hex) const noexcept
+inline std::size_t HexMap<T>::hexToIndex(const Hex& hex) const noexcept
 {
     return (hex.r + hex.q % 2) * width_ + hex.q;
 }

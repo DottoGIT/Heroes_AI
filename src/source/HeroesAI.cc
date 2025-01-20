@@ -20,9 +20,7 @@ HeroesAI::HeroesAI()
     display_ = std::make_unique<Display>();
     inputController_ = std::make_shared<InputController>();
     mapManager_ = std::make_unique<MapManager>(inputController_);
-
     currentScene_ = SceneType::MAP;
-
     initPlayer();
 }
 

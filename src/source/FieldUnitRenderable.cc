@@ -10,7 +10,7 @@
 #include "FieldUnitRenderable.h"
 #include "UnitType.h"
 
-FieldUnitRenderable::FieldUnitRenderable(FieldUnit unit, std::string path_to_idle, std::string path_to_dead, ArmyType army)
+FieldUnitRenderable::FieldUnitRenderable(const FieldUnit& unit, const std::string& path_to_idle, const std::string& path_to_dead, const ArmyType& army)
     : position_(unit.getPosition()), alive_(unit.getHealth().isAlive()), path_to_idle_(path_to_idle), path_to_dead_(path_to_dead), flipped_(army == ArmyType::COMPUTER)
 {}
 

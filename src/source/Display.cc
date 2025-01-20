@@ -193,7 +193,7 @@ SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
     return retRect;
 }
 
-SDL_Rect Display::makeBattleCellRect(Hex position) const
+SDL_Rect Display::makeBattleCellRect(const Hex& position) const
 {
     SDL_Rect retRect;
     Hex pos = GridPositionParser::parseGridToPosition(position, 
@@ -293,14 +293,12 @@ void Display::rednerVictoryScreen()
     SDL_RenderFillRect(renderer_, &popup);
     SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
     SDL_RenderDrawRect(renderer_, &popup);
-
     // Make Text Surface
     SDL_Surface* textSurface = TTF_RenderText_Solid(font_, victoryText, textColor);
     if (textSurface == nullptr) {
         std::cerr << "Error rendering text: " << TTF_GetError() << std::endl;
         return;
     }
-
     // Make Text Texture
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer_, textSurface);
     SDL_FreeSurface(textSurface);
@@ -308,13 +306,11 @@ void Display::rednerVictoryScreen()
         std::cerr << "Error creating text texture: " << SDL_GetError() << std::endl;
         return;
     }
-
     int textWidth, textHeight;
     SDL_QueryTexture(textTexture, nullptr, nullptr, &textWidth, &textHeight);
     int textX = popupX + (popupWidth - textWidth) / 2;
     int textY = popupY + (popupHeight - textHeight) / 2 + 3;
     SDL_Rect textRect = { textX, textY, textWidth, textHeight };
-
     SDL_RenderCopy(renderer_, textTexture, nullptr, &textRect);
     SDL_DestroyTexture(textTexture);
 }

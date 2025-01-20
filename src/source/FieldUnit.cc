@@ -10,7 +10,7 @@
 
 #include "FieldUnit.h"
 
-FieldUnit::FieldUnit(const Unit &unit, Hex position)
+FieldUnit::FieldUnit(const Unit& unit, const Hex& position)
     : type_(unit.getType()), position_(position),
     health_(unit.getQuantity().get() * unit.getSingleUnitHealth().get()),
     attack_strength_(unit.getAttackStrength()), attack_range_(unit.getAttackRange()),
@@ -27,7 +27,7 @@ const Hex &FieldUnit::getPosition() const
     return position_;
 }
 
-void FieldUnit::setPosition(const Hex new_position)
+void FieldUnit::setPosition(const Hex& new_position)
 {
     position_ = new_position;
 }

@@ -112,7 +112,7 @@ Hex MapManager::getMapGridDimensions() const
     return Hex(MAP_WIDTH, MAP_HEIGHT);
 }
 
-void MapManager::reactToClick(bool left_button, Hex click_position)
+void MapManager::reactToClick(bool left_button, const Hex& click_position)
 {
     Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
     

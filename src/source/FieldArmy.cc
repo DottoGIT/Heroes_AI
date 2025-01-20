@@ -18,7 +18,7 @@ FieldArmy::FieldArmy()
     units_.reserve(MAX_UNIT_COUNT);
 }
 
-void FieldArmy::addUnit(FieldUnit unit)
+void FieldArmy::addUnit(const FieldUnit& unit)
 {
     units_.push_back(std::move(unit));
 }

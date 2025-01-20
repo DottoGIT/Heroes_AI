@@ -11,7 +11,7 @@
 #include <algorithm>
 #include "InitiativeQueue.h"
 
-FieldUnitIndex::FieldUnitIndex(ArmyType pType, uint32_t pIndex)
+FieldUnitIndex::FieldUnitIndex(const ArmyType& pType, uint32_t pIndex)
     : type(pType), index(pIndex)
 {}
 

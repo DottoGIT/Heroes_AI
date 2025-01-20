@@ -22,7 +22,7 @@ public:
 private:
     using UnitCreator = Unit(UnitFactory::*)(unsigned int);
     std::unordered_map<UnitType, UnitCreator> unit_creators_;
-    void registerUnit(UnitType type, UnitCreator creator);
+    void registerUnit(const UnitType& type, const UnitCreator& creator);
     // Units Creators
     Unit createArcher(unsigned int quantity);
     Unit createEnchanter(unsigned int quantity);

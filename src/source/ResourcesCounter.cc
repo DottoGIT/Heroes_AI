@@ -22,7 +22,7 @@ ResourceCounter::ResourceCounter()
     };
 }
 
-int ResourceCounter::getResourceAmount(ResourceType resource) const 
+int ResourceCounter::getResourceAmount(const ResourceType& resource) const 
 {
     auto it = resources_.find(resource);
     if (it != resources_.end()) {
@@ -31,12 +31,12 @@ int ResourceCounter::getResourceAmount(ResourceType resource) const
     return 0;
 }
 
-void ResourceCounter::setResourceAmount(ResourceType resource, int amount) 
+void ResourceCounter::setResourceAmount(const ResourceType& resource, int amount) 
 {
     resources_[resource] = amount;
 }
 
-void ResourceCounter::modifyResourceAmount(ResourceType resource, int delta) 
+void ResourceCounter::modifyResourceAmount(const ResourceType& resource, int delta) 
 {
     resources_[resource] += delta;
 }
