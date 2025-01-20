@@ -13,9 +13,11 @@
 #include <vector>
 
 #include "BattleField.h"
+#include "Army.h"
 #include "Hex.h"
 #include "IManager.h"
 #include "HexMap.hpp"
+#include "FieldUnitRenderable.h"
 
 class RendersVisitator;
 
@@ -27,16 +29,23 @@ class BattleManager : public IManager
 {
 public:
     BattleManager();
-    BattleManager(const std::vector<Unit>& playerArmy, const std::vector<Unit>& enemyArmy, HexMap<Tile> map);
-    std::vector<std::shared_ptr<FieldUnit>> getAllUnits() const;
+    BattleManager(const Army& playerArmy, const Army& enemyArmy, HexMap<Tile> map);
+    const BattleField& getBattleField() const;
     const std::string& getBackground() const;
     Hex getBattleGridDimensions() const;
+    const ArmyType getCurrentPlayer() const;
+    const FieldUnit& getCurrentUnit() const;
+    const MoveType getCurrentMoveType() const;
+    void MakeMove(UnitMove unitMove);
+
+    const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
 
     void accept(RendersVisitator& visitor) const override;
 private:
     BattleField field_;
     HexMap<Tile> map_;
     std::string background_;
-
-    void setUnitsInStartingPositions();
+    std::vector<std::unique_ptr<FieldUnitRenderable>> renderable_units_;
+    std::unordered_map<UnitType, std::string> texture_idle_;
+    std::unordered_map<UnitType, std::string> texture_dead_;
 };
