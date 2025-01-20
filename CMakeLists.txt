@@ -61,6 +61,11 @@ target_link_libraries(InitiativeQueueTests PRIVATE Heroes_AI_lib ${Boost_LIBRARI
 add_executable(ArmyTests tests/ArmyTests.cc)
 target_link_libraries(ArmyTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
 
+add_executable(BattleFieldTests tests/BattleFieldTests.cc)
+target_link_libraries(BattleFieldTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
+
+
+
 enable_testing()
 add_test(NAME UnitTests COMMAND UnitTests)
 add_test(NAME HexTests COMMAND HexTests)
@@ -72,3 +77,4 @@ add_test(NAME FieldUnitTests COMMAND FieldUnitTests)
 add_test(NAME FieldArmyTests COMMAND FieldArmyTests)
 add_test(NAME InitiativeQueueTests COMMAND InitiativeQueueTests)
 add_test(NAME ArmyTests COMMAND ArmyTests)
+add_test(NAME BattleFieldTests COMMAND BattleFieldTests)
