@@ -7,11 +7,13 @@ Unit::Unit(
     const UnitType &type,
     unsigned int quantity, unsigned int single_unit_health,
     unsigned int attack_strength, unsigned int attack_range,
-    unsigned int walk_range, unsigned int initiative
+    unsigned int walk_range, unsigned int initiative,
+    std::string path_to_idle, std::string path_to_dead
 )   : type_(type),
     quantity_(quantity), single_unit_health_(single_unit_health),
     attack_strength_(attack_strength), attack_range_(attack_range),
-    walk_range_(walk_range), initiative_(initiative)
+    walk_range_(walk_range), initiative_(initiative),
+    texture_idle_(path_to_idle), texture_dead_()
 {}
 
 const UnitType &Unit::getType() const
@@ -47,6 +49,16 @@ const Statistic& Unit::getWalkRange() const
 const Statistic& Unit::getInitiative() const
 {
     return initiative_;
+}
+
+const std::string &Unit::getPathIdle() const
+{
+    return texture_idle_;
+}
+
+const std::string &Unit::getPathDead() const
+{
+    return texture_dead_;
 }
 
 void Unit::increaseQuantity(unsigned int amount)

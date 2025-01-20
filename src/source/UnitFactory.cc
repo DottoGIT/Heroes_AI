@@ -34,59 +34,59 @@ Unit UnitFactory::CreateUnit(const UnitType& type, unsigned int quantity) {
 Unit UnitFactory::createArcher(unsigned int quantity)
 {
     const UnitType                  UNIT_TYPE               = UnitType::Archer;
-    //const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/archer.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/archer.png";
     const unsigned int              QUANTITY                = quantity;
-    //const std::string               PATH_TO_SPRITE_DEAD     = "path/to/archer_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/archer_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 10;
     const unsigned int              UNIT_ATTACK_RANGE       = 5;
     const unsigned int              UNIT_WALK_RANGE         = 5;
     const unsigned int              UNIT_INITIATIVE         = 7;
 
-    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE);
+    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE, PATH_TO_SPRITE_IDLE, PATH_TO_SPRITE_DEAD);
 }
 
 Unit UnitFactory::createEnchanter(unsigned int quantity)
 {
     const UnitType                  UNIT_TYPE               = UnitType::Enchanter;
-    //const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/enchanter.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/enchanter.png";
     const unsigned int              QUANTITY                = quantity;
-    //const std::string               PATH_TO_SPRITE_DEAD     = "path/to/enchanter_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/enchanter_dead.png";
     const unsigned int              UNIT_HEALTH             = 80;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 20;
     const unsigned int              UNIT_ATTACK_RANGE       = 5;
     const unsigned int              UNIT_WALK_RANGE         = 3;
     const unsigned int              UNIT_INITIATIVE         = 8;
 
-    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE);
+    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE, PATH_TO_SPRITE_IDLE, PATH_TO_SPRITE_DEAD);
 }
 
 Unit UnitFactory::createSkeleton(unsigned int quantity)
 {
     const UnitType                  UNIT_TYPE               = UnitType::Skeleton;
-    //const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/skeleton.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/skeleton.png";
     const unsigned int              QUANTITY                = quantity;
-    //const std::string               PATH_TO_SPRITE_DEAD     = "path/to/skeleton_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/skeleton_dead.png";
     const unsigned int              UNIT_HEALTH             = 10;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 5;
     const unsigned int              UNIT_ATTACK_RANGE       = 1;
     const unsigned int              UNIT_WALK_RANGE         = 7;
     const unsigned int              UNIT_INITIATIVE         = 3;
 
-    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE);
+    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE, PATH_TO_SPRITE_IDLE, PATH_TO_SPRITE_DEAD);
 }
 
 Unit UnitFactory::createSwordsman(unsigned int quantity)
 {
     const UnitType                  UNIT_TYPE               = UnitType::Swordsman;
-    //const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/swordsman.png";
+    const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/swordsman.png";
     const unsigned int              QUANTITY                = quantity;
-    //const std::string               PATH_TO_SPRITE_DEAD     = "path/to/swordsman_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/swordsman_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 20;
     const unsigned int              UNIT_ATTACK_RANGE       = 1;
     const unsigned int              UNIT_WALK_RANGE         = 4;
     const unsigned int              UNIT_INITIATIVE         = 5;
 
-    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE);
+    return Unit(UNIT_TYPE, quantity, UNIT_HEALTH, UNIT_ATTACK_STRENGTH, UNIT_ATTACK_RANGE, UNIT_WALK_RANGE, UNIT_INITIATIVE, PATH_TO_SPRITE_IDLE, PATH_TO_SPRITE_DEAD);
 }

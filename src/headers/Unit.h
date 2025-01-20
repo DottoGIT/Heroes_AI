@@ -21,7 +21,8 @@ public:
         const UnitType& type,
         unsigned int quantity, unsigned int single_unit_health,
         unsigned int attack_strength, unsigned int attack_range,
-        unsigned int walk_range, unsigned int initiative
+        unsigned int walk_range, unsigned int initiative,
+        std::string path_to_idle, std::string path_to_dead
         );
     
     const UnitType& getType() const;
@@ -31,6 +32,8 @@ public:
     const Statistic& getAttackRange() const;
     const Statistic& getWalkRange() const;
     const Statistic& getInitiative() const;
+    const std::string& getPathIdle() const;
+    const std::string& getPathDead() const;
     void increaseQuantity(unsigned int amount);
     void increaseSingleUnitHealth(unsigned int amount);
     void increaseAttackStrength(unsigned int amount);
@@ -45,4 +48,6 @@ private:
     Statistic attack_range_;
     Statistic walk_range_;
     Statistic initiative_;
+    std::string texture_idle_;
+    std::string texture_dead_;
 };
