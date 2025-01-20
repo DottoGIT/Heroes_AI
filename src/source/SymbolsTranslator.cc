@@ -129,5 +129,5 @@ Army SymbolsTranslator::createArmyFromSymbol(char s)
         break;
     }
 
-    army;
+    return army;
 }

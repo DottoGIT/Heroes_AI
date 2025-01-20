@@ -14,13 +14,13 @@
 #include <memory>
 #include "Hex.h"
 #include "IInteractable.h"
-#include "FieldArmy.h"
+#include "Army.h"
 
 class SymbolsTranslator {
 public:
     static std::map<char, std::string> symbolsToPaths;
     static std::map<char, Hex> symbolsToSizes;
     static std::map<char, std::shared_ptr<IInteractable>> symbolsToObjects;
-    FieldArmy createArmyFromSymbol(char s);
+    static Army createArmyFromSymbol(char s);
 };
 
