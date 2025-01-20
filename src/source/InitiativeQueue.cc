@@ -11,14 +11,16 @@ InitiativeQueue::InitiativeQueue()
 InitiativeQueue::InitiativeQueue(const FieldArmy &player, const FieldArmy &enemy)
 {
     queue_.reserve(player.getUnits().size() + enemy.getUnits().size());
-    std::for_each(
-        std::cbegin(player.getUnits()), std::cend(player.getUnits()),
-        [this, i = 0](int) mutable {queue_.emplace_back(ArmyType::Player, i);}
-    );
-    std::for_each(
-        std::cbegin(enemy.getUnits()), std::cend(enemy.getUnits()),
-        [this, i = 0](int) mutable {queue_.emplace_back(ArmyType::Player, i);}
-    );
+    int index = 0;
+    for (const FieldUnit& unit : player.getUnits())
+    {
+        queue_.emplace_back(ArmyType::Player, index++);
+    }
+    index = 0;
+    for (const FieldUnit& unit : enemy.getUnits())
+    {
+        queue_.emplace_back(ArmyType::Computer, index++);
+    }
     std::sort(
         queue_.begin(), queue_.end(),
         [&](const FieldUnitIndex& a, const FieldUnitIndex& b) {
@@ -39,6 +41,7 @@ const FieldUnitIndex InitiativeQueue::next()
 {
     if (queue_.size() < 2) return queue_.front();
     std::rotate(queue_.begin(), queue_.begin() + 1, queue_.end());
+    return queue_.front();
 }
 
 const std::vector<FieldUnitIndex> &InitiativeQueue::getQueue() const
