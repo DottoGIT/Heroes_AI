@@ -110,9 +110,9 @@ void Display::renderBattle()
 
     // Render Grid
     try{
-        for(int row = 0; row < grid_dimensions_.r; row++)
+        for(int row = 0; row < grid_dimensions_.r; ++row)
         {
-            for(int col = 0; col < grid_dimensions_.q; col++)
+            for(int col = 0; col < grid_dimensions_.q; ++col)
             {
                 SDL_Texture* texture = texture_manager_.getTexture(BATTLE_GRID_IDLE_PATH, renderer_).getTexture();
                 SDL_Rect destR = makeBattleCellRect(Hex(col, row));

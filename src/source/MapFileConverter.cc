@@ -55,7 +55,7 @@ std::array<std::array<MapTile, CONVERTER_MAP_HEIGHT>, CONVERTER_MAP_WIDTH> MapFi
             continue; 
         }
 
-        for(int i = 0; i < line_ground.length(); i++)
+        for(int i = 0; i < line_ground.length(); ++i)
         {
             MapTile tile;
             tile.setSymbol(line_ground[i]);

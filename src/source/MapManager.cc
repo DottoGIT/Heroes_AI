@@ -141,9 +141,9 @@ void MapManager::reactToClick(bool left_button, const Hex& click_position)
 
 void MapManager::initFogOfWar(const Hex& point)
 {
-    for(int y = 0; y < MAP_HEIGHT; y++)
+    for(int y = 0; y < MAP_HEIGHT; ++y)
     {
-        for(int x = 0; x < MAP_WIDTH+1; x++)
+        for(int x = 0; x < MAP_WIDTH+1; ++x)
         {
             fog_[x][y].setPosition(Hex(x-1,y));
         }
@@ -153,9 +153,9 @@ void MapManager::initFogOfWar(const Hex& point)
 
 void MapManager::updateFogOfWar(const Hex& point)
 {
-    for (int y = 0;  y < MAP_HEIGHT; y++)
+    for (int y = 0;  y < MAP_HEIGHT; ++y)
     {
-        for (int x = 0; x < MAP_WIDTH+1; x++)
+        for (int x = 0; x < MAP_WIDTH+1; ++x)
         {
             Hex tile(x, y);
             if (point.distanceTo(tile) <= DISCOVERY_RADIUS)

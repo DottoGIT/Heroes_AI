@@ -24,12 +24,14 @@ InitiativeQueue::InitiativeQueue(const FieldArmy &player, const FieldArmy &enemy
     int index = 0;
     for (const FieldUnit& unit : player.getUnits())
     {
-        queue_.emplace_back(ArmyType::PLAYER, index++);
+        queue_.emplace_back(ArmyType::PLAYER, index);
+        ++index;
     }
     index = 0;
     for (const FieldUnit& unit : enemy.getUnits())
     {
-        queue_.emplace_back(ArmyType::COMPUTER, index++);
+        queue_.emplace_back(ArmyType::COMPUTER, index);
+        ++index;
     }
     std::sort(
         queue_.begin(), queue_.end(),

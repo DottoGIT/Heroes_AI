@@ -48,7 +48,7 @@ BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, He
         player_field_army.addUnit(FieldUnit(unit, player_start_positions.at(index)));
         texture_idle_[unit.getType()] = unit.getPathIdle();
         texture_dead_[unit.getType()] = unit.getPathDead();
-        index++;
+        ++index;
     });
     FieldArmy enemy_field_army;
     std::for_each(enemy_army.cbegin(), enemy_army.cend(),
@@ -56,7 +56,7 @@ BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, He
         enemy_field_army.addUnit(FieldUnit(unit, enemy_start_positions.at(index)));
         texture_idle_[unit.getType()] = unit.getPathIdle();
         texture_dead_[unit.getType()] = unit.getPathDead();
-        index++;
+        ++index;
     });
     field_ = BattleField(std::move(player_field_army), std::move(enemy_field_army), &map_);
     background_ = "media/sprites/battlebg_green.png";
