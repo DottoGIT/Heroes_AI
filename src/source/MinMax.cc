@@ -39,7 +39,7 @@ std::pair<BattleField, int> MinMax::minMax(BattleField battlefield, int depth, i
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
-            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1);
+            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1, alpha, beta);
             if (score.second > best_score)
             {
                 best_move = std::move(score.first);
@@ -58,7 +58,7 @@ std::pair<BattleField, int> MinMax::minMax(BattleField battlefield, int depth, i
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
-            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1);
+            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1, alpha, beta);
             if (score.second < best_score)
             {
                 best_move = std::move(score.first);
