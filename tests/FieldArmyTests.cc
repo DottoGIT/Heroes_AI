@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(FieldArmy_addUnit)
     FieldArmy army;
     army.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7),
+            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", ""),
             Hex(8, 9)
     ));
     
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(FieldArmy_citerator)
     FieldArmy army;
     army.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7),
+            Unit(UnitType::Archer, 2, 3, 4, 5, 6, 7, "", ""),
             Hex(8, 9)
     ));
 

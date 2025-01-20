@@ -20,12 +20,12 @@ BOOST_AUTO_TEST_CASE(InitiativeQueue_constructor)
     FieldArmy enemy;
     player.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 2),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 2, "", ""),
             Hex(8, 9)
     ));
     enemy.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 3),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 3, "", ""),
             Hex(8, 9)
     ));
     InitiativeQueue queue(player, enemy);
@@ -40,22 +40,22 @@ BOOST_AUTO_TEST_CASE(InitiativeQueue_constructor_larger_size)
     FieldArmy enemy;
     player.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 3),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 3, "", ""),
             Hex(8, 9)
     ));
     player.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 5),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 5, "", ""),
             Hex(8, 9)
     ));
     enemy.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 2),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 2, "", ""),
             Hex(8, 9)
     ));
         enemy.addUnit(
         FieldUnit(
-            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 6),
+            Unit(UnitType::Archer, 1, 1, 1, 1, 1, 6, "", ""),
             Hex(8, 9)
     ));
     InitiativeQueue queue(player, enemy);
