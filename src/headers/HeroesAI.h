@@ -36,6 +36,7 @@ private:
     void handleEvents();
     void update();
     void render();
+    void initPlayer();
 
     void waitForFPS(Uint64 frame_start);
     
@@ -43,6 +44,7 @@ private:
     bool gameWon = false;
 
     SceneType currentScene_;
+    Army player_army_;
 
     std::unique_ptr<Display> display_;
     std::shared_ptr<InputController> inputController_;

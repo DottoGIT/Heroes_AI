@@ -15,31 +15,7 @@ HeroesAI::HeroesAI()
 
     currentScene_ = SceneType::Map;
 
-    ///////////////////////////////////////////////////////////
-    /* DEVELOPMENT ONLY CREATION OF BATTLE UNITS AND MANAGER */
-    ///////////////////////////////////////////////////////////
-
-    // Unit factory
-    FieldUnitFactory unit_factory;
-    // Init battle manager
-    FieldArmy playerArmy(ArmyType::Player);
-    auto archer = unit_factory.CreateUnit(UnitType::Archer, 20);
-    archer->setPosition(Hex(0, 0));
-    auto swordsman = unit_factory.CreateUnit(UnitType::Swordsman, 30);
-    swordsman->setPosition(Hex(1, 1));
-    playerArmy.addUnit(archer);
-    playerArmy.addUnit(swordsman);
-
-    FieldArmy computerArmy(ArmyType::Computer);
-    auto enchanter = unit_factory.CreateUnit(UnitType::Enchanter, 20);
-    enchanter->setPosition(Hex(14, 10));
-    auto skeleton = unit_factory.CreateUnit(UnitType::Skeleton, 30);
-    skeleton->setPosition(Hex(14, 9));
-    computerArmy.addUnit(enchanter);
-    computerArmy.addUnit(skeleton);
-    // Battlemanager
-    battleManager_ = std::make_unique<BattleManager>(playerArmy, computerArmy);
-    
+    initPlayer();
 }
 
 HeroesAI::~HeroesAI()
@@ -118,6 +94,14 @@ void HeroesAI::render()
     }
 }
 
+void HeroesAI::initPlayer()
+{
+    UnitFactory unit_factory;
+    auto archer = unit_factory.CreateUnit(UnitType::Archer, 20);
+    auto swordsman = unit_factory.CreateUnit(UnitType::Swordsman, 30);
+    player_army_.addUnit(archer);
+    player_army_.addUnit(swordsman);
+}
 
 void HeroesAI::waitForFPS(Uint64 frame_start)
 {
