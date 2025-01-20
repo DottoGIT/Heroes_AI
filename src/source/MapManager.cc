@@ -4,13 +4,16 @@
 #include "MapFileConverter.h"
 #include "Logger.h"
 #include "GridPositionParser.h"
+#include "Resource.h"
 
 MapManager::MapManager(std::weak_ptr<InputController> input_controller)
     : tiles_(MapFileConverter::fileToMapConvertion()),
+      fog_(HexMap<FogTile>(tiles_.getWidth()+1, tiles_.getHeight())),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
       input_controller_(input_controller)
 {
-    hero_.setPosition(Hex(6, 5));
+    hero_.setPosition(PLAYER_START_POSITION);
+    initFogOfWar(PLAYER_START_POSITION);
     if(auto locked = input_controller_.lock())
     {
         locked->subscribeToMouseClick(this);
@@ -58,6 +61,11 @@ const std::vector<MapTile>& MapManager::getTiles() const
     return tiles_.getConstDataVector();
 }
 
+const std::vector<FogTile>& MapManager::getFog() const
+{
+    return fog_.getConstDataVector();
+}
+
 const std::vector<MapDecoration>& MapManager::getDecorations() const
 {
     return decorations_;
@@ -78,12 +86,6 @@ Hex MapManager::getMapGridDimensions() const
     return Hex(static_cast<int>(tiles_.getWidth()), static_cast<int>(tiles_.getHeight()));
 }
 
-
-const std::map<ResourceType, int>& MapManager::getResources() const
-{
-    return resources_.getAllResources();
-}
-
 void MapManager::reactToClick(bool left_button, Hex click_position)
 {
     Hex pos = GridPositionParser::parsePositionToGrid(click_position, Hex(MAP_TILE_SIZE, MAP_TILE_SIZE), Hex(0,0), Hex(0,0), 0);
@@ -97,14 +99,79 @@ void MapManager::reactToClick(bool left_button, Hex click_position)
 
     if(marked_tile_ != nullptr && marked_tile_->getPosition() == clicked_tile->getPosition())
     {
-        Hex hero_offset = Hex(pos.q, pos.r-1);
-        hero_.setFlip(hero_offset.q < hero_.getPosition().q);
-        hero_.setPosition(hero_offset);
+        moveHero(pos);
+        updateFogOfWar(pos);
+        interactWithTile(pos);
         pointer_.hide();
     }
     else
     {
         marked_tile_ = clicked_tile;
-        pointer_.setPosition(pos);
+        pointer_.setPosition(pos, isTileOccupiedByUnit(pos));
     }
 }
+
+void MapManager::initFogOfWar(const Hex& point)
+{
+    for(int y = 0; y < fog_.getHeight(); y++)
+    {
+        for(int x = 0; x < fog_.getWidth(); x++)
+        {
+            fog_.at(Hex(x,y)).setPosition(Hex(x-1,y));
+        }
+    }
+    updateFogOfWar(point);
+}
+
+void MapManager::updateFogOfWar(const Hex& point)
+{
+    for (int y = 0; y < fog_.getHeight(); y++)
+    {
+        for (int x = 0; x < fog_.getWidth(); x++)
+        {
+            Hex tile(x, y);
+            if (point.distanceTo(tile) <= DISCOVERY_RADIUS)
+            {
+                fog_.at(tile).setActive(false);
+            }
+        }
+    }
+}
+
+void MapManager::moveHero(const Hex& point)
+{
+    Hex hero_offset = Hex(point.q, point.r-1);
+    hero_.setFlip(hero_offset.q < hero_.getPosition().q);
+    hero_.setPosition(hero_offset);
+}
+
+MapEnemy* MapManager::isTileOccupiedByUnit(const Hex& point)
+{
+    Hex unitOffset = Hex(point.q, point.r-1);
+    std::array<Hex, 9> neighbours = unitOffset.neighborsSquare();
+
+    for(const auto& n : neighbours)
+    {
+        MapTile tile = tiles_.at(n);
+        if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::Enemy)
+        {
+
+            MapEnemy* enemy = dynamic_cast<MapEnemy*>(tile.getInteractable());
+            return enemy;
+        }
+    }
+    return nullptr;
+}
+
+void MapManager::interactWithTile(const Hex& point)
+{
+    MapEnemy* foundEnemy = isTileOccupiedByUnit(point);
+    if(!foundEnemy)
+    {
+        tiles_.at(point).interact();
+        return;
+    }
+
+    foundEnemy->interact();
+}
+

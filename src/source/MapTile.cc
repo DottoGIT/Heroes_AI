@@ -18,7 +18,13 @@ void MapTile::setInteractable(std::shared_ptr<IInteractable> interactable)
     interactable->setPosition(position_);
 }
 
-const IInteractable* MapTile::getInteractable() const
+IInteractable* MapTile::getInteractable()
+{
+    return interactable_.get();
+}
+
+
+const IInteractable* MapTile::getConstInteractable() const
 {
     return interactable_.get();
 }
@@ -68,9 +74,15 @@ bool MapTile::interact()
 {
     if(!interactable_)
     {
-    return false;
+        return false;
     }
 
-    interactable_->interact(*this);
+    bool delete_after_interaction = interactable_->interact();
+
+    if(delete_after_interaction)
+    {
+        interactable_ = nullptr;
+    }
+
     return true;
 }

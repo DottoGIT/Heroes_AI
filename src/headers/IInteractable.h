@@ -11,6 +11,7 @@
 #include <memory>
 #include "Hex.h"
 #include "IRenderable.h"
+#include "MapObjectType.h"
 
 class MapTile;
 
@@ -18,8 +19,10 @@ class IInteractable : public IRenderable {
 public:
     IInteractable() = default;
     virtual ~IInteractable() = default;
-    virtual void interact(MapTile& myTile) = 0;
+    virtual bool interact() = 0; // Returns if it should disappear after interaction
     virtual void setPosition(const Hex& position) = 0;
     virtual void setSpritePath(const std::string& path) = 0;
     virtual std::shared_ptr<IInteractable> clone() const = 0;
+    virtual MapObjectType myObjectType() const = 0;
+
 };

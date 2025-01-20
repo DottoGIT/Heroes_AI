@@ -24,7 +24,7 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
     for(const MapTile& tile : map_manager.getTiles())
     {
         objects_to_render_.push_back(&tile);
-        auto interacable = tile.getInteractable();
+        auto interacable = tile.getConstInteractable();
         if(interacable)
         {
             decorations_to_render_.push_back(interacable);
@@ -36,10 +36,17 @@ void RendersVisitator::visitMapManager(const MapManager& map_manager)
         decorations_to_render_.push_back(&decorations);
     }
 
+    for(const FogTile& fog : map_manager.getFog())
+    {
+        if(fog.isActive())
+        {
+            decorations_to_render_.push_back(&fog);
+        }
+    }
+
     decorations_to_render_.push_back(map_manager.getHero());
     decorations_to_render_.push_back(map_manager.getPointer());
 
     scene_type_ = SceneType::Map;
     grid_dimensions_ = map_manager.getMapGridDimensions();
-    resources = map_manager.getResources();
 }

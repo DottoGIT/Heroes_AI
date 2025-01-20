@@ -1,17 +1,20 @@
 #include "Resource.h"
 #include <string>
 #include "Logger.h"
+#include "ResourceCounter.h"
 
 Resource::Resource(const ResourceType& type, int value)
     : type_(type), value_(value)
 {
 }
 
-void Resource::interact(MapTile& myTile)
+bool Resource::interact()
 {
     std::stringstream ss;
+    ResourceCounter::getInstance().modifyResourceAmount(type_, value_);
     ss << "Resource collected. Value: " << value_ << ", Type: " << type_;
     Logger::info(ss.str());
+    return true;
 }
 
 void Resource::setPosition(const Hex& position)
@@ -57,4 +60,9 @@ Hex Resource::getPosition() const
 bool Resource::isFlipped() const
 {
     return false;
+}
+
+MapObjectType Resource::myObjectType() const
+{
+    return MapObjectType::Resource;
 }

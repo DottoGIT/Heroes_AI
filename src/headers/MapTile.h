@@ -23,7 +23,8 @@ public:
     virtual ~MapTile() = default;
 
     bool interact();
-    const IInteractable* getInteractable() const;
+    IInteractable* getInteractable();
+    const IInteractable* getConstInteractable() const;
 
     void setPosition(Hex position);
     void setInteractable(std::shared_ptr<IInteractable> interactable);

@@ -7,9 +7,17 @@ void MapPointer::hide()
     position_ = Hex(-1,-1);
 }
 
-void MapPointer::setPosition(const Hex& position)
+void MapPointer::setPosition(const Hex& position, bool danger_tile)
 {
     position_ = position;
+    if(danger_tile)
+    {
+        path_to_sprite_ = POINTER_SPRITE_DANGER_PATH;
+    }
+    else
+    {
+        path_to_sprite_ = POINTER_SPRITE_PATH;
+    }
 }
 
 Hex MapPointer::getPosition() const

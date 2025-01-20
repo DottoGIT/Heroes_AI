@@ -7,11 +7,12 @@ MapEnemy::MapEnemy(Army army)
 {
 }
 
-void MapEnemy::interact(MapTile &myTile)
+bool MapEnemy::interact()
 {
     std::stringstream ss;
     ss << "Enemy encoutered, army size: " << army_.getUnits().size();
     Logger::info(ss.str());
+    return false;
 }
 
 void MapEnemy::setPosition(const Hex& position)
@@ -52,4 +53,9 @@ Hex MapEnemy::getPosition() const
 bool MapEnemy::isFlipped() const
 {
     return false;
+}
+
+MapObjectType MapEnemy::myObjectType() const
+{
+    return MapObjectType::Enemy;
 }
