@@ -27,6 +27,11 @@ constexpr int BATTLE_GRID_EVEN_ROW_INDENT = 26; // prefferable (1/2)
 constexpr char* BATTLE_GRID_IDLE_PATH = "media/sprites/gridtile.png";
 constexpr char* BATTLE_GRID_ACTIVE_PATH = "media/sprites/active_gridtile.png";
 constexpr int MAP_GRID_CELL_SIZE = 32;
+constexpr int BATTLE_OFFSET_X = 5;
+constexpr int BATTLE_OFFSET_Y = -60;
+constexpr int RESOURCE_INIT_POS_X = 30;
+constexpr int RESOURCE_SPACING = 108;
+constexpr int RESOURCE_FONT_HEIGHT = 5;
 
 class Display : public RendersVisitator
 {

@@ -184,7 +184,7 @@ SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
     Hex pos = GridPositionParser::parseGridToPosition(render.getPosition(), 
                                         Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
                                         Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
-                                        Hex(5,-60), 
+                                        Hex(BATTLE_OFFSET_X, BATTLE_OFFSET_Y), 
                                         BATTLE_GRID_EVEN_ROW_INDENT);
     retRect.h = render.getSpriteDimensions().r;
     retRect.w = render.getSpriteDimensions().q;
@@ -247,7 +247,7 @@ void Display::renderResources()
     SDL_RenderFillRect(renderer_, &redSquare);
 
     // Load font
-    int offset = 30;
+    int offset = RESOURCE_INIT_POS_X;
     for (const auto& entry : ResourceCounter::getInstance().getAllResources())
     {
         std::stringstream ss;
@@ -270,11 +270,11 @@ void Display::renderResources()
             return;
         }
 
-        SDL_Rect textRect = { offset, 5, textSurface->w, textSurface->h };
+        SDL_Rect textRect = { offset, RESOURCE_FONT_HEIGHT, textSurface->w, textSurface->h };
         SDL_RenderCopy(renderer_, textTexture, NULL, &textRect);
         SDL_DestroyTexture(textTexture);
         SDL_FreeSurface(textSurface);
-        offset += 108;
+        offset += RESOURCE_SPACING;
     }
 }
 
