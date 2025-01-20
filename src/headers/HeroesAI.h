@@ -41,7 +41,6 @@ private:
     void waitForFPS(Uint64 frame_start);
     
     bool is_running_ = false;
-    bool gameWon = false;
 
     SceneType currentScene_;
     Army player_army_;
