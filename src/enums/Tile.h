@@ -2,7 +2,7 @@
  * File:        Tile.h
  * Description: Identifies types of tiles on map.
  *
- * Author:      Wojciech Sarwiński
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
  * 
  * Date:        28.11.2024
  */

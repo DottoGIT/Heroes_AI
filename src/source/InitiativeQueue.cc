@@ -1,3 +1,13 @@
+/*
+ * File:        InitiativeQueue.cc
+ * Description: Order in which units act in battle field
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ *              Wojciech Sarwiński <https://github.com/sarwoj>
+ * 
+ * Date:        05.11.2024
+ */
+
 #include "InitiativeQueue.h"
 #include <algorithm>
 

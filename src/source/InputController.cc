@@ -1,3 +1,12 @@
+/*
+ * File:        InputController.cc
+ * Description: Game mouse input controller
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        16.01.2025
+ */
+
 #include "InputController.h"
 #include <string>
 #include <algorithm> 

@@ -1,3 +1,12 @@
+/*
+ * File:        MapTile.cc
+ * Description: Contains data about single tile in map.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        03.01.2025
+ */
+
 #include "MapTile.h"
 #include "SymbolsTranslator.h"
 #include "Logger.h"

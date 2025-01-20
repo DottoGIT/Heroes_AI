@@ -6,6 +6,7 @@
  * 
  * Date:        17.12.2024
  */
+
 #pragma once
 #include "Hex.h"
 

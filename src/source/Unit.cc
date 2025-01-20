@@ -1,3 +1,13 @@
+/*
+ * File:        Unit.cc
+ * Description: Class for every unit in the game outside battle.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ *              Wojciech Sarwiński <https://github.com/sarwoj>
+ * 
+ * Date:        04.11.2024
+ */
+
 #include "Unit.h"
 #include "AttackType.h"
 #include "UnitType.h"

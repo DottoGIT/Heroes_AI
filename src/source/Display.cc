@@ -1,8 +1,16 @@
+/*
+ * File:        Display.cc
+ * Description: Responsible for rendering textures using SDL library
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        01.12.2024
+ */
+
 #include "Display.h"
 
 #include <iostream>
 #include <algorithm>
-#include "HeroesAIExcept.h"
 #include "Logger.h"
 #include "SDL2/SDL_image.h"
 #include "IManager.h"
@@ -26,7 +34,7 @@ void Display::init(const char* window_title, int window_width, int window_height
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) 
     {
-        throw SdlException("SDL init error: " + std::string(SDL_GetError()));
+        throw std::runtime_error("SDL init error: " + std::string(SDL_GetError()));
     }
 
     window_ = SDL_CreateWindow(window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_SHOWN);

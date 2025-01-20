@@ -1,6 +1,14 @@
+/*
+ * File:        MapPointer.cc
+ * Description: Represents way pointer before going as MapHero
+ * 
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        17.01.2025
+ */
+
 #include "MapPointer.h"
-
-
 
 void MapPointer::hide()
 {

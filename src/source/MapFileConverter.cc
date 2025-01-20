@@ -1,3 +1,12 @@
+/*
+ * File:        MapFileConverter.cc
+ * Description: Handles convertion between map objects and files.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        03.01.2025
+ */
+
 #include "MapFileConverter.h"
 #include <vector>
 #include <fstream>

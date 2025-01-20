@@ -1,6 +1,6 @@
 /*
  * File:        ArmyType.h
- * Description: Specifies if a unit is from player Army or AI army
+ * Description: Specifies if an unit is from player Army or AI army
  *
  * Author:      Maciej Scheffer <https://github.com/DottoGIT>
  * 

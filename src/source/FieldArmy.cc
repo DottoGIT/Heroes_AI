@@ -1,3 +1,13 @@
+/*
+ * File:        FieldArmy.cc
+ * Description: Represents playable Player or AI forces on battle field.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ *              Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        05.11.2024
+ */
+
 #include "FieldArmy.h"
 #include "ArmyType.h"
 

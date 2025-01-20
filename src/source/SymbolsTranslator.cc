@@ -1,3 +1,12 @@
+/*
+ * File:        SymbolsTranslator.cc
+ * Description: Maps one letter symbols to existing sprite paths.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        03.01.2025
+ */
+
 #include "SymbolsTranslator.h"
 #include "Resource.h"
 #include "MapEnemy.h"

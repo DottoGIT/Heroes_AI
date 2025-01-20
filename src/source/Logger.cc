@@ -1,3 +1,12 @@
+/*
+ * File:        Logger.cc
+ * Description: Manages logging into log files.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        01.12.2024
+ */
+
 #include "Logger.h"
 #include <iomanip>
 

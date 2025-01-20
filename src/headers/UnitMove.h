@@ -1,5 +1,5 @@
 /*
- * File:        UnitMove.cc
+ * File:        UnitMove.h
  * Description: Represents a move FieldUnit can make
  *
  * Authors:     Wojciech Sarwiński <https://github.com/sarwoj>

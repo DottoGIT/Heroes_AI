@@ -2,7 +2,7 @@
  * File:        Statistic.h
  * Description: Class representing a Unit or FieldUnit statistic like Strength or Initiative
  *
- * Author:      Wojciech Sarwiński
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
  * 
  * Date:        27.11.2024
  */

@@ -1,3 +1,12 @@
+/*
+ * File:        Resource.cc
+ * Description: Represents map resource such as gold, gems, coal etc.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        14.01.2024
+ */
+
 #include "Resource.h"
 #include <string>
 #include "Logger.h"

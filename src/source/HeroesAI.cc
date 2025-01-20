@@ -1,6 +1,15 @@
+/*
+ * File:        HeroesAI.cc
+ * Description: Game loop for heroes AI
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        01.12.2024
+ */
+
+
 #include "HeroesAI.h"
 
-#include "HeroesAIExcept.h"
 #include "Logger.h"
 #include "FieldArmy.h"
 #include "FieldUnit.h"
@@ -28,7 +37,7 @@ int HeroesAI::init()
     try{
         display_->init(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEGIHT);
         Logger::debug("SDL window created");
-    } catch(const SdlException& e){
+    } catch(const std::exception& e){
         Logger::error(e.what());
         return 1;
     }

@@ -1,3 +1,12 @@
+/*
+ * File:        FogTile.cc
+ * Description: Represents Fog of War tile
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        19.01.2025
+ */
+
 #include "FogTile.h"
 
 void FogTile::setPosition(Hex position)

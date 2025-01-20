@@ -1,3 +1,12 @@
+/*
+ * File:        FieldUnitRenderable.h
+ * Description: Simplifies Unit class deviding it into seperate Renderable Class.
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        17.01.2025
+ */
+
 #pragma once
 #include "IRenderable.h"
 #include "FieldUnit.h"

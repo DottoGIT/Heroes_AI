@@ -6,6 +6,7 @@
  * 
  * Date:        04.01.2025
  */
+
 #pragma once
 
 #include <string>

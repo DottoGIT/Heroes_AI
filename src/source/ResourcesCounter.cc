@@ -1,3 +1,12 @@
+/*
+ * File:        ResourceCounter.cc
+ * Description: Keeps track of current resources player has
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        14.01.2024
+ */
+
 #include "ResourceCounter.h"
 
 ResourceCounter::ResourceCounter() 

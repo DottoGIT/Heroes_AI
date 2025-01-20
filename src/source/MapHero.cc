@@ -1,3 +1,12 @@
+/*
+ * File:        MapHero.cc
+ * Description: Represents player army on the map
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        14.01.2025
+ */
+
 #include "MapHero.h"
 
 void MapHero::setPosition(const Hex& position)

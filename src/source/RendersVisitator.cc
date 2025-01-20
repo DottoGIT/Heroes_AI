@@ -1,3 +1,12 @@
+/*
+ * File:        RendersVisitator.cc
+ * Description: Visitator pattern, used by Display to gather render objects 
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        02.12.2024
+ */
+
 #include "RendersVisitator.h"
 #include "BattleManager.h"
 #include "MapManager.h"

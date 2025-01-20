@@ -1,3 +1,12 @@
+/*
+ * File:        UnitMove.cc
+ * Description: Represents a move FieldUnit can make
+ *
+ * Authors:     Wojciech Sarwiński <https://github.com/sarwoj>
+ * 
+ * Date:        27.12.2024
+ */
+
 #include "UnitMove.h"
 
 UnitMove::UnitMove()

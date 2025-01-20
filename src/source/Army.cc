@@ -1,3 +1,12 @@
+/*
+ * File:        Army.cc
+ * Description: Represents Player or AI forces.
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        17.01.2025
+ */
+
 #include "Army.h"
 
 Army::Army()

@@ -7,13 +7,13 @@
  * 
  * Date:        05.11.2024
  */
+
 #pragma once
 
 #include <vector>
 #include <memory>
 #include "FieldUnit.h"
 #include "FieldArmy.h"
-
 
 struct FieldUnitIndex
 {
@@ -22,7 +22,6 @@ struct FieldUnitIndex
 public:
     FieldUnitIndex(ArmyType type, uint32_t index);
 };
-
 
 class InitiativeQueue
 {

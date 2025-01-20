@@ -6,6 +6,7 @@
  * 
  * Date:        01.12.2024
  */
+
 #pragma once
 
 #include <iostream>

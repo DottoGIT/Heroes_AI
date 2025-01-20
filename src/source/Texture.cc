@@ -1,3 +1,12 @@
+/*
+ * File:        Texture.cc
+ * Description: Implements a wrapper over SDL_Texture
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        02.12.2024
+ */
+
 #include "Texture.h"
 #include <stdexcept>
 

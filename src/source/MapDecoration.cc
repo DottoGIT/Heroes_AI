@@ -1,3 +1,12 @@
+/*
+ * File:        MapDecoration.cc
+ * Description: Represents map obstacles and non-interractive elements.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        04.01.2025
+ */
+
 #include "MapDecoration.h"
 #include "SymbolsTranslator.h"
 

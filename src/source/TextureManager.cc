@@ -1,3 +1,12 @@
+/*
+ * File:        TextureManager.cc
+ * Description: Implements a Texture Manager with lazy loading
+ *
+ * Author:      Wojciech Sarwiński
+ * 
+ * Date:        02.12.2024
+ */
+
 #include "TextureManager.h"
 #include <stdexcept>
 

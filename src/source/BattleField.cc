@@ -1,5 +1,14 @@
-#include "BattleField.h"
+/*
+ * File:        BattleField.cc
+ * Description: Manages Unit actions in battle.
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        17.01.2025
+ */
+
 #include <algorithm>
+#include "BattleField.h"
 
 BattleField::BattleField()
 {}

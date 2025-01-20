@@ -1,3 +1,12 @@
+/*
+ * File:        MapManager.cc
+ * Description: Manages Map view.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        03.01.2025
+ */
+
 #include "MapManager.h"
 #include <sstream>
 #include "RendersVisitator.h"

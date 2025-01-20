@@ -1,4 +1,14 @@
+/*
+ * File:        BattleManager.cc
+ * Description: Sets up battle field, and manages battle flow.
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        05.11.2024
+ */
+
 #include "BattleManager.h"
+
 #include "RendersVisitator.h"
 #include "Logger.h"
 

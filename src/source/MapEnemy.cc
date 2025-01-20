@@ -1,3 +1,12 @@
+/*
+ * File:        MapEnemy.cc
+ * Description: Represents enemy army on the map
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        14.01.2025
+ */
+
 #include "MapEnemy.h"
 #include <string>
 #include "Logger.h"

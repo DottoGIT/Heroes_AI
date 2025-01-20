@@ -6,6 +6,7 @@
  * 
  * Date:        05.11.2024
  */
+
 #pragma once
 
 #include <queue>

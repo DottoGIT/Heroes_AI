@@ -1,3 +1,12 @@
+/*
+ * File:        PositionParser.cc
+ * Description: Parses relative grid positions to wordspace renderer positions
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        17.12.2024
+ */
+
 #include "GridPositionParser.h"
 
 Hex GridPositionParser::parseGridToPosition(const Hex& relative_pos, const Hex& cell_dimensions, const Hex& anchor_pos, const Hex& offset, int even_row_indent)

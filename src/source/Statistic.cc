@@ -1,3 +1,12 @@
+/*
+ * File:        Statistic.cc
+ * Description: Class representing a Unit or FieldUnit statistic like Strength or Initiative
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        27.11.2024
+ */
+
 #include "Statistic.h"
 
 Statistic::Statistic(int value)

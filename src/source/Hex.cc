@@ -1,5 +1,16 @@
-#include <algorithm>
+/*
+ * File:        Hex.cc
+ * Description: Implements Hex offset coordinates "axial"
+ *              Based on article Hexagonal Grids from Red Blob Games
+ *              link: https://www.redblobgames.com/grids/hexagons/
+ *
+ * Author:      Wojciech Sarwiński
+ * 
+ * Date:        05.11.2024
+ */
+
 #include "Hex.h"
+#include <algorithm>
 
 namespace {
         static const std::array<Hex, 6> neighbour_offsets = {

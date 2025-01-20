@@ -1,3 +1,12 @@
+/*
+ * File:        BattleField.h
+ * Description: Manages Unit actions in battle.
+ *
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ * 
+ * Date:        17.01.2025
+ */
+
 #pragma once
 #include <vector>
 #include "FieldArmy.h"

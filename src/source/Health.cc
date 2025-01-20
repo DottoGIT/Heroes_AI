@@ -1,3 +1,12 @@
+/*
+ * File:        Health.cc
+ * Description: Class representing a FieldUnit health
+ *
+ * Author:      Wojciech Sarwiński
+ * 
+ * Date:        27.11.2024
+ */
+
 #include "Health.h"
 
 Health::Health(unsigned int value)

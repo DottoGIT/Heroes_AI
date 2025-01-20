@@ -1,13 +1,17 @@
+/*
+ * File:        UnitFactory.cc
+ * Description: Creates new units on battle field
+ *
+ * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * 
+ * Date:        05.11.2024
+ */
+
 #include <stdexcept>
 #include "UnitFactory.h"
 #include "Unit.h"
 #include "FieldUnit.h"
 #include "UnitType.h"
-
-
-
-// Constructor to register unit creators
-
 
 UnitFactory::UnitFactory()
 {
