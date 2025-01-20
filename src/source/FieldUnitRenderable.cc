@@ -1,5 +1,4 @@
 #include "FieldUnitRenderable.h"
-#include "ArmyType.h"
 #include "UnitType.h"
 
 FieldUnitRenderable::FieldUnitRenderable(FieldUnit unit, std::string path_to_idle, std::string path_to_dead, ArmyType army)

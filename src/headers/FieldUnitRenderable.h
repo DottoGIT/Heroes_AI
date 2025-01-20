@@ -1,8 +1,7 @@
 #pragma once
 #include "IRenderable.h"
 #include "FieldUnit.h"
-
-enum class ArmyType;
+#include "ArmyType.h"
 
 class FieldUnitRenderable : public IRenderable
 {
