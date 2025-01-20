@@ -16,6 +16,11 @@ MapEnemy::MapEnemy(const Army& army)
 {
 }
 
+Army* MapEnemy::getArmy()
+{
+    return &army_;
+}
+
 bool MapEnemy::interact()
 {
     std::stringstream ss;

@@ -34,11 +34,15 @@ private:
     void render();
     void initPlayer();
     void waitForFPS(Uint64 frame_start);
+    
+    void changeModeToBattle(Army* enemy_army);
+    void changeModeToMap();
+    
     bool is_running_ = false;
-    SceneType currentScene_;
+    SceneType current_scene_;
     Army player_army_;
     std::unique_ptr<Display> display_;
-    std::shared_ptr<InputController> inputController_;
-    std::unique_ptr<MapManager> mapManager_;
-    std::unique_ptr<BattleManager> battleManager_;
+    std::shared_ptr<InputController> input_controller_;
+    std::unique_ptr<MapManager> map_manager_;
+    std::unique_ptr<BattleManager> battle_manager_;
 };

@@ -23,6 +23,7 @@ class MapEnemy : public IInteractable {
 public:
     MapEnemy(const Army& army);
     ~MapEnemy() = default;
+    Army* getArmy();
     bool interact() override;
     void setPosition(const Hex& position) override;
     void setSpritePath(const std::string& path) override;

@@ -15,10 +15,11 @@
 #include "GridPositionParser.h"
 #include "Resource.h"
 
-MapManager::MapManager(std::weak_ptr<InputController> input_controller)
+MapManager::MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*)> change_mode_function)
     : tiles_(MapFileConverter::fileToMapConvertion()),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
-      input_controller_(input_controller)
+      input_controller_(input_controller),
+      change_mode_function_(std::move(change_mode_function))
 {
     hero_.setPosition(PLAYER_START_POSITION);
     initFogOfWar(PLAYER_START_POSITION);
@@ -183,7 +184,6 @@ MapEnemy* MapManager::isTileOccupiedByUnit(const Hex& point)
         MapTile tile = tiles_[n.q][n.r];
         if(tile.getInteractable() && tile.getInteractable()->myObjectType() == MapObjectType::ENEMY)
         {
-
             MapEnemy* enemy = dynamic_cast<MapEnemy*>(tile.getInteractable());
             return enemy;
         }
@@ -200,6 +200,7 @@ void MapManager::interactWithTile(const Hex& point)
         return;
     }
 
+    change_mode_function_(foundEnemy->getArmy());
     foundEnemy->interact();
 }
 

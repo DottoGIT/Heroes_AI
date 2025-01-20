@@ -7,7 +7,7 @@
  * Date:        01.12.2024
  */
 
-
+#include <functional>
 #include "HeroesAI.h"
 #include "Logger.h"
 #include "FieldArmy.h"
@@ -18,9 +18,9 @@
 HeroesAI::HeroesAI()
 {
     display_ = std::make_unique<Display>();
-    inputController_ = std::make_shared<InputController>();
-    mapManager_ = std::make_unique<MapManager>(inputController_);
-    currentScene_ = SceneType::MAP;
+    input_controller_ = std::make_shared<InputController>();
+    map_manager_ = std::make_unique<MapManager>(input_controller_, std::bind(&HeroesAI::changeModeToBattle, this, std::placeholders::_1));
+    current_scene_ = SceneType::MAP;
     initPlayer();
 }
 
@@ -70,7 +70,7 @@ void HeroesAI::handleEvents()
             is_running_ = false;
             break;
         default:
-            inputController_->processInput(event);
+            input_controller_->processInput(event);
             break;
     }
 }
@@ -82,21 +82,21 @@ void HeroesAI::update()
 
 void HeroesAI::render()
 {
-    switch (currentScene_)
+    switch (current_scene_)
     {
     case SceneType::MAP:
-        if(mapManager_ == nullptr)
+        if(map_manager_ == nullptr)
         {
             Logger::error("Map Manager is not set");
         }
-        display_->render(*mapManager_);
+        display_->render(*map_manager_);
         break;
     case SceneType::BATTLE:
-        if(battleManager_ == nullptr)
+        if(battle_manager_ == nullptr)
         {
             Logger::error("Battle Manager is not set");
         }
-        display_->render(*battleManager_);
+        display_->render(*battle_manager_);
         break;
     default:
         Logger::error("Unrecognized Scene Type: ");
@@ -119,4 +119,18 @@ void HeroesAI::waitForFPS(Uint64 frame_start)
     {
         SDL_Delay(Uint32(FRAME_RATE - frame_time) * 1000);
     }
+}
+
+void HeroesAI::changeModeToBattle(Army* enemy_army)
+{
+    Logger::info("Changing to battle mode");
+    HexMap<Tile> map(15, 11);
+    std::fill(map.begin(), map.end(), Tile::REACHABLE);
+    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map);
+    current_scene_ = SceneType::BATTLE;
+}
+
+void HeroesAI::changeModeToMap()
+{
+    Logger::info("Change to Map");
 }
