@@ -12,7 +12,7 @@
 
 std::mutex Logger::mtx_;
 
-void Logger::log(LogLevel level, const std::string& message) {
+void Logger::log(const LogLevel& level, const std::string& message) {
     std::lock_guard<std::mutex> lock(mtx_);
     std::string levelString = getLogLevelString(level);
     std::string logMessage = getCurrentTime() + " [" + levelString + "] " + message;
@@ -35,7 +35,7 @@ void Logger::debug(const std::string& message) {
     log(LogLevel::DEBUG, message);
 }
 
-std::string Logger::getLogLevelString(LogLevel level) {
+std::string Logger::getLogLevelString(const LogLevel& level) {
     switch (level) {
     case LogLevel::INFO:
         return "INFO";

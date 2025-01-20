@@ -12,7 +12,7 @@
 Army::Army()
 {}
 
-void Army::addUnit(Unit unit)
+void Army::addUnit(const Unit& unit)
 {
     units_.emplace_back(unit);
 }
@@ -22,7 +22,7 @@ const std::vector<Unit> &Army::getUnits() const
     return units_;
 }
 
-Unit &Army::at(const size_t index)
+Unit &Army::at(size_t index)
 {
     return units_.at(index);
 }

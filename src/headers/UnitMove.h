@@ -15,13 +15,13 @@ class UnitMove
 {
 public:
     UnitMove();
-    static UnitMove move(const Hex move_target);
-    static UnitMove attack(const Hex attack_target);
+    static UnitMove move(const Hex& move_target);
+    static UnitMove attack(const Hex& attack_target);
     static UnitMove wait();
     const MoveType getType() const;
     const Hex getTarget() const;
 private:
     MoveType type_;
     Hex target_;
-    UnitMove(MoveType type, const Hex target);
+    UnitMove(const MoveType& type, const Hex& target);
 };

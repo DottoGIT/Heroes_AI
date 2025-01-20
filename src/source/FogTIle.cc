@@ -9,7 +9,7 @@
 
 #include "FogTile.h"
 
-void FogTile::setPosition(Hex position)
+void FogTile::setPosition(const Hex& position)
 {
     position_ = position;
 }

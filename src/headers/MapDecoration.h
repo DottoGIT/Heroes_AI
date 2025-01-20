@@ -17,7 +17,7 @@ public:
     MapDecoration() = default;
     ~MapDecoration() = default;
     void setSymbol(char symbol);
-    void setPosition(Hex position);
+    void setPosition(const Hex& position);
     char getSymbol() const;
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;

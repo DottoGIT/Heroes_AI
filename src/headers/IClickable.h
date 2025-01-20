@@ -13,5 +13,5 @@
 class IClickable {
 public:
     virtual ~IClickable() = default;
-    virtual void reactToClick(bool left_button, Hex click_position) = 0;
+    virtual void reactToClick(bool left_button, const Hex& click_position) = 0;
 };

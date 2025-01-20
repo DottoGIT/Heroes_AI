@@ -40,7 +40,7 @@ public:
     const MapPointer* getPointer() const;
     Hex getMapGridDimensions() const;
     void accept(RendersVisitator& visitor) const override;
-    virtual void reactToClick(bool left_button, Hex click_position) override;
+    virtual void reactToClick(bool left_button, const Hex& click_position) override;
 private:
     inline static const Hex PLAYER_START_POSITION = Hex(6,5);
     std::array<std::array<MapTile, MAP_HEIGHT>, MAP_WIDTH> tiles_;

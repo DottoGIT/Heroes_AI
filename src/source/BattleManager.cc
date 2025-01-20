@@ -92,7 +92,7 @@ const MoveType BattleManager::getCurrentMoveType() const
     return field_.getCurrentMoveType();
 }
 
-void BattleManager::makeMove(UnitMove unit_move)
+void BattleManager::makeMove(const UnitMove& unit_move)
 {
     field_ = field_.makeMove(unit_move);
     std::vector<std::unique_ptr<FieldUnitRenderable>> units_to_render;

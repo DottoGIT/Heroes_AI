@@ -11,7 +11,7 @@
 #include "SymbolsTranslator.h"
 #include "Logger.h"
 
-void MapTile::setPosition(Hex position)
+void MapTile::setPosition(const Hex& position)
 {
     position_ = position;
 }

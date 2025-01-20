@@ -11,7 +11,7 @@
 #include "MapEnemy.h"
 #include "Logger.h"
 
-MapEnemy::MapEnemy(Army army)
+MapEnemy::MapEnemy(const Army& army)
     : army_(std::move(army))
 {
 }

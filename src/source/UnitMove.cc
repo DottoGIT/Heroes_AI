@@ -13,16 +13,16 @@ UnitMove::UnitMove()
     : type_(MoveType::WAIT)
 {}
 
-UnitMove::UnitMove(MoveType type, const Hex target)
+UnitMove::UnitMove(const MoveType& type, const Hex& target)
     : type_(type), target_(target)
 {}
 
-UnitMove UnitMove::move(const Hex move_target)
+UnitMove UnitMove::move(const Hex& move_target)
 {
     return UnitMove(MoveType::MOVE, move_target);
 }
 
-UnitMove UnitMove::attack(const Hex attack_target)
+UnitMove UnitMove::attack(const Hex& attack_target)
 {
     return UnitMove(MoveType::ATTACK, attack_target);
 }

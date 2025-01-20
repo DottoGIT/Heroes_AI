@@ -18,7 +18,7 @@ class FogTile : public IRenderable
 public:
     FogTile() = default;
     virtual ~FogTile() = default;
-    void setPosition(Hex position);
+    void setPosition(const Hex& position);
     void setActive(bool active);
     bool isActive() const;
     virtual const std::string& getSpritePath() const override;

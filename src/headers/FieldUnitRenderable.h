@@ -15,7 +15,7 @@
 class FieldUnitRenderable : public IRenderable
 {
 public:
-    FieldUnitRenderable(FieldUnit unit, std::string path_to_idle, std::string path_to_dead, ArmyType army);
+    FieldUnitRenderable(const FieldUnit& unit, const std::string& path_to_idle, const std::string& path_to_dead, const ArmyType& army);
     virtual ~FieldUnitRenderable() = default;
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;

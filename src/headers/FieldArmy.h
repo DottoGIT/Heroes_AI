@@ -18,7 +18,7 @@ class FieldArmy
 {
 public:
     FieldArmy();
-    void addUnit(FieldUnit unit);
+    void addUnit(const FieldUnit& unit);
     const std::vector<FieldUnit>& getUnits() const;
     FieldUnit& at(const size_t index);
     std::vector<FieldUnit>::const_iterator cbegin() const;

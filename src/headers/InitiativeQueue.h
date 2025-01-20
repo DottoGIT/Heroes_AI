@@ -18,7 +18,7 @@ struct FieldUnitIndex
 {
     ArmyType type;
     uint32_t index;
-    FieldUnitIndex(ArmyType type, uint32_t index);
+    FieldUnitIndex(const ArmyType& type, uint32_t index);
 };
 
 class InitiativeQueue

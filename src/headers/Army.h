@@ -15,9 +15,10 @@ class Army
 {
 public:
     Army();
-    void addUnit(Unit unit);
+    ~Army() = default;
+    void addUnit(const Unit& unit);
     const std::vector<Unit>& getUnits() const;
-    Unit& at(const size_t index);
+    Unit& at(size_t index);
     std::vector<Unit>::const_iterator cbegin() const;
     std::vector<Unit>::const_iterator cend() const;
 private:

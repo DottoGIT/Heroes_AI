@@ -21,7 +21,7 @@ constexpr const size_t ENEMY_HEIGHT = 64;
 
 class MapEnemy : public IInteractable {
 public:
-    MapEnemy(Army army);
+    MapEnemy(const Army& army);
     ~MapEnemy() = default;
     bool interact() override;
     void setPosition(const Hex& position) override;

@@ -10,7 +10,7 @@
 #include "MapDecoration.h"
 #include "SymbolsTranslator.h"
 
-void MapDecoration::setPosition(Hex position)
+void MapDecoration::setPosition(const Hex& position)
 {
     position_ = position;
 }

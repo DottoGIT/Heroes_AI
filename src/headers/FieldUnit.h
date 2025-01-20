@@ -18,10 +18,10 @@
 class FieldUnit
 {
 public:
-    FieldUnit(const Unit& unit, Hex position);
+    FieldUnit(const Unit& unit, const Hex& position);
     const UnitType& getUnitType() const;
     const Hex& getPosition() const;
-    void setPosition(const Hex new_position);
+    void setPosition(const Hex& new_position);
     const Health& getHealth() const;
     void takeDamage(unsigned int damage);
     const Statistic& getAttackStrength() const;

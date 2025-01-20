@@ -24,7 +24,7 @@ public:
     bool interact();
     IInteractable* getInteractable();
     const IInteractable* getConstInteractable() const;
-    void setPosition(Hex position);
+    void setPosition(const Hex& position);
     void setInteractable(std::shared_ptr<IInteractable> interactable);
     void setWalkable(bool is_walkable);
     void setSymbol(char symbol);

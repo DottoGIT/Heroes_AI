@@ -19,14 +19,14 @@ class BattleField
 {
 public:
     BattleField();
-    BattleField(FieldArmy player, FieldArmy enemy, HexMap<Tile>* map);
+    BattleField(const FieldArmy& player, const FieldArmy& enemy, HexMap<Tile>* map);
     const MoveType getCurrentMoveType() const;
     const FieldArmy& getPlayer() const;
     const FieldArmy& getEnemy() const;
     const HexMap<Tile>* getMap() const;
     const InitiativeQueue& getQueue() const;
     std::vector<UnitMove> getMoves() const;
-    BattleField makeMove(const UnitMove unit_move) const;
+    BattleField makeMove(const UnitMove& unit_move) const;
     const FieldUnit& activeUnit() const;
     ArmyType whoWon() const;
 private:
@@ -35,8 +35,8 @@ private:
     FieldArmy enemy_;
     InitiativeQueue queue_;
     HexMap<Tile>* map_;
-    void attack(const Hex target);
-    void move(const Hex target);
+    void attack(const Hex& target);
+    void move(const Hex& target);
     void wait();
     std::vector<UnitMove> getAttackMoves() const;
     std::vector<UnitMove> getMoveMoves() const;

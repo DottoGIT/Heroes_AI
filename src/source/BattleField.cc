@@ -13,7 +13,7 @@
 BattleField::BattleField()
 {}
 
-BattleField::BattleField(FieldArmy player, FieldArmy enemy, HexMap<Tile> *map)
+BattleField::BattleField(const FieldArmy& player, const FieldArmy& enemy, HexMap<Tile> *map)
     : player_(std::move(player)), enemy_(std::move(enemy)), queue_(player_, enemy_), map_(map), current_move_(MoveType::MOVE)
 {}
 
@@ -50,7 +50,7 @@ std::vector<UnitMove> BattleField::getMoves() const
     return getAttackMoves();
 }
 
-BattleField BattleField::makeMove(const UnitMove unit_move) const
+BattleField BattleField::makeMove(const UnitMove& unit_move) const
 {
     BattleField nextState(player_, enemy_, map_);
     if (unit_move.getType() == MoveType::MOVE) {
@@ -63,7 +63,7 @@ BattleField BattleField::makeMove(const UnitMove unit_move) const
     return nextState;
 }
 
-void BattleField::attack(const Hex target)
+void BattleField::attack(const Hex& target)
 {
     FieldUnitIndex current = queue_.current();
     unsigned damage = activeUnit().getAttackStrength().get();
@@ -78,7 +78,7 @@ void BattleField::attack(const Hex target)
     nextUnit();
 }
 
-void BattleField::move(const Hex target)
+void BattleField::move(const Hex& target)
 {
     activeUnit().setPosition(target);
     current_move_ = MoveType::ATTACK;

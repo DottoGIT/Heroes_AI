@@ -34,7 +34,7 @@ public:
     const ArmyType getCurrentPlayer() const;
     const FieldUnit& getCurrentUnit() const;
     const MoveType getCurrentMoveType() const;
-    void makeMove(UnitMove unitMove);
+    void makeMove(const UnitMove& unitMove);
     const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
     void accept(RendersVisitator& visitor) const override;
 private:
