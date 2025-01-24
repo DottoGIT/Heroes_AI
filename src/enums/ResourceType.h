@@ -23,25 +23,25 @@ enum class ResourceType {
 inline std::ostream& operator<<(std::ostream& os, ResourceType type) {
     switch (type) {
         case ResourceType::COAL:
-            os << "Coal";
+            os << "Ruda";
             break;
         case ResourceType::MERCURY:
-            os << "Mercury";
+            os << "Rtec";
             break;
         case ResourceType::SULFUR:
-            os << "Sulfur";
+            os << "Siarka";
             break;
         case ResourceType::WOOD:
-            os << "Wood";
+            os << "Drewno";
             break;
         case ResourceType::GEMS:
-            os << "Gems";
+            os << "Klejnoty";
             break;
         case ResourceType::GOLD:
-            os << "Gold";
+            os << "Zloto";
             break;
         case ResourceType::CRYSTALS:
-            os << "Crystals";
+            os << "Krysztaly";
             break;
         default:
             os << "Unknown ResourceType";
