@@ -1,5 +1,5 @@
 # File:         CMakeLists.txt
-# Description:  Simplified CMake build file for Heroes_AI project
+# Description:  CMake build file for Heroes_AI project
 # 
 # Author:       Maciej Scheffer
 # Date:         01.11.2024
@@ -10,33 +10,25 @@ project(Heroes_AI LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Find Boost
 find_package(Boost 1.74 REQUIRED COMPONENTS unit_test_framework)
-
-# Find SDL2 and extensions
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-# Include directories
 include_directories(src src/headers src/enums)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-include_directories(${SDL2_TTF_INCLUDE_DIRS})
 
-# Source files
 file(GLOB SOURCES src/source/*.cc)
 file(GLOB HEADERS src/headers/*.h src/headers/*.hpp src/enums/*.h)
 
-# Library
 add_library(Heroes_AI_lib ${SOURCES} ${HEADERS})
 
-# Main executable
 add_executable(Heroes_AI src/main.cc)
+
 target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
 
-# Tests
 add_executable(UnitTests tests/UnitTests.cc)
 target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
 
@@ -66,7 +58,6 @@ target_link_libraries(FieldArmyTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
 add_executable(InitiativeQueueTests tests/InitiativeQueueTests.cc)
 target_link_libraries(InitiativeQueueTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES})
 
-# Enable tests
 enable_testing()
 add_test(NAME UnitTests COMMAND UnitTests)
 add_test(NAME HexTests COMMAND HexTests)
