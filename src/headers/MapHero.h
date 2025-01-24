@@ -30,9 +30,7 @@ public:
     virtual Hex getPosition() const override;
     virtual bool isFlipped() const override;
 private:
-    char symbol_;
     Hex position_;
     bool is_flipped_ = false;
-    std::shared_ptr<IInteractable> interactable_;
     std::string path_to_sprite_ = HERO_SPRITE_PATH;
 };
