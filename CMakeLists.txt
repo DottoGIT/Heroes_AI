@@ -1,5 +1,5 @@
 # File:         CMakeLists.txt
-# Description:  Simplified CMake build file for Heroes_AI project
+# Description:  CMake build file for Heroes_AI project with SDL2_image and SDL2_ttf handling
 # 
 # Author:       Maciej Scheffer
 # Date:         01.11.2024
@@ -9,14 +9,55 @@ project(Heroes_AI LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /path/to/your/modules)
 
 # Find Boost
 find_package(Boost 1.74 REQUIRED COMPONENTS unit_test_framework)
 
-# Find SDL2 and extensions
+# Find SDL2
 find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
+
+# Find SDL2_image
+find_package(SDL2_image QUIET)
+if (NOT SDL2_image_FOUND)
+    message(WARNING "SDL2_image not found via find_package, using pkg-config as fallback")
+    find_program(PKG_CONFIG pkg-config)
+    if (PKG_CONFIG)
+        execute_process(COMMAND ${PKG_CONFIG} --cflags-only-I SDL2_image
+                        OUTPUT_VARIABLE SDL2_IMAGE_INCLUDE_DIRS
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(COMMAND ${PKG_CONFIG} --libs SDL2_image
+                        OUTPUT_VARIABLE SDL2_IMAGE_LIBRARIES
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        if (NOT SDL2_IMAGE_INCLUDE_DIRS OR NOT SDL2_IMAGE_LIBRARIES)
+            message(FATAL_ERROR "SDL2_image not found via pkg-config either!")
+        endif ()
+        message(STATUS "SDL2_image found using pkg-config")
+    else ()
+        message(FATAL_ERROR "pkg-config not found!")
+    endif ()
+endif ()
+
+# Find SDL2_ttf
+find_package(SDL2_ttf QUIET)
+if (NOT SDL2_ttf_FOUND)
+    message(WARNING "SDL2_ttf not found via find_package, using pkg-config as fallback")
+    find_program(PKG_CONFIG pkg-config)
+    if (PKG_CONFIG)
+        execute_process(COMMAND ${PKG_CONFIG} --cflags-only-I SDL2_ttf
+                        OUTPUT_VARIABLE SDL2_TTF_INCLUDE_DIRS
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(COMMAND ${PKG_CONFIG} --libs SDL2_ttf
+                        OUTPUT_VARIABLE SDL2_TTF_LIBRARIES
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        if (NOT SDL2_TTF_INCLUDE_DIRS OR NOT SDL2_TTF_LIBRARIES)
+            message(FATAL_ERROR "SDL2_ttf not found via pkg-config either!")
+        endif ()
+        message(STATUS "SDL2_ttf found using pkg-config")
+    else ()
+        message(FATAL_ERROR "pkg-config not found!")
+    endif ()
+endif ()
 
 # Include directories
 include_directories(src src/headers src/enums)
@@ -34,11 +75,11 @@ add_library(Heroes_AI_lib ${SOURCES} ${HEADERS})
 
 # Main executable
 add_executable(Heroes_AI src/main.cc)
-target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
+target_link_libraries(Heroes_AI PRIVATE Heroes_AI_lib SDL2::SDL2 SDL2::SDL2main ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 
 # Tests
 add_executable(UnitTests tests/UnitTests.cc)
-target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
+target_link_libraries(UnitTests PRIVATE Heroes_AI_lib ${Boost_LIBRARIES} SDL2::SDL2 SDL2::SDL2main ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 
 add_executable(HexTests tests/HexTests.cc)
 target_link_libraries(HexTests Boost::unit_test_framework)
