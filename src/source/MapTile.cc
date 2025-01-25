@@ -59,6 +59,15 @@ bool MapTile::isWalkable() const
     return is_walkable_;   
 }
 
+void MapTile::deleteEnemy()
+{
+    if (interactable_ == nullptr)
+    {
+        Logger::warning("Nothing in tile when deleting!");
+    }
+    interactable_ = nullptr;
+}
+
 const std::string& MapTile::getSpritePath() const
 {
     return SymbolsTranslator::symbolsToPaths[symbol_];
