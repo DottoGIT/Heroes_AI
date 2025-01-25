@@ -15,7 +15,7 @@
 #include "GridPositionParser.h"
 #include "Resource.h"
 
-MapManager::MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*)> change_mode_function)
+MapManager::MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*, const Hex&)> change_mode_function)
     : tiles_(MapFileConverter::fileToMapConvertion()),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
       input_controller_(input_controller),
@@ -48,6 +48,11 @@ MapManager::~MapManager()
 void MapManager::accept(RendersVisitator& visitor) const
 {
     visitor.visitMapManager(*this);
+}
+
+void MapManager::removeEnemy(const Hex &position)
+{
+    tiles_.at(position.q).at(position.r).deleteEnemy();
 }
 
 void MapManager::printMap() const
@@ -200,7 +205,7 @@ void MapManager::interactWithTile(const Hex& point)
         return;
     }
 
-    change_mode_function_(foundEnemy->getArmy());
+    change_mode_function_(foundEnemy->getArmy(), foundEnemy->getPosition());
     foundEnemy->interact();
     if(auto locked = input_controller_.lock())
 {

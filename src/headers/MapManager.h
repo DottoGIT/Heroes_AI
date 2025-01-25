@@ -31,7 +31,7 @@ constexpr int MAP_HEIGHT = 18;
 
 class MapManager : public IManager, public IClickable{
 public:
-    MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*)> change_mode_function);
+    MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*, const Hex&)> change_mode_function);
     ~MapManager();
     void printMap() const;
     std::vector<const MapTile*> getTiles() const;
@@ -41,10 +41,11 @@ public:
     const MapPointer* getPointer() const;
     Hex getMapGridDimensions() const;
     void accept(RendersVisitator& visitor) const override;
+    void removeEnemy(const Hex& position);
     virtual void reactToClick(bool left_button, const Hex& click_position) override;
 private:
     inline static const Hex PLAYER_START_POSITION = Hex(6,5);
-    std::function<void(Army*)> change_mode_function_;
+    std::function<void(Army*, const Hex&)> change_mode_function_;
     std::array<std::array<MapTile, MAP_HEIGHT>, MAP_WIDTH> tiles_;
     std::array<std::array<FogTile, MAP_HEIGHT>, MAP_WIDTH+1> fog_;
     std::vector<MapDecoration> decorations_;
