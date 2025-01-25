@@ -264,7 +264,7 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(const Hex& start, const std
 template <typename T>
 inline std::size_t HexMap<T>::hexToIndex(const Hex& hex) const noexcept
 {
-    return (hex.r + hex.q % 2) * width_ + hex.q;
+    return hex.r * width_ + (hex.q + hex.r / 2);
 }
 
 template <typename T>
