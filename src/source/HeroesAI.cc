@@ -136,11 +136,13 @@ void HeroesAI::changeModeToBattle(Army* enemy_army, const Hex& enemy_pos)
     Logger::info("Changing to battle mode");
     HexMap<Tile> map(15, 11);
     std::fill(map.begin(), map.end(), Tile::REACHABLE);
-    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map, input_controller_, [](Army* army){});
+    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map, input_controller_, [this](){this->changeModeToMap();});
     current_scene_ = SceneType::BATTLE;
 }
 
 void HeroesAI::changeModeToMap()
 {
     Logger::info("Change to Map");
+    current_scene_ = SceneType::MAP;
+    input_controller_->subscribeToMouseClick(map_manager_.get());
 }

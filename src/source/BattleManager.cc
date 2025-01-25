@@ -43,11 +43,11 @@ namespace {
 };
 
 BattleManager::BattleManager()
-    : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT), field_(), selected_(std::nullopt), computer_move_future_(std::nullopt)
+    : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT), field_(), selected_(std::nullopt), computer_move_future_(std::nullopt), winner_(ArmyType::NONE)
 {}
 
-BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, HexMap<Tile> map, std::weak_ptr<InputController> input_controller, std::function<void(Army *)> change_mode_function)
-    : map_(std::move(map)), change_mode_function_(change_mode_function), input_controller_(input_controller), selected_(std::nullopt), computer_move_future_(std::nullopt)
+BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, HexMap<Tile> map, std::weak_ptr<InputController> input_controller, std::function<void()> change_mode_function)
+    : map_(std::move(map)), change_mode_function_(change_mode_function), input_controller_(input_controller), selected_(std::nullopt), computer_move_future_(std::nullopt), winner_(ArmyType::NONE)
 {
     FieldArmy player_field_army;
     std::for_each(player_army.cbegin(), player_army.cend(),
@@ -78,6 +78,14 @@ BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, He
         throw std::runtime_error("Input Manager destroyed before BattleFieldManager");
     }
     minmax_ = MinMax(field_);
+}
+
+BattleManager::~BattleManager()
+{
+    if(auto locked = input_controller_.lock())
+    {
+        locked->unsubscribeFromMouseClick(this);
+    }
 }
 
 const BattleField &BattleManager::getBattleField() const
@@ -164,6 +172,18 @@ void BattleManager::tryMakeComputerMove()
         UnitMove computer_move = computer_move_future_->get();
         computer_move_future_.reset();
         makeMove(computer_move);
+        std::stringstream ss;
+        ss << "Enemy ";
+        if (computer_move.getType() == MoveType::WAIT) {
+            ss << "waited.";
+        } else {
+            if (computer_move.getType() == MoveType::MOVE)
+                ss << "moved to ";
+            else
+                ss << "attacked ";
+            ss << computer_move.getTarget();
+        }
+        Logger::info(ss.str());
     }
 }
 
@@ -210,9 +230,11 @@ void BattleManager::makeRenderable()
 void BattleManager::afterMove()
 {
     selected_ = std::nullopt;
+    winner_ = field_.whoWon();
     getMoves();
     makeRenderable();
     makeGridTiles();
+    tryOnWin();
     tryPromiseComputerMove();
 }
 
@@ -250,4 +272,11 @@ void BattleManager::selectTile(const Hex &select_hex)
 const Hex BattleManager::getCurrentUnitPos() const
 {
     return field_.activeUnit().getPosition();
+}
+
+void BattleManager::tryOnWin()
+{
+    if (winner_ == ArmyType::NONE)
+        return;
+    change_mode_function_();
 }

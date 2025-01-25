@@ -29,14 +29,13 @@ public:
     int init();
     void start();
     void changeModeToBattle(Army* enemy_army, const Hex& enemy_pos);
+    void changeModeToMap();
 private:
     void handleEvents();
     void update();
     void render();
     void initPlayer();
     void waitForFPS(Uint64 frame_start);
-    
-    void changeModeToMap();
     
     bool is_running_ = false;
     SceneType current_scene_;
