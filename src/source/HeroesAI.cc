@@ -19,7 +19,7 @@ HeroesAI::HeroesAI()
 {
     display_ = std::make_unique<Display>();
     input_controller_ = std::make_shared<InputController>();
-    map_manager_ = std::make_unique<MapManager>(input_controller_, std::bind(&HeroesAI::changeModeToBattle, this, std::placeholders::_1));
+    map_manager_ = std::make_unique<MapManager>(input_controller_, [this](Army* army, const Hex& pos){this->changeModeToBattle(army, pos);});
     current_scene_ = SceneType::MAP;
     initPlayer();
 }
@@ -131,7 +131,7 @@ void HeroesAI::waitForFPS(Uint64 frame_start)
     }
 }
 
-void HeroesAI::changeModeToBattle(Army* enemy_army)
+void HeroesAI::changeModeToBattle(Army* enemy_army, const Hex& enemy_pos)
 {
     Logger::info("Changing to battle mode");
     HexMap<Tile> map(15, 11);

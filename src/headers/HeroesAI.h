@@ -28,6 +28,7 @@ public:
     ~HeroesAI();
     int init();
     void start();
+    void changeModeToBattle(Army* enemy_army, const Hex& enemy_pos);
 private:
     void handleEvents();
     void update();
@@ -35,7 +36,6 @@ private:
     void initPlayer();
     void waitForFPS(Uint64 frame_start);
     
-    void changeModeToBattle(Army* enemy_army);
     void changeModeToMap();
     
     bool is_running_ = false;
