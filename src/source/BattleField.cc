@@ -50,9 +50,29 @@ std::vector<UnitMove> BattleField::getMoves() const
     return getAttackMoves();
 }
 
+std::vector<Hex> BattleField::getPath(const Hex &end) const
+{
+    std::vector<Hex> path;
+
+    unsigned move_range = activeUnit().getWalkRange().get();
+    const Hex current_position = activeUnit().getPosition();
+
+    path = map_->findPath(current_position, end, 
+    [this](Hex position) {
+        if (map_->at(position) == Tile::UNREACHABLE) return false;
+        auto lambda = [&](const FieldUnit& unit) {return unit.getPosition() == position;};
+        auto it = std::find_if(player_.cbegin(), player_.cend(), lambda);
+        if (it != player_.cend()) return false;
+        it = std::find_if(enemy_.cbegin(), enemy_.cend(), lambda);
+        if (it != enemy_.cend()) return false;
+        return true;
+    }, move_range);
+    return path;
+}
+
 BattleField BattleField::makeMove(const UnitMove& unit_move) const
 {
-    BattleField nextState(player_, enemy_, map_);
+    BattleField nextState(*this);
     if (unit_move.getType() == MoveType::MOVE) {
         nextState.move(unit_move.getTarget());
     } else if (unit_move.getType() == MoveType::ATTACK) {
@@ -118,9 +138,9 @@ std::vector<UnitMove> BattleField::getMoveMoves() const
         if (map_->at(position) == Tile::UNREACHABLE) return false;
         auto lambda = [&](const FieldUnit& unit) {return unit.getPosition() == position;};
         auto it = std::find_if(player_.cbegin(), player_.cend(), lambda);
-        if (it == player_.cend()) return false;
+        if (it != player_.cend()) return false;
         it = std::find_if(enemy_.cbegin(), enemy_.cend(), lambda);
-        if (it == enemy_.cend()) return false;
+        if (it != enemy_.cend()) return false;
         return true;
     }, move_range);
     for (const Hex& hex : move_positions) possible_moves.push_back(UnitMove::move(hex));

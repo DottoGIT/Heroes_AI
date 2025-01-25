@@ -26,6 +26,7 @@ public:
     const HexMap<Tile>* getMap() const;
     const InitiativeQueue& getQueue() const;
     std::vector<UnitMove> getMoves() const;
+    std::vector<Hex> getPath(const Hex& end) const;
     BattleField makeMove(const UnitMove& unit_move) const;
     const FieldUnit& activeUnit() const;
     ArmyType whoWon() const;
