@@ -8,10 +8,11 @@
  */
 
 #include "GridPositionParser.h"
+#include <cmath>
 
 Hex GridPositionParser::parseGridToPosition(const Hex& relative_pos, const Hex& cell_dimensions, const Hex& anchor_pos, const Hex& offset, int even_row_indent)
 {
-    return Hex(offset.q + anchor_pos.q + (relative_pos.q * cell_dimensions.q + ((relative_pos.r + 1) % 2) * even_row_indent), 
+    return Hex(offset.q + anchor_pos.q + (relative_pos.q * cell_dimensions.q - ((relative_pos.r + 1) % 2) * even_row_indent), 
                offset.r + anchor_pos.r + (relative_pos.r * cell_dimensions.r));
 }
 Hex GridPositionParser::parsePositionToGrid(const Hex& screen_pos, const Hex& cell_dimensions, const Hex& anchor_pos, const Hex& offset, int even_row_indent)
@@ -21,4 +22,27 @@ Hex GridPositionParser::parsePositionToGrid(const Hex& screen_pos, const Hex& ce
     int relative_r = r / cell_dimensions.r;
     int relative_q = (q - ((relative_r + 1) % 2) * even_row_indent) / cell_dimensions.q;
     return Hex(relative_q, relative_r);
+}
+
+Hex GridPositionParser::parsePositionToHex(const Hex &screen_pos, const Hex& cell_dimensions, const Hex &anchor_pos, int even_row_indent)
+{
+    Hex relative_pos(screen_pos.q - anchor_pos.q, screen_pos.r - anchor_pos.r);
+    int row = relative_pos.r / cell_dimensions.r;
+    int column = (relative_pos.q - (row & 1) * even_row_indent) / cell_dimensions.q;
+
+    return Hex(column - row / 2, row);
+}
+
+Hex GridPositionParser::axialToOddr(const Hex &hex)
+{
+    int col = hex.q + (hex.r - (hex.r&1)) / 2;
+    int row = hex.r;
+    return Hex(col, row);
+}
+
+Hex GridPositionParser::OddrToAxial(const Hex &hex)
+{
+    int q = hex.q - (hex.r - (hex.q&1)) / 2;
+    int r = hex.r;
+    return Hex(q, r);
 }

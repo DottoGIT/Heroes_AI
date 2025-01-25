@@ -3,8 +3,13 @@
 #include "MinMax.h"
 #include "BattleField.h"
 
+MinMax::MinMax()
+{
+}
+
 MinMax::MinMax(const BattleField &battlefield)
-{}
+{
+}
 
 int MinMax::evaluate(const BattleField &battlefield) const
 {
@@ -24,13 +29,13 @@ int MinMax::evaluate(const BattleField &battlefield) const
     return player_strength - enemy_strength;
 }
 
-std::pair<BattleField, int> MinMax::minMax(BattleField battlefield, int depth, int alpha, int beta)
+std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int alpha, int beta)
 {
     if (depth == 0 || battlefield.whoWon() != ArmyType::NONE) {
-        return {battlefield, evaluate(battlefield)};
+        return {UnitMove(), evaluate(battlefield)};
     }
 
-    BattleField best_move;
+    UnitMove best_move;
     int best_score;
     if (battlefield.getQueue().current().type == ArmyType::PLAYER) {
 
@@ -40,11 +45,11 @@ std::pair<BattleField, int> MinMax::minMax(BattleField battlefield, int depth, i
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
-            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1, alpha, beta);
-            if (score.second > best_score)
+            std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
+            if (result.second > best_score)
             {
-                best_move = std::move(score.first);
-                best_score = score.second;
+                best_move = result.first;
+                best_score = result.second;
             }
             alpha = std::max(alpha, best_score);
             if (beta <= alpha)
@@ -59,17 +64,16 @@ std::pair<BattleField, int> MinMax::minMax(BattleField battlefield, int depth, i
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
-            std::pair<BattleField, int> score = minMax(std::move(battlefield), depth - 1, alpha, beta);
-            if (score.second < best_score)
+            std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
+            if (result.second < best_score)
             {
-                best_move = std::move(score.first);
-                best_score = score.second;
+                best_move = result.first;
+                best_score = result.second;
             }
             beta = std::min(beta, best_score);
             if (beta <= alpha)
                 break;
         }
     }
-
     return {best_move, best_score};
 }

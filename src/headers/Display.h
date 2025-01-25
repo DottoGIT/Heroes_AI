@@ -19,7 +19,7 @@
 
 class IManager;
 
-constexpr int BATTLE_GRID_ANCHOR_X = 0;
+constexpr int BATTLE_GRID_ANCHOR_X = 21;
 constexpr int BATTLE_GRID_ANCHOR_Y = 100;
 constexpr int BATTLE_GRID_CELL_SIZE = 52;
 constexpr int BATTLE_GRID_CELL_HEIGHT = 39; // Hex rows size, smaller than size (prefferable 3/4)

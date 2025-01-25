@@ -240,11 +240,13 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(const Hex& start, const std
 
     std::queue<Hex> queue;
     queue.push(start);
+    std::vector<Hex> result;
     while (!queue.empty())
     {
         Hex current = queue.front();
         queue.pop();
         visited.at(current) = true;
+        result.push_back(current);
         if (distanceFrom.at(current) == distance) continue;
 
         unsigned neighboringDistance = distanceFrom.at(current) + 1;
@@ -257,17 +259,13 @@ inline std::vector<Hex> HexMap<T>::getReachableTiles(const Hex& start, const std
             distanceFrom.at(neighbour) = neighboringDistance;
         }
     }
-    std::vector<Hex> result;
-    for (auto it = visited.begin(); it != visited.end(); ++it) {
-        if (*it) result.push_back(it.coords());
-    }
     return result;
 }
 
 template <typename T>
 inline std::size_t HexMap<T>::hexToIndex(const Hex& hex) const noexcept
 {
-    return (hex.r + hex.q % 2) * width_ + hex.q;
+    return hex.r * width_ + (hex.q + hex.r / 2);
 }
 
 template <typename T>
@@ -293,6 +291,6 @@ template <typename T>
 inline Hex HexMap<T>::Iterator::coords() const
 {
     int r = static_cast<int>(index / map->width_);
-    int q = static_cast<int>(index % map->width_ - (r / 2));
-    return Hex(q, r);
+    int q = static_cast<int>(index % map->width_);
+    return Hex(q - r / 2, r);
 }

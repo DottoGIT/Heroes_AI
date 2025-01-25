@@ -20,6 +20,11 @@ void RendersVisitator::visitBattleManager(const BattleManager& battle_manager)
     {
         objects_to_render_.push_back(fieldUnit.get());
     }
+    for (const std::unique_ptr<GridTile>& tile : battle_manager.getAllMoves())
+    {
+        objects_to_render_.push_back(tile.get());
+    }
+    
     background_ = battle_manager.getBackground();
     scene_type_ = SceneType::BATTLE;
     grid_dimensions_ = battle_manager.getBattleGridDimensions();

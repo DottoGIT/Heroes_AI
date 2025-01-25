@@ -202,5 +202,13 @@ void MapManager::interactWithTile(const Hex& point)
 
     change_mode_function_(foundEnemy->getArmy());
     foundEnemy->interact();
+    if(auto locked = input_controller_.lock())
+{
+    locked->unsubscribeFromMouseClick(this);
+    }
+    else
+    {
+        Logger::warning("Input Manager destroyed before MapManager");
+    }
 }
 
