@@ -11,6 +11,7 @@
 #include <queue>
 #include <memory>
 #include <vector>
+#include <optional>
 #include "BattleField.h"
 #include "Army.h"
 #include "Hex.h"
@@ -19,6 +20,7 @@
 #include "FieldUnitRenderable.h"
 #include "IClickable.h"
 #include "InputController.h"
+#include "GridTile.h"
 
 class RendersVisitator;
 
@@ -40,8 +42,14 @@ public:
     const std::vector<std::unique_ptr<FieldUnitRenderable>>& getAllUnits() const;
     void accept(RendersVisitator& visitor) const override;
     virtual void reactToClick(bool left_button, const Hex& click_position);
+    const std::vector<std::unique_ptr<GridTile>>& getAllMoves() const;
 private:
+    void makeGridTiles();
     void makeRenderable();
+    void afterMove();
+    void getMoves();
+    void selectTile(const Hex& select_hex);
+    const Hex getCurrentUnitPos() const;
 private:
     BattleField field_;
     HexMap<Tile> map_;
@@ -49,6 +57,11 @@ private:
     std::vector<std::unique_ptr<FieldUnitRenderable>> renderable_units_;
     std::unordered_map<UnitType, std::string> texture_idle_;
     std::unordered_map<UnitType, std::string> texture_dead_;
+    std::vector<UnitMove> current_moves_;
+    std::vector<std::unique_ptr<GridTile>> move_tiles_;
+    std::vector<std::unique_ptr<GridTile>> path_tiles_;
+    std::vector<Hex> selected_path_;
+    std::optional<Hex> selected_;
 
     std::weak_ptr<InputController> input_controller_;
     std::function<void(Army*)> change_mode_function_;

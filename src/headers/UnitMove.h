@@ -15,6 +15,7 @@ class UnitMove
 {
 public:
     UnitMove();
+    UnitMove(const MoveType& type, const Hex& target);
     static UnitMove move(const Hex& move_target);
     static UnitMove attack(const Hex& attack_target);
     static UnitMove wait();
@@ -23,5 +24,4 @@ public:
 private:
     MoveType type_;
     Hex target_;
-    UnitMove(const MoveType& type, const Hex& target);
 };
