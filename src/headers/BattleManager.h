@@ -2,7 +2,8 @@
  * File:        BattleManager.h
  * Description: Sets up battle field, and manages battle flow.
  *
- * Author:      Maciej Scheffer <https://github.com/DottoGIT>
+ * Author:      Wojciech Sarwinski <https://github.com/sarwoj>
+ *              Maciej Scheffer <https://github.com/DottoGIT>
  * 
  * Date:        05.11.2024
  */
