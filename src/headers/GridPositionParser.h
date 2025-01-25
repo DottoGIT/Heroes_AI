@@ -15,7 +15,7 @@ class GridPositionParser
 public:
     static Hex parseGridToPosition(const Hex& relative_pos, const Hex& cell_dimensions, const Hex& anchor_pos, const Hex& offset, int even_row_indent);
     static Hex parsePositionToGrid(const Hex& screen_pos, const Hex& cell_dimensions, const Hex& anchor_pos, const Hex& offset, int even_row_indent);
-private:
+    static Hex parsePositionToHex(const Hex &screen_pos, const Hex& cell_dimensions, const Hex &anchor_pos, int even_row_indent);
     static Hex axialToOddr(const Hex& hex);
     static Hex OddrToAxial(const Hex& hex);
 };
