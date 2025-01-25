@@ -13,7 +13,8 @@
 FieldUnit::FieldUnit(const Unit& unit, const Hex& position)
     : type_(unit.getType()), position_(position),
     health_(unit.getQuantity().get() * unit.getSingleUnitHealth().get()),
-    attack_strength_(unit.getAttackStrength()), attack_range_(unit.getAttackRange()),
+    attack_strength_(unit.getAttackStrength().get() * unit.getQuantity().get()),
+    attack_range_(unit.getAttackRange()),
     walk_range_(unit.getWalkRange()), initiative_(unit.getInitiative())
 {}
 
