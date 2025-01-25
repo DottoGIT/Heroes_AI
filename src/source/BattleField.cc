@@ -72,7 +72,7 @@ std::vector<Hex> BattleField::getPath(const Hex &end) const
 
 BattleField BattleField::makeMove(const UnitMove& unit_move) const
 {
-    BattleField nextState(*this);
+    BattleField nextState = *this;
     if (unit_move.getType() == MoveType::MOVE) {
         nextState.move(unit_move.getTarget());
     } else if (unit_move.getType() == MoveType::ATTACK) {
