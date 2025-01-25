@@ -126,7 +126,7 @@ void HeroesAI::changeModeToBattle(Army* enemy_army)
     Logger::info("Changing to battle mode");
     HexMap<Tile> map(15, 11);
     std::fill(map.begin(), map.end(), Tile::REACHABLE);
-    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map);
+    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map, input_controller_, [](Army* army){});
     current_scene_ = SceneType::BATTLE;
 }
 
