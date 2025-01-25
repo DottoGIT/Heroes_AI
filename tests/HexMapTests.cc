@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(HexMap_find_path_ab)
 BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_further)
 {
     HexMap<int> my_map(7, 7);
-    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;});
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(1, 6), [](Hex hex){return true;});
     BOOST_CHECK_EQUAL(path.size(), 8);
 }
 
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_distance_0)
 BOOST_AUTO_TEST_CASE(HexMap_find_path_ab_distance)
 {
     HexMap<int> my_map(7, 7);
-    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(6, 3), [](Hex hex){return true;}, 10);
+    std::vector<Hex> path = my_map.findPath(Hex(0,0), Hex(1, 6), [](Hex hex){return true;}, 10);
     BOOST_CHECK_EQUAL(path.size(), 8);
 }
 
