@@ -30,6 +30,7 @@ public:
     void setSymbol(char symbol);
     char getSymbol() const;
     bool isWalkable() const;
+    void deleteEnemy();
     virtual const std::string& getSpritePath() const override;
     virtual Hex getSpriteDimensions() const override;
     virtual int getSpritePriority() const override;
