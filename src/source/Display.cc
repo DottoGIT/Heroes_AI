@@ -181,7 +181,8 @@ void Display::sortRenders(std::vector<const IRenderable*>& objects)
 SDL_Rect Display::makeRectFromRenderable(const IRenderable& render) const
 {
     SDL_Rect retRect;
-    Hex pos = GridPositionParser::parseGridToPosition(render.getPosition(), 
+    Hex pos = GridPositionParser::parseGridToPosition(
+                                        GridPositionParser::axialToOddr(render.getPosition()), 
                                         Hex(BATTLE_GRID_CELL_SIZE, BATTLE_GRID_CELL_HEIGHT), 
                                         Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
                                         Hex(BATTLE_OFFSET_X, BATTLE_OFFSET_Y), 
