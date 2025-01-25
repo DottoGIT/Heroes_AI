@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <limits>
+#include <iostream>
 #include "MinMax.h"
 #include "BattleField.h"
 
@@ -48,7 +49,7 @@ std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int 
             std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
             if (result.second > best_score)
             {
-                best_move = result.first;
+                best_move = move;
                 best_score = result.second;
             }
             alpha = std::max(alpha, best_score);
@@ -65,9 +66,12 @@ std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int 
         {
             BattleField newBattlefield = battlefield.makeMove(move);
             std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
+            if (depth == 8){
+                std::cout << "Move " << move.getType() << " , score" << result.second << "\n";
+            }
             if (result.second < best_score)
             {
-                best_move = result.first;
+                best_move = move;
                 best_score = result.second;
             }
             beta = std::min(beta, best_score);
