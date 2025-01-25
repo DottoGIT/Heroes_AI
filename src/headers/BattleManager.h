@@ -34,7 +34,8 @@ class BattleManager  : public IManager, public IClickable
 {
 public:
     BattleManager();
-    BattleManager(const Army& player_army, const Army& enemy_army, HexMap<Tile> map, std::weak_ptr<InputController> input_controller, std::function<void(Army*)> change_mode_function);
+    BattleManager(const Army& player_army, const Army& enemy_army, HexMap<Tile> map, std::weak_ptr<InputController> input_controller, std::function<void()> change_mode_function);
+    virtual ~BattleManager();
     const BattleField& getBattleField() const;
     const std::string& getBackground() const;
     Hex getBattleGridDimensions() const;
@@ -55,6 +56,7 @@ private:
     void getMoves();
     void selectTile(const Hex& select_hex);
     const Hex getCurrentUnitPos() const;
+    void tryOnWin();
 private:
     BattleField field_;
     HexMap<Tile> map_;
@@ -69,8 +71,9 @@ private:
     std::vector<Hex> selected_path_;
     std::optional<Hex> selected_;
     std::optional<std::future<UnitMove>> computer_move_future_;
+    ArmyType winner_;
 
 
     std::weak_ptr<InputController> input_controller_;
-    std::function<void(Army*)> change_mode_function_;
+    std::function<void()> change_mode_function_;
 };
