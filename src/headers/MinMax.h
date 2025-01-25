@@ -5,7 +5,8 @@ class MinMax
 {
 private:
 public:
+    MinMax();
     MinMax(const BattleField& battlefield);
     int evaluate(const BattleField& battlefield) const;
-    std::pair<BattleField, int> minMax(BattleField battlefield, int depth, int alpha, int beta);
+    std::pair<UnitMove, int> minMax(BattleField battlefield, int depth, int alpha, int beta);
 };
