@@ -43,11 +43,11 @@ namespace {
 };
 
 BattleManager::BattleManager()
-    : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT), field_()
+    : map_(BATTLE_HEX_WIDTH, BATTLE_HEX_HEIGHT), field_(), selected_(std::nullopt), computer_move_future_(std::nullopt)
 {}
 
 BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, HexMap<Tile> map, std::weak_ptr<InputController> input_controller, std::function<void(Army *)> change_mode_function)
-    : map_(std::move(map)), change_mode_function_(change_mode_function), input_controller_(input_controller)
+    : map_(std::move(map)), change_mode_function_(change_mode_function), input_controller_(input_controller), selected_(std::nullopt), computer_move_future_(std::nullopt)
 {
     FieldArmy player_field_army;
     std::for_each(player_army.cbegin(), player_army.cend(),
@@ -77,6 +77,7 @@ BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, He
         Logger::warning("Input Manager destroyed before BattleFieldManager");
         throw std::runtime_error("Input Manager destroyed before BattleFieldManager");
     }
+    minmax_ = MinMax(field_);
 }
 
 const BattleField &BattleManager::getBattleField() const
@@ -133,6 +134,7 @@ void BattleManager::reactToClick(bool left_button, const Hex &click_position)
         Hex(BATTLE_GRID_ANCHOR_X, BATTLE_GRID_ANCHOR_Y),
         BATTLE_GRID_EVEN_ROW_INDENT
     );
+    if (getCurrentPlayer() == ArmyType::COMPUTER) return;
     if (selected_ && *selected_ == hex) {
         if (selected_ == getCurrentUnitPos()) {
             makeMove(UnitMove::wait());
@@ -153,6 +155,32 @@ const std::vector<std::unique_ptr<GridTile>> &BattleManager::getAllMoves() const
         return path_tiles_;
     }
     return move_tiles_;
+}
+
+void BattleManager::tryMakeComputerMove()
+{
+    if (computer_move_future_ && computer_move_future_->wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+    {
+        UnitMove computer_move = computer_move_future_->get();
+        computer_move_future_.reset();
+        makeMove(computer_move);
+    }
+}
+
+void BattleManager::tryPromiseComputerMove()
+{
+    if (getCurrentPlayer() != ArmyType::COMPUTER)
+        return;
+    computer_move_future_ = std::async(
+        std::launch::async,
+        [this]()
+        {
+            return minmax_.minMax(
+                field_, COMPUTER_DEPTH_SEARCH,
+                std::numeric_limits<int>::min(), std::numeric_limits<int>::max()
+                ).first;
+        }
+    );
 }
 
 void BattleManager::makeGridTiles()
@@ -181,10 +209,11 @@ void BattleManager::makeRenderable()
 
 void BattleManager::afterMove()
 {
-    getMoves();
     selected_ = std::nullopt;
+    getMoves();
     makeRenderable();
     makeGridTiles();
+    tryPromiseComputerMove();
 }
 
 void BattleManager::getMoves()
