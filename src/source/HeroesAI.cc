@@ -77,7 +77,17 @@ void HeroesAI::handleEvents()
 
 void HeroesAI::update()
 {
-
+    switch (current_scene_)
+    {
+    case SceneType::BATTLE:
+        if(battle_manager_ == nullptr)
+        {
+            Logger::error("Battle Manager is not set");
+        }
+        battle_manager_->tryMakeComputerMove();
+    default:
+        break;
+    }
 }
 
 void HeroesAI::render()
