@@ -42,9 +42,16 @@ cmake --build .
 cd ..
 
 echo "=== Running the Heroes_AI Tests ==="
+
+./build/UnitTests
 ./build/HexTests
 ./build/HexMapTests
-./build/UnitTests
+./build/HealthTests
+./build/StatisticTests
+./build/UnitClassTests
+./build/FieldUnitTests
+./build/FieldArmyTests
+./build/InitiativeQueueTests
 
 echo "=== Running the Heroes_AI application ==="
 ./build/Heroes_AI
