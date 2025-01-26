@@ -286,7 +286,7 @@ void Display::rednerVictoryScreen()
     int popupHeight = 50;
 
     // Define text properties
-    const char* victoryText = "You Have Collected All Of The Resources. You Won!";
+    const char* victoryText = "Zdobyles wszystkie zasoby, wygrywasz!";
     SDL_Color textColor = { 255, 255, 255, 255 };
     SDL_SetRenderDrawColor(renderer_, 50, 50, 50, 200);
     SDL_Rect popup = { popupX, popupY, popupWidth, popupHeight };

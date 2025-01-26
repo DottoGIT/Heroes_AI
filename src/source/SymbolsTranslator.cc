@@ -118,6 +118,9 @@ Army SymbolsTranslator::createArmyFromSymbol(char s)
     {
     case 'C':
         army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
         break;
     case 'D':
         army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
