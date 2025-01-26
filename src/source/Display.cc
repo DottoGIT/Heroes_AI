@@ -85,15 +85,8 @@ void Display::clean()
     {
         Logger::warning("Display.clean(): Window pointer is nullptr");
     }
-
-    if(font_ == nullptr)
-    {
-        Logger::warning("Display.clean(): Font pointer is nullptr");
-    }
-
     SDL_DestroyWindow(window_);
     SDL_DestroyRenderer(renderer_);
-    TTF_CloseFont(font_);
 }
 
 void Display::renderBattle()
