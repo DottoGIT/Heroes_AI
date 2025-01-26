@@ -28,7 +28,7 @@ public:
     ~HeroesAI();
     int init();
     void start();
-    void changeModeToBattle(Army* enemy_army, const Hex& enemy_pos);
+    void changeModeToBattle(const Army& enemy_army, const Hex& enemy_pos);
     void changeModeToMap();
 private:
     void handleEvents();
@@ -38,6 +38,7 @@ private:
     void waitForFPS(Uint64 frame_start);
     
     bool is_running_ = false;
+    Hex enemy_to_delete_after_scene_change;
     SceneType current_scene_;
     Army player_army_;
     std::unique_ptr<Display> display_;

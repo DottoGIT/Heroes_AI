@@ -15,7 +15,7 @@
 #include "GridPositionParser.h"
 #include "Resource.h"
 
-MapManager::MapManager(std::weak_ptr<InputController> input_controller, std::function<void(Army*, const Hex&)> change_mode_function)
+MapManager::MapManager(std::weak_ptr<InputController> input_controller, std::function<void(const Army&, const Hex&)> change_mode_function)
     : tiles_(MapFileConverter::fileToMapConvertion()),
       decorations_(MapFileConverter::fileToDecorationsConvertion()),
       input_controller_(input_controller),

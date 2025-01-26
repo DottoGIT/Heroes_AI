@@ -19,7 +19,7 @@ HeroesAI::HeroesAI()
 {
     display_ = std::make_unique<Display>();
     input_controller_ = std::make_shared<InputController>();
-    map_manager_ = std::make_unique<MapManager>(input_controller_, [this](Army* army, const Hex& pos){this->changeModeToBattle(army, pos);});
+    map_manager_ = std::make_unique<MapManager>(input_controller_, [this](const Army& army, const Hex& pos){this->changeModeToBattle(army, pos);});
     current_scene_ = SceneType::MAP;
     initPlayer();
 }
@@ -116,10 +116,16 @@ void HeroesAI::render()
 void HeroesAI::initPlayer()
 {
     UnitFactory unit_factory;
-    auto archer = unit_factory.CreateUnit(UnitType::ARCHER, 20);
-    auto swordsman = unit_factory.CreateUnit(UnitType::SWORDSMAN, 30);
+    auto archer = unit_factory.CreateUnit(UnitType::ARCHER, 50);
+    auto swordsman1 = unit_factory.CreateUnit(UnitType::SWORDSMAN, 50);
+    auto swordsman2 = unit_factory.CreateUnit(UnitType::SWORDSMAN, 50);
+    auto swordsman3 = unit_factory.CreateUnit(UnitType::SWORDSMAN, 50);
+    auto archer2 = unit_factory.CreateUnit(UnitType::ARCHER, 50);
     player_army_.addUnit(archer);
-    player_army_.addUnit(swordsman);
+    player_army_.addUnit(swordsman1);
+    player_army_.addUnit(swordsman2);
+    player_army_.addUnit(swordsman3);
+    player_army_.addUnit(archer2);
 }
 
 void HeroesAI::waitForFPS(Uint64 frame_start)
@@ -131,18 +137,20 @@ void HeroesAI::waitForFPS(Uint64 frame_start)
     }
 }
 
-void HeroesAI::changeModeToBattle(Army* enemy_army, const Hex& enemy_pos)
+void HeroesAI::changeModeToBattle(const Army& enemy_army, const Hex& enemy_pos)
 {
     Logger::info("Changing to battle mode");
+    enemy_to_delete_after_scene_change = enemy_pos;
     HexMap<Tile> map(15, 11);
     std::fill(map.begin(), map.end(), Tile::REACHABLE);
-    battle_manager_ = std::make_unique<BattleManager>(player_army_, *enemy_army, map, input_controller_, [this](){this->changeModeToMap();});
+    battle_manager_ = std::make_unique<BattleManager>(player_army_, enemy_army, map, input_controller_, [this](){this->changeModeToMap();});
     current_scene_ = SceneType::BATTLE;
 }
 
 void HeroesAI::changeModeToMap()
 {
     Logger::info("Change to Map");
-    current_scene_ = SceneType::MAP;
+    map_manager_->removeEnemy(enemy_to_delete_after_scene_change);
     input_controller_->subscribeToMouseClick(map_manager_.get());
+    current_scene_ = SceneType::MAP;
 }

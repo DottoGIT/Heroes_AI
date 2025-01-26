@@ -16,9 +16,9 @@ MapEnemy::MapEnemy(const Army& army)
 {
 }
 
-Army* MapEnemy::getArmy()
+const Army& MapEnemy::getArmy() const
 {
-    return &army_;
+    return army_;
 }
 
 bool MapEnemy::interact()

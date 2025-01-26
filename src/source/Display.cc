@@ -94,7 +94,6 @@ void Display::clean()
     SDL_DestroyWindow(window_);
     SDL_DestroyRenderer(renderer_);
     TTF_CloseFont(font_);
-    TTF_Quit();
 }
 
 void Display::renderBattle()

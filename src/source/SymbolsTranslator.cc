@@ -117,22 +117,23 @@ Army SymbolsTranslator::createArmyFromSymbol(char s)
     switch (s)
     {
     case 'C':
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
         break;
     case 'D':
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
         break;
     case 'E':
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::ENCHANTER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SKELETON, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
         army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
         break;
     case 'F':
         army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
-        army.addUnit(unit_factory.CreateUnit(UnitType::ARCHER, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
+        army.addUnit(unit_factory.CreateUnit(UnitType::SWORDSMAN, 20));
         break;
     default:
         break;
