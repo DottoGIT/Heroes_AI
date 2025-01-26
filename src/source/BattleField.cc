@@ -119,7 +119,11 @@ std::vector<UnitMove> BattleField::getAttackMoves() const
     const Hex current_position = activeUnit().getPosition();
     
     for (const FieldUnit& attacked_unit : passiveArmy().getUnits()) {
-        if (current_position.distance(attacked_unit.getPosition()) <= attack_range)
+        if
+        (
+            attacked_unit.getHealth().isAlive() &&
+            current_position.distance(attacked_unit.getPosition()) <= attack_range
+        )
             possible_moves.push_back(UnitMove::attack(attacked_unit.getPosition()));
     }
     return possible_moves;
