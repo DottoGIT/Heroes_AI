@@ -182,7 +182,11 @@ void BattleManager::tryMakeComputerMove()
 {
     if (computer_move_future_ && computer_move_future_->wait_for(std::chrono::seconds(0)) == std::future_status::ready)
     {
-        Logger::info("Computer move ready.");
+        std::stringstream ss;
+        ss << "Computer move ready.";
+        ss << " Positions checked: " << minmax_.getPositionsCheckedCount();
+        ss << " Transposition table hits: " << minmax_.getTranspositionTableHits();
+        Logger::info(ss.str());
         UnitMove computer_move = computer_move_future_->get();
         computer_move_future_.reset();
         makeMove(computer_move);
@@ -198,10 +202,7 @@ void BattleManager::tryPromiseComputerMove()
         std::launch::async,
         [this]()
         {
-            return minmax_.minMax(
-                field_, COMPUTER_DEPTH_SEARCH,
-                std::numeric_limits<int>::min(), std::numeric_limits<int>::max()
-                ).first;
+            return minmax_.minMax(field_, COMPUTER_DEPTH_SEARCH);
         }
     );
 }
