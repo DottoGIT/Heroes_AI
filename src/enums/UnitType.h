@@ -17,7 +17,7 @@ enum class UnitType {
     SWORDSMAN
 };
 
-inline std::ostream& operator<<(std::ostream& os, UnitType type) {
+inline std::ostream& operator<<(std::ostream& os, const UnitType& type) {
     switch (type) {
         case UnitType::ARCHER:
             os << "Archer";
