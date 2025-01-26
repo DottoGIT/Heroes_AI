@@ -147,7 +147,7 @@ std::vector<UnitMove> BattleField::getMoveMoves() const
         if (it != enemy_.cend()) return false;
         return true;
     }, move_range);
-    for (const Hex& hex : move_positions) possible_moves.push_back(UnitMove::move(hex));
+    for (auto it = move_positions.begin(); it != move_positions.end(); ++it) possible_moves.push_back(UnitMove::move(*it));
     return possible_moves;
 }
 
