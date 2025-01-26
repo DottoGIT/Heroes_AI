@@ -38,7 +38,7 @@ Unit UnitFactory::createArcher(unsigned int quantity)
     const UnitType                  UNIT_TYPE               = UnitType::ARCHER;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/archer.png";
     const unsigned int              QUANTITY                = quantity;
-    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/archer_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "media/sprites/archer_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 10;
     const unsigned int              UNIT_ATTACK_RANGE       = 5;
@@ -53,7 +53,7 @@ Unit UnitFactory::createEnchanter(unsigned int quantity)
     const UnitType                  UNIT_TYPE               = UnitType::ENCHANTER;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/enchanter.png";
     const unsigned int              QUANTITY                = quantity;
-    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/enchanter_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "media/sprites/enchanter_dead.png";
     const unsigned int              UNIT_HEALTH             = 80;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 20;
     const unsigned int              UNIT_ATTACK_RANGE       = 5;
@@ -68,7 +68,7 @@ Unit UnitFactory::createSkeleton(unsigned int quantity)
     const UnitType                  UNIT_TYPE               = UnitType::SKELETON;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/skeleton.png";
     const unsigned int              QUANTITY                = quantity;
-    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/skeleton_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "media/sprites/skeleton_dead.png";
     const unsigned int              UNIT_HEALTH             = 10;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 5;
     const unsigned int              UNIT_ATTACK_RANGE       = 1;
@@ -83,7 +83,7 @@ Unit UnitFactory::createSwordsman(unsigned int quantity)
     const UnitType                  UNIT_TYPE               = UnitType::SWORDSMAN;
     const std::string               PATH_TO_SPRITE_IDLE     = "media/sprites/swordsman.png";
     const unsigned int              QUANTITY                = quantity;
-    const std::string               PATH_TO_SPRITE_DEAD     = "path/to/swordsman_dead.png";
+    const std::string               PATH_TO_SPRITE_DEAD     = "media/sprites/swordsman_dead.png";
     const unsigned int              UNIT_HEALTH             = 50;
     const unsigned int              UNIT_ATTACK_STRENGTH    = 20;
     const unsigned int              UNIT_ATTACK_RANGE       = 1;

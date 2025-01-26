@@ -22,7 +22,7 @@ Unit::Unit(
     quantity_(quantity), single_unit_health_(single_unit_health),
     attack_strength_(attack_strength), attack_range_(attack_range),
     walk_range_(walk_range), initiative_(initiative),
-    texture_idle_(path_to_idle), texture_dead_()
+    texture_idle_(path_to_idle), texture_dead_(path_to_dead)
 {}
 
 const UnitType &Unit::getType() const
