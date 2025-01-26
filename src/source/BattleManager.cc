@@ -127,8 +127,8 @@ const MoveType BattleManager::getCurrentMoveType() const
 void BattleManager::makeMove(const UnitMove& unit_move)
 {
     std::stringstream ss;
-    ss << getCurrentPlayer() << " move: ";
-    ss << getCurrentUnit().getUnitType() << " " << unit_move.getType();
+    ss << getCurrentPlayer() << " moved ";
+    ss << getCurrentUnit().getUnitType() << ". " << unit_move.getType();
     if (unit_move.getType() != MoveType::WAIT) {
             ss << " target " << unit_move.getTarget();
     }
