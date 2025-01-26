@@ -29,7 +29,7 @@ class RendersVisitator;
 
 constexpr unsigned int BATTLE_HEX_WIDTH = 15;
 constexpr unsigned int BATTLE_HEX_HEIGHT = 11;
-constexpr int COMPUTER_DEPTH_SEARCH = 8;
+constexpr int COMPUTER_DEPTH_SEARCH = 6;
 
 class BattleManager  : public IManager, public IClickable
 {
