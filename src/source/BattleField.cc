@@ -195,12 +195,12 @@ ArmyType BattleField::whoWon() const
             [](const FieldUnit& unit) {
                 return !unit.getHealth().isAlive();
             })
-        ) return ArmyType::COMPUTER;
+        ) return ArmyType::PLAYER;
     
     if (std::all_of(player_.cbegin(), player_.cend(),
             [](const FieldUnit& unit) {
                 return !unit.getHealth().isAlive();
             })
-        ) return ArmyType::PLAYER;
+        ) return ArmyType::COMPUTER;
     return ArmyType::NONE;
 }
