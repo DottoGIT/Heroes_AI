@@ -8,6 +8,21 @@ constexpr int UNIT_TYPE_KEY = 128873;
 constexpr int ARMY_TYPE_KEY = 144961;
 constexpr int MOVE_TYPE_KEY = 202973;
 
+namespace {
+    auto unitMoveCompare = [](const UnitMove& a, const UnitMove& b) {
+        auto getPriority = [](MoveType type) {
+            switch (type)
+            {
+            case MoveType::ATTACK: return 0;
+            case MoveType::MOVE: return 1;
+            case MoveType::WAIT: return 2;
+            default: return 3;
+            }
+        };
+    return getPriority(a.getType()) < getPriority(b.getType());
+    };
+};
+
 MinMax::MinMax()
     : transposition_hits_(0)
 {
@@ -41,6 +56,7 @@ UnitMove MinMax::minMax(BattleField battlefield, int depth)
     transposition_table_.clear();
     transposition_hits_ = 0;
     position_checked_ = 0;
+    branches_pruned_ = 0;
     auto result = minMax(std::move(battlefield), depth, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
     return result.first;
 }
@@ -53,6 +69,11 @@ int MinMax::getTranspositionTableHits() const
 int MinMax::getPositionsCheckedCount() const
 {
     return position_checked_;
+}
+
+int MinMax::getBranchesPruned() const
+{
+    return branches_pruned_;
 }
 
 std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int alpha, int beta)
@@ -73,11 +94,14 @@ std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int 
 
         best_score = std::numeric_limits<int>::min();
         std::vector<UnitMove> moves = battlefield.getMoves();
+        std::sort(moves.begin(), moves.end(), unitMoveCompare);
+        int moves_left = static_cast<int>(moves.size());
 
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
             std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
+            moves_left -= 1;
             if (result.second > best_score)
             {
                 best_move = move;
@@ -85,18 +109,24 @@ std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int 
             }
             alpha = std::max(alpha, best_score);
             if (beta <= alpha)
+            {
+                branches_pruned_ += moves_left;
                 break;
+            }
         }
     }
     else
     {
         best_score = std::numeric_limits<int>::max();
         std::vector<UnitMove> moves = battlefield.getMoves();
+        std::sort(moves.begin(), moves.end(), unitMoveCompare);
+        int moves_left = static_cast<int>(moves.size());
 
         for (const UnitMove& move : moves)
         {
             BattleField newBattlefield = battlefield.makeMove(move);
             std::pair<UnitMove, int> result = minMax(std::move(newBattlefield), depth - 1, alpha, beta);
+            moves_left -= 1;
             if (result.second < best_score)
             {
                 best_move = move;
@@ -104,7 +134,10 @@ std::pair<UnitMove, int> MinMax::minMax(BattleField battlefield, int depth, int 
             }
             beta = std::min(beta, best_score);
             if (beta <= alpha)
+            {
+                branches_pruned_ += moves_left;
                 break;
+            }
         }
     }
     position_checked_ += 1;

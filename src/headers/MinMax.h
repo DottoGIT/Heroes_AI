@@ -25,6 +25,7 @@ private:
     transposition_map_t transposition_table_;
     int transposition_hits_;
     int position_checked_;
+    int branches_pruned_;
 public:
     MinMax();
     MinMax(const BattleField& battlefield);
@@ -32,6 +33,7 @@ public:
     UnitMove minMax(BattleField battlefield, int depth);
     int getTranspositionTableHits() const;
     int getPositionsCheckedCount() const;
+    int getBranchesPruned() const;
 private:
     std::pair<UnitMove, int> minMax(BattleField battlefield, int depth, int alpha, int beta);
     transposition_map_t::iterator getTranspositionEntry(size_t hashed_battlefield, const int curr_depth);
