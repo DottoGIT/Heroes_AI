@@ -12,6 +12,7 @@
 #include "RendersVisitator.h"
 #include "Logger.h"
 #include "GridPositionParser.h"
+#include "UnitType.h"
 
 namespace {
     std::array<Hex, 7> player_start_positions = {
@@ -79,6 +80,10 @@ BattleManager::BattleManager(const Army &player_army, const Army &enemy_army, He
         throw std::runtime_error("Input Manager destroyed before BattleFieldManager");
     }
     minmax_ = MinMax(field_);
+    std::stringstream ss;
+    ss << "Initialized new BattleManager with " << field_.getPlayer().getUnits().size();
+    ss << " player units and " << field_.getEnemy().getUnits().size() << " enemy units";
+    Logger::info(ss.str());
 }
 
 BattleManager::~BattleManager()
@@ -121,6 +126,13 @@ const MoveType BattleManager::getCurrentMoveType() const
 
 void BattleManager::makeMove(const UnitMove& unit_move)
 {
+    std::stringstream ss;
+    ss << getCurrentPlayer() << " moved ";
+    ss << getCurrentUnit().getUnitType() << ". " << unit_move.getType();
+    if (unit_move.getType() != MoveType::WAIT) {
+            ss << " target " << unit_move.getTarget();
+    }
+    Logger::info(ss.str());
     field_ = field_.makeMove(unit_move);
     afterMove();
 }
@@ -170,21 +182,14 @@ void BattleManager::tryMakeComputerMove()
 {
     if (computer_move_future_ && computer_move_future_->wait_for(std::chrono::seconds(0)) == std::future_status::ready)
     {
+        std::stringstream ss;
+        ss << "Computer move ready.";
+        ss << " Positions checked: " << minmax_.getPositionsCheckedCount();
+        ss << " Transposition table hits: " << minmax_.getTranspositionTableHits();
+        Logger::info(ss.str());
         UnitMove computer_move = computer_move_future_->get();
         computer_move_future_.reset();
         makeMove(computer_move);
-        std::stringstream ss;
-        ss << "Enemy ";
-        if (computer_move.getType() == MoveType::WAIT) {
-            ss << "waited.";
-        } else {
-            if (computer_move.getType() == MoveType::MOVE)
-                ss << "moved to ";
-            else
-                ss << "attacked ";
-            ss << computer_move.getTarget();
-        }
-        Logger::info(ss.str());
     }
 }
 
@@ -192,14 +197,12 @@ void BattleManager::tryPromiseComputerMove()
 {
     if (getCurrentPlayer() != ArmyType::COMPUTER)
         return;
+    Logger::info("Starting MinMax on new thread.");
     computer_move_future_ = std::async(
         std::launch::async,
         [this]()
         {
-            return minmax_.minMax(
-                field_, COMPUTER_DEPTH_SEARCH,
-                std::numeric_limits<int>::min(), std::numeric_limits<int>::max()
-                ).first;
+            return minmax_.minMax(field_, COMPUTER_DEPTH_SEARCH);
         }
     );
 }
@@ -279,5 +282,8 @@ void BattleManager::tryOnWin()
 {
     if (winner_ == ArmyType::NONE)
         return;
+    std::stringstream ss;
+    ss << "Game ended with " << winner_ << " victory.";
+    Logger::info(ss.str());
     change_mode_function_();
 }

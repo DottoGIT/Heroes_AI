@@ -119,7 +119,11 @@ std::vector<UnitMove> BattleField::getAttackMoves() const
     const Hex current_position = activeUnit().getPosition();
     
     for (const FieldUnit& attacked_unit : passiveArmy().getUnits()) {
-        if (current_position.distance(attacked_unit.getPosition()) <= attack_range)
+        if
+        (
+            attacked_unit.getHealth().isAlive() &&
+            current_position.distance(attacked_unit.getPosition()) <= attack_range
+        )
             possible_moves.push_back(UnitMove::attack(attacked_unit.getPosition()));
     }
     return possible_moves;
@@ -143,7 +147,7 @@ std::vector<UnitMove> BattleField::getMoveMoves() const
         if (it != enemy_.cend()) return false;
         return true;
     }, move_range);
-    for (const Hex& hex : move_positions) possible_moves.push_back(UnitMove::move(hex));
+    for (auto it = move_positions.begin(); it != move_positions.end(); ++it) possible_moves.push_back(UnitMove::move(*it));
     return possible_moves;
 }
 
@@ -195,12 +199,12 @@ ArmyType BattleField::whoWon() const
             [](const FieldUnit& unit) {
                 return !unit.getHealth().isAlive();
             })
-        ) return ArmyType::COMPUTER;
+        ) return ArmyType::PLAYER;
     
     if (std::all_of(player_.cbegin(), player_.cend(),
             [](const FieldUnit& unit) {
                 return !unit.getHealth().isAlive();
             })
-        ) return ArmyType::PLAYER;
+        ) return ArmyType::COMPUTER;
     return ArmyType::NONE;
 }
