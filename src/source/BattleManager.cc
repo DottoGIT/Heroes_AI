@@ -185,7 +185,8 @@ void BattleManager::tryMakeComputerMove()
         std::stringstream ss;
         ss << "Computer move ready.";
         ss << " Positions checked: " << minmax_.getPositionsCheckedCount();
-        ss << " Transposition table hits: " << minmax_.getTranspositionTableHits();
+        ss << ". Transposition table hits: " << minmax_.getTranspositionTableHits();
+        ss << ". Branches pruned: " << minmax_.getBranchesPruned();
         Logger::info(ss.str());
         UnitMove computer_move = computer_move_future_->get();
         computer_move_future_.reset();
