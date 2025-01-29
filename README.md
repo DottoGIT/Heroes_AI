@@ -2,6 +2,12 @@
 
 **Heroes_AI** is a reconstruction of the classic **Heroes III** game with an AI-powered enemy movement system. The enemy logic is implemented using the **Minimax algorithm**.
 
+## Screenshots
+
+![Map View](./img/screen1.png)  
+
+![Battle View](./img/screen2.png)
+
 ## Compilation Instructions
 
 ### Windows
